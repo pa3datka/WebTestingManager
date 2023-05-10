@@ -1,0 +1,72 @@
+$rem-base: 16 !default;
+
+@function strip-unit($num) {
+  @return calc($num / calc($num * 0 + 1));
+}
+
+// CONVERT TO REM
+//   rem-calc(16px 32px 48px, 8px);
+//   rem-calc((16px, 32px, 48), 8px);
+// font-size: rem-calc(24);
+@function convert-to-rem($value, $base-value: $rem-base) {
+  $value: calc(strip-unit($value) / strip-unit($base-value)) * 1rem;
+  @if ($value == 0rem) { $value: 0; }
+  @return $value;
+}
+
+@function rem-calc($values, $base-value: $rem-base) {
+  $max: length($values);
+
+  @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+
+  $remValues: ();
+  @for $i from 1 through $max {
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $remValues;
+}
+
+$color-white-1: #FFFFFF;
+$color-white-2: #F8F8FC;
+$color-white-3: #F1F2F6;
+
+$light-gray-bg: #F5F5F5;
+$color-main-bg: #F3F4FD;
+
+$color-dark: #262342;
+$color-dark-1: #292D32;
+
+$color-grey-1: #626167;
+$color-grey-4: #8F8E9C;
+$color-grey-3: #C4C3CD;
+$color-grey-6: #C9C8D3;
+$color-grey-2: #E0DFEB;
+$color-grey-5: #DDDEE7;
+$color-grey-7: #E4E5F1;
+
+$color-orange-2: #F98B6C;
+$color-orange-1: #FFBC65;
+
+$color-brown: #BF8B85;
+
+$color-blue-2: #2C64DC;
+$color-blue-1: #2DA2EC;
+$color-green-3: #83E8F2;
+
+$color-violet-2: #52459D;
+$color-violet-1: #7164BF;
+
+$color-green-2: #006C67;
+$color-green-1: #7AC74F;
+
+$color-red-2: #DE3C4B;
+$color-red-1: #F86B6B;
+
+$font18: rem-calc(18);
+$font13: rem-calc(13);
+$font14: rem-calc(14);
+$font15: rem-calc(15);
+$font12: rem-calc(12);
+
+$font-weight5: 500;
+$font-weight4: 400;

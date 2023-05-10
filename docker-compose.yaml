@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  node18:
+    container_name: node
+    restart: on-failure
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    build:
+      context: ./
+      dockerfile: docker/node/node.Dockerfile
+    tty: true
+    ports:
+      - "3000:3000"
+    networks:
+      - web-app
+
+  web-nginx:
+    container_name: web-nginx
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ${DOCKERFILE_NGINX}
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CERTBOT_EMAIL=${CERTBOT_EMAIL}
+      - USE_LOCAL_CA=${USE_LOCAL_CA}
+    volumes:
+      - '.:/app/dist:rw'
+      - ${NGINX_HOST_CONFIG}
+      - ${NGINX_SSL}
+      - ${NGINX_LOGS}
+      - ${HTPASS_FILE}
+    depends_on:
+      - node18
+    networks:
+      - web-app
+
+
+
+networks:
+  web-app:
+    driver: bridge
+    name: "web-app"
