@@ -1,4 +1,4 @@
-name: deploy-api-dev-server
+name: deploy-web-dev-server
 env:
   GIT_BRANCH: ${GITHUB_REF#refs/heads/}
 
