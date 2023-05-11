@@ -1,0 +1,30 @@
+name: deploy-api-dev-server
+env:
+  GIT_BRANCH: ${GITHUB_REF#refs/heads/}
+
+on:
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY_PUB_WEB_DEV }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST_WEB_DEV }} > ~/.ssh/known_hosts
+
+      - uses: actions/checkout@v2
+      - name: deploy-server
+        run: |
+          ssh ${{ secrets.SSH_USER_WEB_DEV }}@${{ secrets.SSH_HOST_WEB_DEV }} "cd /home/webserver/web_app/ \
+          && git remote update origin \
+          && git pull origin ${{ env.GIT_BRANCH }} \
+          && docker exec node npx nuxi build \
+          && docker exec node pm2 restart testing-manager \
+          && exit"
+      - name: cleanup
+        run: rm -rf ~/.ssh
