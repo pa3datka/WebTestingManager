@@ -20,8 +20,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: deploy-server
         run: |
-          ssh ${{ secrets.SSH_USER_WEB_DEV }}@${{ secrets.SSH_HOST_WEB_DEV }} "cd /home/webserver/web_app/ \
+          ssh ${{ secrets.SSH_USER_WEB_DEV }}@${{ secrets.SSH_HOST_WEB_DEV }} \
+          "cd /home/webserver/web_app/ \
           && git remote update origin \
+          && git checkout ${{ env.GIT_BRANCH }} \
           && git pull origin ${{ env.GIT_BRANCH }} \
           && docker exec node npx nuxi build \
           && docker exec node pm2 restart testing-manager \
