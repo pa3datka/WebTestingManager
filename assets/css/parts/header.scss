@@ -1,0 +1,166 @@
+header {
+  height: rem-calc(62);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid $color-border-grey-1;
+  background-color: $color-white-bg;
+
+  .logo-main {
+    column-gap: rem-calc(8);
+    img {
+      height: rem-calc(30);
+      width: rem-calc(32);
+    }
+    span {
+      display: none;
+    }
+  }
+
+  .lang-selection {
+    position: relative;
+    width: 140px;
+    display: none;
+    .lang-selected {
+      column-gap: 12px;
+      line-height: 0.6;
+      &:after {
+        content: '';
+        background-image: url("@/assets/img/svg/polygon-up.svg");
+        height: 5px;
+        width: 7px;
+        opacity: 1;
+        transform: rotate(180deg)!important;
+        transition: transform 0.30s ease-in-out;
+      }
+    }
+
+    .lang-selected-show {
+      &:after {
+        opacity: .5;
+        transform: rotate(360deg)!important;
+      }
+    }
+
+    .lang-list-show {
+      max-height: 334px!important;
+    }
+    .lang-list {
+      display: block;
+      position: absolute;
+      background-color: #FFFFFF;
+      top: 35px;
+      list-style: none;
+      min-width: 184px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 16px rgba(44, 100, 220, 0.13);
+      max-height: 0;
+      overflow-y: hidden;
+      transition: max-height 0.20s ease-in-out;
+
+      .lang-item:first-child {
+        margin-top: 14px;
+      }
+      .lang-item:last-child {
+        margin-bottom: 14px;
+      }
+      .lang-item {
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:hover {
+          background-color: #F3F4FD;
+        }
+      }
+    }
+
+    .lang-list__item-es:after,
+    .lang-list__item-ua:after,
+    .lang-list__item-ru:after,
+    .lang-list__item-by:after,
+    .lang-list__item-it:after,
+    .lang-list__item-it:after,
+    .lang-list__item-pl:after,
+    .lang-list__item-fr:after,
+    .lang-list__item-de:after,
+    .lang-list__item-en:after,
+    .lang-list__item-es:after {
+      content: '';
+      height: 15px;
+      width: 20px;
+    }
+
+    .lang-list__item-ru:after {background-image: url("@/assets/img/svg/lang/ru.svg");}
+    .lang-list__item-by:after {background-image: url("@/assets/img/svg/lang/by.svg");}
+    .lang-list__item-it:after {background-image: url("@/assets/img/svg/lang/it.svg");}
+    .lang-list__item-ua:after {background-image: url("@/assets/img/svg/lang/ua.svg");}
+    .lang-list__item-pl:after {background-image: url("@/assets/img/svg/lang/pl.svg");}
+    .lang-list__item-fr:after {background-image: url("@/assets/img/svg/lang/fr.svg");}
+    .lang-list__item-de:after {background-image: url("@/assets/img/svg/lang/de.svg");}
+    .lang-list__item-en:after {background-image: url("@/assets/img/svg/lang/en.svg");}
+    .lang-list__item-es:after {background-image: url("@/assets/img/svg/lang/es.svg");}
+
+
+    .lang-head-img-ru,
+    .lang-head-img-by,
+    .lang-head-img-it,
+    .lang-head-img-ua,
+    .lang-head-img-pl,
+    .lang-head-img-fr,
+    .lang-head-img-de,
+    .lang-head-img-en,
+    .lang-head-img-es {
+      column-gap: 10px;
+      height: 15px;
+      width: 20px;
+    }
+
+    .lang-head-img-ru { background-image: url("@/assets/img/svg/lang/ru.svg"); }
+    .lang-head-img-by { background-image: url("@/assets/img/svg/lang/by.svg"); }
+    .lang-head-img-it { background-image: url("@/assets/img/svg/lang/it.svg"); }
+    .lang-head-img-ua { background-image: url("@/assets/img/svg/lang/ua.svg"); }
+    .lang-head-img-pl { background-image: url("@/assets/img/svg/lang/pl.svg"); }
+    .lang-head-img-fr { background-image: url("@/assets/img/svg/lang/fr.svg"); }
+    .lang-head-img-de { background-image: url("@/assets/img/svg/lang/de.svg"); }
+    .lang-head-img-en { background-image: url("@/assets/img/svg/lang/en.svg"); }
+    .lang-head-img-es { background-image: url("@/assets/img/svg/lang/es.svg"); }
+  }
+}
+
+
+@media (min-width: rem-calc(768)) {
+  header {
+    height: rem-calc(65);
+    background-color: $color-gray-emerald-bg;
+    .logo-main {
+      img {
+        height: rem-calc(32);
+        width: rem-calc(37);
+      }
+      span {
+        display: inline-block;
+        font-size: $font18;
+        font-weight: $font-weight5;
+        color: $color-text-dark;
+      }
+    }
+    .lang-selection {
+      display: block;
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  header {
+    height: rem-calc(96);
+    .logo-main {
+      img {
+        height: rem-calc(41);
+        width: rem-calc(48);
+      }
+    }
+
+  }
+}

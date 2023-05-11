@@ -1,13 +1,9 @@
 <script setup lang="ts">
-definePageMeta({
-    name: "home",
-});
+
 </script>
 
 <template>
-<div>
-    <h1>Home page</h1>
-</div>
+  <div>BURGER</div>
 </template>
 
 <style scoped>

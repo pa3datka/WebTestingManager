@@ -1,2 +1,69 @@
 @import "variables";
 @import "reboot.css";
+
+
+
+body {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: $color-gray-emerald-bg;
+  font-size: $font15;
+
+}
+
+.container {
+  max-width: rem-calc(1920);
+  margin: 0 auto;
+  padding: rem-calc((0, 20));
+  height: 100%;
+}
+
+
+//Flex
+.d-flex {
+  display: flex;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+.align-items-center {
+  align-items: center;
+}
+//END FLEX
+
+.tm-main,
+.tm-main-dashboard {
+  display: block;
+  padding-top: rem-calc(62);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.hover {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: rem-calc(768)) {
+  .container {
+    padding: rem-calc((0, 30));
+  }
+  .tm-main,
+  .tm-main-dashboard {
+    padding-top: rem-calc(65);
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .container {
+    padding: rem-calc((0, 40));
+  }
+  .tm-main,
+  .tm-main-dashboard {
+    padding-top: rem-calc(96);
+  }
+}
+
+@import "parts/header";
