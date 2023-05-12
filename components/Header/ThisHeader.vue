@@ -3,6 +3,7 @@ import LogoComponent from "~/components/Header/parts/header/Logo.vue"
 import Navigation from "~/components/Header/parts/header/Navigation.vue";
 import Burger from "~/components/Header/parts/header/Burger.vue";
 import Languages from "~/components/Header/parts/header/Languages.vue";
+import LaptopMenu from "~/components/Header/parts/header/LaptopMenu.vue";
 
 </script>
 
@@ -11,6 +12,7 @@ import Languages from "~/components/Header/parts/header/Languages.vue";
     <div class="container d-flex justify-space-between align-items-center">
         <div class="left-header d-flex align-items-center">
             <logo-component />
+            <laptop-menu />
             <languages />
         </div>
         <Navigation />
@@ -20,7 +22,5 @@ import Languages from "~/components/Header/parts/header/Languages.vue";
 </template>
 
 <style lang="scss">
-.left-header {
-    column-gap: 88px;
-}
+
 </style>
