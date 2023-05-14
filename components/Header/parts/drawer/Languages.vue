@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
+
 const langs = {
     'ua': 'Українська',
     'ru': 'Русский',
@@ -26,27 +27,23 @@ const changeLang = (lang: string) => {
 };
 
 onMounted(() => {
-    hideOnClickMenu().hideMenu('lang-selection', 'lang-list', 'lang-list-show', showList);
+    hideOnClickMenu().hideMenu('languages', 'lang-list', 'lang-list-show', showList);
 });
-
 </script>
 
 <template>
-  <div class="lang-selection">
-      <div
-          :class="{'lang-selected-show': data.isShowList}"
-          class="lang-selected d-flex align-items-center hover"
-          @click="showList"
-      >
+  <div class="languages">
+      <div class="selected-lang d-flex align-items-center" @click="showList">
           <div :class="'lang-head-img-' + data.activeLang"></div>
           <div class="lang-text">{{ langs[data.activeLang] }}</div>
       </div>
+
       <menu
           :class="{'lang-list-show': data.isShowList}"
           class="lang-list"
       >
           <li
-              class="lang-item hover"
+              class="lang-item d-flex align-items-center justify-space-between"
               :class="'lang-list__item-' + key"
               v-for="(lang, key) in langs"
               :key="key"

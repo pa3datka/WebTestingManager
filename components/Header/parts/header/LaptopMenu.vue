@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
+import Burger from "~/components/Header/parts/header/Burger.vue";
 
 const data = reactive({
     isShow: false
@@ -7,15 +9,26 @@ const data = reactive({
 const showMenu = () => {
     data.isShow = !data.isShow;
 }
+
+onMounted(() => {
+    hideOnClickMenu().hideMenu('laptop-menu', 'laptop-menu-list', 'laptop-menu-list-show', showMenu);
+});
 </script>
 
 <template>
   <div class="laptop-menu">
       <div class="burger-container hover" @click="showMenu()">
           <div class="burger">
-              <div class="burger-center-line"></div>
-              <div class="burger-center-line"></div>
-              <div class="burger-center-line"></div>
+              <svg
+                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="21px"
+                  height="16px"
+                  class="svg-btn"
+                  :class="{'burger-active': data.isShow}">
+                  <path class="first-line" fill-rule="evenodd" fill="#292D32" d="M-0.000,-0.000 L21.000,-0.000 L21.000,2.000 L-0.000,2.000 L-0.000,-0.000 Z"/>
+                  <path class="center-line" fill-rule="evenodd" fill="#292D32" d="M-0.000,7.000 L21.000,7.000 L21.000,9.000 L-0.000,9.000 L-0.000,7.000 Z"/>
+                  <path class="last-line" fill-rule="evenodd" fill="#292D32" d="M-0.000,14.000 L21.000,14.000 L21.000,16.000 L-0.000,16.000 L-0.000,14.000 Z"/>
+              </svg>
           </div>
       </div>
 
@@ -23,65 +36,10 @@ const showMenu = () => {
           class="laptop-menu-list"
           :class="{'laptop-menu-list-show': data.isShow}"
       >
-          <li class="laptop-menu-list-item hover">Item 1</li>
-          <li class="laptop-menu-list-item hover">Item 2</li>
-          <li class="laptop-menu-list-item hover">Item 3</li>
-          <li class="laptop-menu-list-item hover">Item 3</li>
+          <li class="laptop-menu-list-item hover"><nuxt-link to="/about">ABOUT US</nuxt-link></li>
+          <li class="laptop-menu-list-item hover"><nuxt-link to="/faq">FAC</nuxt-link></li>
+          <li class="laptop-menu-list-item hover"><nuxt-link to="/tests">TESTS</nuxt-link></li>
+          <li class="laptop-menu-list-item hover"><nuxt-link to="/contact">CONTUCT US</nuxt-link></li>
       </menu>
   </div>
 </template>
-
-<style scoped>
-.laptop-menu {
-    position: relative;
-    height: 30px;
-    width: 30px;
-    padding: 8px 4px;
-
-    .burger-container {
-        .burger {
-            height: 14px;
-            width: 21px;
-            display: grid;
-            grid-template-columns: 1fr;
-            row-gap: 5.3px;
-
-            .burger-center-line {
-                height: 1px;
-                width: 100%;
-                background-color: #292D32;
-            }
-        }
-    }
-
-    .laptop-menu-list-show {
-        max-height: 180px!important;
-    }
-
-    .laptop-menu-list {
-        max-height: 0;
-        overflow: hidden;
-        position: absolute;
-        top: 42px;
-        width: 246px;
-        background-color: #FFFFFF;
-        list-style: none;
-        box-shadow: 4px 8px 16px rgba(44, 100, 220, 0.12);
-        border-radius: 8px;
-        transition: max-height 0.20s ease-in-out;
-
-        .laptop-menu-list-item:first-child {
-            margin-top: 18px;
-        }
-        .laptop-menu-list-item:last-child {
-            margin-bottom: 18px;
-        }
-        .laptop-menu-list-item {
-            padding: 9px 24px;
-            &:hover {
-                background-color: #F3F4FD;
-            }
-        }
-    }
-}
-</style>
