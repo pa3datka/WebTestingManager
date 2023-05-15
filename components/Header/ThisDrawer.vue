@@ -23,6 +23,6 @@ import ListLinks from "~/components/Header/parts/drawer/ListLinks.vue";
                 <list-links />
             </div>
         </div>
-        <div class="shadow-background"></div>
+        <div class="shadow-background" onclick="void(0);"></div>
     </div>
 </template>

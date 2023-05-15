@@ -62,6 +62,8 @@ export const hideOnClickMenu = () => {
     const hideDrawerForcibly = () => {
         document.querySelector('.drawer-container')?.classList.remove('active-drawer');
         document.querySelector('.mobile-menu-burger')?.classList.remove('active-burger');
+        const body = document.querySelector('body');
+        body && (body.style.overflow = 'scroll');
     };
 
     return { hideMenu, hideUserMenu, showDrawer, hideDrawer, hideDrawerForcibly };
