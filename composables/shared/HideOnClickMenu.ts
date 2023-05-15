@@ -54,7 +54,7 @@ export const hideOnClickMenu = () => {
                 burger.classList.remove('active-burger');
                 drawer.classList.remove('active-drawer');
                 const body = document.querySelector('body');
-                body && (body.style.overflow = '');
+                body && (body.style.overflow = 'scroll');
             }
         });
     };
