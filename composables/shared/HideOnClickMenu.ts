@@ -22,13 +22,23 @@ export const hideOnClickMenu = () => {
 
     const showDrawer = () => {
         const btnDrawer = document.querySelector('.mobile-menu-burger');
-        btnDrawer && btnDrawer.addEventListener('click', () => {
-            if (!btnDrawer.classList.contains('active-burger')) {
-                btnDrawer.classList.add('active-burger');
-                let drawerMenu = document.querySelector('.drawer-container');
-                drawerMenu && drawerMenu.classList.add('active-drawer');
-            }
+        btnDrawer && btnDrawer.addEventListener('click', (e) => {
+            executeEvent(btnDrawer);
         });
+
+        btnDrawer && btnDrawer.addEventListener('touchstart', (e) => {
+            executeEvent(btnDrawer);
+        });
+    };
+
+    const executeEvent = (btnDrawer: Element) => {
+        if (!btnDrawer.classList.contains('active-burger')) {
+            btnDrawer.classList.add('active-burger');
+            let drawerMenu = document.querySelector('.drawer-container');
+            drawerMenu && drawerMenu.classList.add('active-drawer');
+            const body = document.querySelector('body');
+            body && (body.style.overflow = 'hidden');
+        }
     };
 
     const hideDrawer = () => {
@@ -43,6 +53,8 @@ export const hideOnClickMenu = () => {
             ) {
                 burger.classList.remove('active-burger');
                 drawer.classList.remove('active-drawer');
+                const body = document.querySelector('body');
+                body && (body.style.overflow = '');
             }
         });
     };

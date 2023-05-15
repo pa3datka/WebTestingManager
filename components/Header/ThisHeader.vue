@@ -24,7 +24,3 @@ import Auth from "~/components/Header/parts/header/Auth.vue";
     </div>
 </header>
 </template>
-
-<style lang="scss">
-
-</style>
