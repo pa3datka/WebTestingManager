@@ -1,8 +1,10 @@
 @import "variables";
 @import "reboot.css";
+@import "flex";
 
-@import "parts/header";
-@import "parts/drawer";
+@import "components/header";
+@import "components/drawer";
+@import "components/dashboard";
 
 body {
   position: relative;
@@ -17,33 +19,27 @@ body {
   max-width: rem-calc(1920);
   margin: 0 auto;
   padding: rem-calc((0, 20));
-  height: 100%;
 }
 
-
-//Flex
-.d-flex {
-  display: flex;
-}
-.justify-space-between {
-  justify-content: space-between;
-}
-.align-items-center {
-  align-items: center;
-}
-//END FLEX
-.d-none-md {}
 //DISPLAY
+.d-none {
+  display: none;
+}
+
+.d-none-md {
+}
 
 //END DISPLAY
 
 .tm-main,
 .tm-main-dashboard {
   display: block;
-  padding-top: rem-calc(62);
+  //padding-top: rem-calc(62);
   min-height: 100vh;
   width: 100%;
 }
+
+
 
 .hover {
   &:hover {
@@ -57,12 +53,9 @@ body {
   }
   .tm-main,
   .tm-main-dashboard {
-    padding-top: rem-calc(65);
+    //padding-top: rem-calc(65);
   }
 
-  .d-flex-md {
-    display: flex!important;
-  }
   .d-none-md {
     display: none;
   }
@@ -74,10 +67,7 @@ body {
   }
   .tm-main,
   .tm-main-dashboard {
-    padding-top: rem-calc(96);
-  }
-  .d-flex-lg {
-    display: flex!important;
+    //padding-top: rem-calc(96);
   }
 
   .d-none-lg {
@@ -101,15 +91,41 @@ body {
   width: rem-calc(20);
 }
 
-.lang-list__item-ru:after {background-image: url("@/assets/img/svg/lang/ru.svg");}
-.lang-list__item-by:after {background-image: url("@/assets/img/svg/lang/by.svg");}
-.lang-list__item-it:after {background-image: url("@/assets/img/svg/lang/it.svg");}
-.lang-list__item-ua:after {background-image: url("@/assets/img/svg/lang/ua.svg");}
-.lang-list__item-pl:after {background-image: url("@/assets/img/svg/lang/pl.svg");}
-.lang-list__item-fr:after {background-image: url("@/assets/img/svg/lang/fr.svg");}
-.lang-list__item-de:after {background-image: url("@/assets/img/svg/lang/de.svg");}
-.lang-list__item-en:after {background-image: url("@/assets/img/svg/lang/en.svg");}
-.lang-list__item-es:after {background-image: url("@/assets/img/svg/lang/es.svg");}
+.lang-list__item-ru:after {
+  background-image: url("@/assets/img/svg/lang/ru.svg");
+}
+
+.lang-list__item-by:after {
+  background-image: url("@/assets/img/svg/lang/by.svg");
+}
+
+.lang-list__item-it:after {
+  background-image: url("@/assets/img/svg/lang/it.svg");
+}
+
+.lang-list__item-ua:after {
+  background-image: url("@/assets/img/svg/lang/ua.svg");
+}
+
+.lang-list__item-pl:after {
+  background-image: url("@/assets/img/svg/lang/pl.svg");
+}
+
+.lang-list__item-fr:after {
+  background-image: url("@/assets/img/svg/lang/fr.svg");
+}
+
+.lang-list__item-de:after {
+  background-image: url("@/assets/img/svg/lang/de.svg");
+}
+
+.lang-list__item-en:after {
+  background-image: url("@/assets/img/svg/lang/en.svg");
+}
+
+.lang-list__item-es:after {
+  background-image: url("@/assets/img/svg/lang/es.svg");
+}
 
 
 .lang-head-img-ru,
@@ -126,13 +142,39 @@ body {
   width: rem-calc(20);
 }
 
-.lang-head-img-ru { background-image: url("@/assets/img/svg/lang/ru.svg"); }
-.lang-head-img-by { background-image: url("@/assets/img/svg/lang/by.svg"); }
-.lang-head-img-it { background-image: url("@/assets/img/svg/lang/it.svg"); }
-.lang-head-img-ua { background-image: url("@/assets/img/svg/lang/ua.svg"); }
-.lang-head-img-pl { background-image: url("@/assets/img/svg/lang/pl.svg"); }
-.lang-head-img-fr { background-image: url("@/assets/img/svg/lang/fr.svg"); }
-.lang-head-img-de { background-image: url("@/assets/img/svg/lang/de.svg"); }
-.lang-head-img-en { background-image: url("@/assets/img/svg/lang/en.svg"); }
-.lang-head-img-es { background-image: url("@/assets/img/svg/lang/es.svg"); }
+.lang-head-img-ru {
+  background-image: url("@/assets/img/svg/lang/ru.svg");
+}
+
+.lang-head-img-by {
+  background-image: url("@/assets/img/svg/lang/by.svg");
+}
+
+.lang-head-img-it {
+  background-image: url("@/assets/img/svg/lang/it.svg");
+}
+
+.lang-head-img-ua {
+  background-image: url("@/assets/img/svg/lang/ua.svg");
+}
+
+.lang-head-img-pl {
+  background-image: url("@/assets/img/svg/lang/pl.svg");
+}
+
+.lang-head-img-fr {
+  background-image: url("@/assets/img/svg/lang/fr.svg");
+}
+
+.lang-head-img-de {
+  background-image: url("@/assets/img/svg/lang/de.svg");
+}
+
+.lang-head-img-en {
+  background-image: url("@/assets/img/svg/lang/en.svg");
+}
+
+.lang-head-img-es {
+  background-image: url("@/assets/img/svg/lang/es.svg");
+}
 

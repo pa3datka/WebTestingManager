@@ -1,15 +1,14 @@
-<script setup lang="ts">
-const props = defineProps({
-    isShow: {
-        type: Boolean,
-        default: true
-    }
-});
-</script>
-
 <template>
-  <nuxt-link to="/" v-show="props.isShow" class="logo-main d-flex align-items-center">
-      <img src="/img/logo/logo-main.png" alt="Logo" />
-      <span>TestingManager</span>
-  </nuxt-link>
+  <div class="logo-container">
+      <nuxt-link to="/" class="logo-main d-flex align-items-center">
+          <img src="/img/logo/logo-main.png" alt="Logo" />
+          <span>TestingManager</span>
+      </nuxt-link>
+
+      <nuxt-link to="/" class="logo-main-white d-none">
+          <img src="/img/logo/logo-main-white.png" alt="Logo" />
+      </nuxt-link>
+  </div>
 </template>
+<script setup lang="ts">
+</script>

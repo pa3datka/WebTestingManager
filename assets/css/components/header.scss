@@ -1,0 +1,63 @@
+header {
+  height: rem-calc(62);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  right: 0;
+  border-bottom: rem-calc(1) solid $color-border-grey-1;
+  background-color: $color-white-bg;
+
+  .left-header {
+    column-gap: rem-calc(88);
+
+    @import "./parts/header/logo";
+
+    @import "./parts/header/laptop-menu";
+
+    @import "./parts/header/lang-selection";
+  }
+
+  @import "./parts/header/navigation";
+
+  .right-header {
+    column-gap: rem-calc(28);
+
+    @import "./parts/header/auth";
+  }
+}
+
+@media (min-width: rem-calc(768)) {
+  header {
+    height: rem-calc(65);
+    background-color: $color-gray-emerald-bg;
+    .left-header {
+      column-gap: rem-calc(30);
+    }
+
+    .right-header {
+      column-gap: rem-calc(20);
+    }
+  }
+}
+
+
+
+@media (min-width: rem-calc(992)) {
+  header {
+    height: rem-calc(96);
+
+    .left-header {
+      column-gap: rem-calc(88);
+    }
+  }
+}
+
+@media all and (max-width: rem-calc(1050)) and (min-width: rem-calc(992)) {
+  header {
+
+    .left-header {
+      column-gap: rem-calc(50);
+    }
+  }
+}
+

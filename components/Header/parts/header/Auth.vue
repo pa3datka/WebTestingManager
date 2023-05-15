@@ -21,9 +21,14 @@ onMounted(() => {
           <div class="sign-in hover">SIGN IN</div>
           <div class="sign-up hover">SIGN UP</div>
       </div>
-      <div class="user-group" v-if="auth">
-          <div class="notify">
-
+      <div class="user-group d-flex align-items-center" v-if="auth">
+          <div class="notify d-flex align-items-center">
+              <div class="hover d-flex align-items-center justify-content-center">
+                  <svg-template class="cursor" name="notification" />
+              </div>
+              <div class="hover d-flex align-items-center justify-content-center">
+                  <svg-template class="cursor" name="message" />
+              </div>
           </div>
           <div
               :class="{ 'rotate-vector': data.isShow }"

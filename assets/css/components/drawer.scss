@@ -1,0 +1,67 @@
+.drawer-container {
+  .drawer-wrap {
+    position: fixed;
+    background-color: $color-white-bg;
+    top: 0;
+    bottom: 0;
+    right: rem-calc(-270);
+    width: rem-calc(238);
+    z-index: 10;
+    transition: right 0.2s ease-in-out;
+
+    .drawer {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow-y: scroll;
+
+      hr {
+        margin: 0;
+        height: rem-calc(2);
+        border: 1px solid $color-border-grey-1;
+      }
+
+      .drawer-close {
+        position: absolute;
+        top: rem-calc(25);
+        left: rem-calc(-30);
+      }
+
+      //USER COMPONENT
+      @import "./parts/drawer/user";
+      //END USER COMPONENT
+
+      //LANGUAGES MENU
+      @import "./parts/drawer/languages";
+      //END LANGUAGES MENU
+
+      //AUTH MENU
+      @import "./parts/drawer/auth-menu";
+      //END AUTH MENU
+
+      //LIST LINKS
+      @import "./parts/drawer/list-links";
+      //END LIST LINKS
+    }
+  }
+
+}
+.active-drawer {
+  display: block;
+  .drawer-wrap {
+    right: 0;
+  }
+  .shadow-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-dark-bg;
+    opacity: .7;
+    z-index: 9;
+  }
+}
+

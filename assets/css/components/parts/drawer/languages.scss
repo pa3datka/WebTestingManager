@@ -1,0 +1,35 @@
+.languages {
+  padding-left: rem-calc(24);
+  padding-right: rem-calc(30);
+  .selected-lang {
+    height: rem-calc(48);
+    column-gap: rem-calc(9);
+
+    &:after {
+      content: '';
+      background-image: url("@/assets/img/svg/polygon-up.svg");
+      height: rem-calc(5);
+      width: rem-calc(7);
+      opacity: .8;
+      transform: rotate(180deg)!important;
+      transition: transform 0.30s ease-in-out;
+    }
+  }
+
+  .lang-list {
+    height: 0;
+    overflow-y: hidden;
+    transition: height 0.20s ease-in-out;
+
+    &:last-child {
+      //padding-bottom: 12px;
+    }
+    .lang-item {
+      padding: rem-calc((7, 0));
+    }
+  }
+  .lang-list-show {
+    max-height: rem-calc(300);
+    height: rem-calc(300);
+  }
+}

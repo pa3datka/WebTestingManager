@@ -10,7 +10,3 @@ import Drawer from "~/components/Header/ThisDrawer.vue";
       <NuxtPage />
   </div>
 </template>
-
-<style scoped>
-
-</style>

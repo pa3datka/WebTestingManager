@@ -1,0 +1,31 @@
+.user {
+  height: rem-calc(89);
+  width: 100%;
+  background-color: #F3F4FD;
+  column-gap: rem-calc(14);
+  padding: rem-calc((20, 24));
+
+  .avatar {
+    height: rem-calc(48);
+    width: rem-calc(48);
+    .img-avatar {
+      height: 100%;
+      border-radius: rem-calc(50);
+      object-fit: cover;
+    }
+  }
+
+  .user-name {
+    font-weight: $font-weight5;
+    font-size: $font15;
+    color: $color-text-dark;
+
+    .firstname,
+    .lastname {
+      width: rem-calc(115);
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}

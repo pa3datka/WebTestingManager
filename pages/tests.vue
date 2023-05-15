@@ -1,9 +1,53 @@
 <script setup lang="ts">
-
+definePageMeta({
+    name: "tests",
+    layout: 'dashboard',
+});
 </script>
 
 <template>
-<div>TESTS</div>
+<div>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+    <h1>TESTS</h1>
+</div>
 </template>
 
 <style scoped>

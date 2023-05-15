@@ -1,0 +1,14 @@
+.list-links {
+  width: 100%;
+  padding: rem-calc((24, 20, 30, 20));
+  .list-link-item {
+    padding: rem-calc((6, 0));
+    .router-link-active {
+      color: $color-text-blue!important;
+    }
+    .link {
+      color: $color-text-dark;
+    }
+
+  }
+}

@@ -1,0 +1,42 @@
+.crumbs {
+  font-size: 13px;
+  height: 100%;
+  display: none;
+
+  ol {
+    list-style-type: none;
+    padding-left: 0;
+    height: 100%;
+    margin: 0;
+    .crumb {
+      font-size: 13px;
+      height: 100%;
+      .router-link-active {
+        color: #2C64DC;
+        border-bottom: 2px solid #2C64DC;
+      }
+      a {
+        height: 100%;
+        color: #262342;
+        box-sizing: content-box;
+        &:hover {
+          color: #2C64DC;
+          border-bottom: 2px solid #2C64DC;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .crumbs {
+    display: block;
+    ol {
+      .crumb {
+        &:nth-child(n+2) {
+          margin-left: calc(10px + 18 * (100vw / 1920));
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.auth-menu {
+  .auth-menu-list {
+    padding: rem-calc((24, 20, 30, 20));
+    .auth-menu-list-item {
+      .router-link-active {
+        color: $color-text-blue!important;
+      }
+      .item-link {
+        display: inline-block;
+        padding: rem-calc((6, 0));
+        font-size: $font15;
+        font-weight: $font-weight5;
+        color: $color-text-dark;
+      }
+
+      .count-notify {
+        padding: rem-calc((2, 10));
+        background-color: $color-red-bg;
+        border-radius: rem-calc(50);
+        color: $color-text-white;
+        font-size: $font12;
+      }
+    }
+  }
+}
