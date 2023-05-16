@@ -4,36 +4,56 @@ import AuthInput from "~/components/Shared/Input/AuthInput.vue";
 import AuthCheckBox from "~/components/Shared/CheckBox/AuthCheckBox.vue";
 import AuthButton from "~/components/Shared/Button/AuthButton.vue";
 
-import {useValidation} from "~/composables/shared/useValidation";
+import { useValidation } from "~/composables/shared/useValidation";
+import { IFormRegister } from "~/composables/Interfaces/IFormRegister";
+import { useRouter } from "nuxt/app";
+import { useAuth } from "~/composables/auth/useAuth";
 
 definePageMeta({
     name: "sign-up",
 });
 
+const { register } = useAuth();
+const router = useRouter();
 const {rules, validate} = useValidation();
-const form = reactive({
+const form = <IFormRegister> reactive({
     firstname: '',
     lastname: '',
     email: '',
     password: '',
     password_confirmation: '',
-    agree: false
+    agree: false,
+    reCaptcha: ''
 });
 
 const formRef = <Ref> ref({});
-const submit = () => {
-    validate(formRef)
+const submit = async () => {
+    if (!validate(formRef)) {
+        return;
+    }
+
+    load.loading = true;
+    const res = await register(form);
+    load.loading = false;
+    if (res === true) {
+        load.successRegister = true;
+        setTimeout(() => router.push({name: 'home'}), 3000);
+        return;
+    }
+    load.errorData = res;
+    return;
 };
 
 const load = reactive({
     loading: <boolean>false,
     errorData: <any>'',
+    successRegister: <boolean> false
 });
 </script>
 
 <template>
     <div class="container">
-        <AuthForm title="Registration" :is-footer="true">
+        <AuthForm v-show="!load.successRegister" title="Registration" :is-footer="true">
             <template v-slot:content>
                 <div class="input-row">
                     <AuthInput
@@ -114,6 +134,12 @@ const load = reactive({
 
             <template v-slot:footer>
                 Already have an account?&nbsp;<nuxt-link to="/">Sign in</nuxt-link>
+            </template>
+        </AuthForm>
+
+        <AuthForm v-show="load.successRegister" title="Success">
+            <template v-slot:content>
+                <div>Вам на почту было выслано письмо для подтверждения! Проидите по ссылке из письма!</div>
             </template>
         </AuthForm>
     </div>

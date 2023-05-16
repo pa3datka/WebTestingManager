@@ -1,6 +1,6 @@
 <template>
-    <div class="auth-form">
-        <form class="mt-sm-20 mt-md-40 mt-lg-60">
+    <div class="auth-form" >
+        <form class="mt-sm-20 mt-md-40 mt-lg-60" action="">
             <div class="form-title pt-sm-30 pt-md-40 pt-lg-50 pl-sm-30 pr-sm-30">{{ props.title }}</div>
 
             <div class="form-content mt-sm-20 mt-md-30 mb-sm-20 mb-md-30 pl-sm-30 pr-sm-30 pl-md-40 pr-md-40 pl-lg-50 pr-lg-50">
