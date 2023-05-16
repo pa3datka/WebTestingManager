@@ -22,8 +22,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.mobile-menu-burger {
-    padding: 0 5px;
-    height: 100%;
-}
+
 </style>

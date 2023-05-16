@@ -1,0 +1,36 @@
+.auth-form {
+  margin: 0 auto;
+}
+form {
+  max-width: 610px;
+  margin: 0 auto;
+  height: auto;
+  background-color: #FFFFFF;
+  border-radius: 18px;
+
+  .form-title {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .form-content {
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .input-row {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+      }
+    }
+  }
+
+  .form-footer {
+    height: 56px;
+    border-top: 1px solid #F1F2F6;
+
+  }
+}

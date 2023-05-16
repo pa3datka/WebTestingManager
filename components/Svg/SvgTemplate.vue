@@ -15,8 +15,11 @@ const props = defineProps({
         default: ''
     }
 });
+interface ISvgObject {
+    [key: string]: any;
+};
 
-const svg = {
+const svg = <ISvgObject> {
     'message': MessageSvg,
     'notification': NotificationSvg,
     'settings': SettingSvg,

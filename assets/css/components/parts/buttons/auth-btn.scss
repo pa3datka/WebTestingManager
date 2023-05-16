@@ -1,0 +1,13 @@
+.btn-auth {
+  width: 100%;
+  height: rem-calc(48);
+  font-size: $font15;
+  color: $color-white;
+  border-radius: rem-calc(4);
+  border: none;
+  &:hover {
+    opacity: .8;
+  }
+}
+
+
