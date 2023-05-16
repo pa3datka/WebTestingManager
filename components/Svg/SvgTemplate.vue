@@ -7,6 +7,7 @@ import SignOutSvg from '@/components/Svg/parts/SignOutSvg.vue';
 import ArrowBackSvg from '@/components/Svg/parts/ArrowBackSvg.vue';
 import AddTestSvg from '@/components/Svg/parts/AddTestSvg.vue';
 import CollapseSvg from '@/components/Svg/parts/CollapseSvg.vue';
+import CloseSquare from "~/components/Svg/parts/CloseSquare.vue";
 
 const props = defineProps({
     name: {
@@ -23,7 +24,8 @@ const svg = {
     'sign-out': SignOutSvg,
     'arrow-back': ArrowBackSvg,
     'add-test': AddTestSvg,
-    'collapse': CollapseSvg
+    'collapse': CollapseSvg,
+    'close': CloseSquare,
 }
 </script>
 

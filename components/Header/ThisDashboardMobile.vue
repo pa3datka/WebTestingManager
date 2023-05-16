@@ -1,11 +1,49 @@
 <script setup lang="ts">
+import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
+import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
+
+const data = reactive({
+    isClose: false
+});
+const closeDashboard = () => {
+    data.isClose = !data.isClose;
+};
+
+onMounted(() => {
+    hideOnClickMenu().hideMobileDashboard('dashboard-mobile', 'open-dashboard', closeDashboard);
+});
 
 </script>
 
 <template>
-  <div>sdf</div>
+    <div
+        class="dashboard-mobile"
+        :class="{ 'open-dashboard': data.isClose }"
+    >
+        <div class="dashboard-mobile-wrapper">
+            <div class="header" @click="hideOnClickMenu().mobileDashboard('dashboard-mobile', closeDashboard)">
+                <div class="dashboard-close hover">
+                    <SvgTemplate name="close"/>
+                </div>
+                <div class="dashboard-open">|</div>
+            </div>
+
+            <div class="dashboard-list">
+                <menu>
+                    <li>
+                        <nuxt-link to="/profile">
+                            <div class="svg-item">
+                                <SvgTemplate name="home"/>
+                            </div>
+                            <div class="text-item">
+                                <div>Home</div>
+                                <div class="count">12</div>
+                            </div>
+                        </nuxt-link>
+                    </li>
+                </menu>
+            </div>
+        </div>
+
+    </div>
 </template>
-
-<style scoped>
-
-</style>

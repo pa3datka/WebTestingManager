@@ -28,16 +28,10 @@
     //  END DASBOARD
   }
 
-  .dashboard-mobile {
-    width: rem-calc(320);
-    height: 85vh;
-    display: block;
-    position: fixed;
-    top: rem-calc(84);
-    z-index: 10;
+  //MOBILE
+  @import "./parts/dashboard/mobile";
+  //END MOBILE
 
-    @import "./parts/dashboard/mobile";
-  }
 
   @media (min-width: rem-calc(768)) {
     .dashboard-container {
@@ -49,7 +43,6 @@
     }
   }
 }
-
 //END DASBOARD
 
 // HEADER LOGO
