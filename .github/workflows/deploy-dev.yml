@@ -25,6 +25,7 @@ jobs:
           && git remote update origin \
           && git checkout ${{ env.GIT_BRANCH }} \
           && git pull origin ${{ env.GIT_BRANCH }} \
+          && docker exec node npm install \
           && docker exec node npx nuxi build \
           && docker exec node pm2 restart testing-manager \
           && exit"
