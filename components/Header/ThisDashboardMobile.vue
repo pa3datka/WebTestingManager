@@ -2,6 +2,7 @@
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
 
+const hide = hideOnClickMenu();
 const data = reactive({
     isClose: false
 });
@@ -10,7 +11,7 @@ const closeDashboard = () => {
 };
 
 onMounted(() => {
-    hideOnClickMenu().hideMobileDashboard('dashboard-mobile', 'open-dashboard', closeDashboard);
+    hide.hideMobileDashboard('dashboard-mobile', 'open-dashboard', closeDashboard);
 });
 
 </script>
@@ -21,7 +22,7 @@ onMounted(() => {
         :class="{ 'open-dashboard': data.isClose }"
     >
         <div class="dashboard-mobile-wrapper">
-            <div class="header" @click="hideOnClickMenu().mobileDashboard('dashboard-mobile', closeDashboard)">
+            <div class="header" @click="hide.mobileDashboard('dashboard-mobile', closeDashboard)">
                 <div class="dashboard-close hover">
                     <SvgTemplate name="close"/>
                 </div>
@@ -30,7 +31,7 @@ onMounted(() => {
 
             <div class="dashboard-list">
                 <menu>
-                    <li>
+                    <li @click="hide.mobileDashboard('dashboard-mobile', closeDashboard)">
                         <nuxt-link to="/profile">
                             <div class="svg-item">
                                 <SvgTemplate name="home"/>
