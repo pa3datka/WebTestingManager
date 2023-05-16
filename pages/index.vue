@@ -1,9 +1,47 @@
 <script setup lang="ts">
-console.log('hello world')
+definePageMeta({
+    name: "home",
+});
 </script>
 
 <template>
-<h1>Hello Worldddd2333333333333333333322</h1>
+<div>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+    <h1>Home page</h1>
+</div>
 </template>
 
 <style scoped>

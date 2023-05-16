@@ -3,7 +3,7 @@
 </script>
 
 <template>
-
+<div>CONTACT</div>
 </template>
 
 <style scoped>

@@ -78,7 +78,7 @@ html {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
-ul {
+ul, menu {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -181,5 +181,9 @@ button,
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
 }
 

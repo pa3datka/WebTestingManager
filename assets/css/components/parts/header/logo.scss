@@ -1,0 +1,37 @@
+.logo-main {
+  column-gap: rem-calc(8);
+
+  img {
+    height: rem-calc(30);
+    width: rem-calc(32);
+  }
+
+  span {
+    display: none;
+  }
+}
+
+@media (min-width: rem-calc(768)) {
+  .logo-main {
+    img {
+      height: rem-calc(32);
+      width: rem-calc(37);
+    }
+
+    span {
+      display: inline-block;
+      font-size: $font18;
+      font-weight: $font-weight5;
+      color: $color-text-dark;
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .logo-main {
+    img {
+      height: rem-calc(41);
+      width: rem-calc(48);
+    }
+  }
+}

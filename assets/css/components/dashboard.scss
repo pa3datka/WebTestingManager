@@ -1,0 +1,64 @@
+//DASBOARD
+.dashboard {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'dash-menu dash-container';
+  position: relative;
+
+  .tm-main-dashboard {
+    grid-area: dash-container;
+    position: relative;
+  }
+
+  .dashboard-container {
+    display: none;
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    max-width: rem-calc(277);
+    min-width: rem-calc(104);
+    border-bottom-right-radius: rem-calc(30);
+    border-top-right-radius: rem-calc(30);
+    overflow: hidden;
+    height: 100vh;
+    grid-area: dash-menu;
+
+    //  DASBOARD
+    @import "./parts/dashboard/desktop";
+    //  END DASBOARD
+  }
+
+  //MOBILE
+  @import "./parts/dashboard/mobile";
+  //END MOBILE
+
+
+  @media (min-width: rem-calc(768)) {
+    .dashboard-container {
+      display: block;
+    }
+
+    .dashboard-mobile {
+      display: none;
+    }
+  }
+}
+//END DASBOARD
+
+// HEADER LOGO
+.dashboard {
+  header {
+    .logo-container {
+      .logo-main {
+        display: flex;
+      }
+    }
+
+    @media (min-width: rem-calc(768)) {
+      .logo-container {
+        display: none;
+      }
+    }
+  }
+}
+//END HEADER LOGO

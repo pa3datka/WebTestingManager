@@ -31,7 +31,7 @@ $color-white-2: #F8F8FC;
 $color-white-3: #F1F2F6;
 
 $light-gray-bg: #F5F5F5;
-$color-main-bg: #F3F4FD;
+
 
 $color-dark: #262342;
 $color-dark-1: #292D32;
@@ -62,11 +62,35 @@ $color-green-1: #7AC74F;
 $color-red-2: #DE3C4B;
 $color-red-1: #F86B6B;
 
-$font18: rem-calc(18);
+//COLORS BACKGROUND
+$color-gray-emerald-bg: #F3F4FD;
+$color-white-bg: #FFFFFF;
+$color-dark-bg: #262342;
+$color-red-bg: #F86B6B;
+$color-blue-bg: #2C64DC;
+
+//COLORS SVG
+$color-blue: #2C64DC;
+$color-dark: #292D32;
+$color-white: #FFFFFF;
+$color-grey: #8F8E9C;
+
+//COLOR BORDERS
+$color-border-grey-1: #E4E5F1;
+$color-border-dark: #292D32;
+
+//COLOR TEXT
+$color-text-dark: #262342;
+$color-text-blue: #2C64DC;
+$color-text-white: #FFFFFF;
+
+//FONT SIZE
+$font12: rem-calc(12);
 $font13: rem-calc(13);
 $font14: rem-calc(14);
 $font15: rem-calc(15);
-$font12: rem-calc(12);
+$font18: rem-calc(18);
 
+//FONT WEIGHT
 $font-weight5: 500;
 $font-weight4: 400;
