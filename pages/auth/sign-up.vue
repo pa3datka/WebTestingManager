@@ -58,7 +58,8 @@ onMounted(async () => {
 
 <template>
     <div class="container">
-        <AuthForm v-show="!load.successRegister" title="Registration" :is-footer="true">
+        <AuthForm v-show="!load.successRegister" :is-footer="true">
+            <template v-slot:title>Registration</template>
             <template v-slot:content>
                 <div class="input-row">
                     <AuthInput
