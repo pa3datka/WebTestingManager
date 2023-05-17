@@ -21,12 +21,6 @@ const verified = async () => {
     });
 
     if (data.result) {
-        await new Promise((resolve, reject) => {
-            setTimeout(async () => {
-                resolve(true);
-            }, 2000);
-
-        });
         return router.push({name: '/profile'});
 
     } else {
