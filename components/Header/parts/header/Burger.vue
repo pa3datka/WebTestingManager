@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
-const showDrawer = () => {
-    console.log('show drawer')
-}
 
 onMounted(() => {
     const drawer = hideOnClickMenu();

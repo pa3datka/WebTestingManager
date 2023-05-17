@@ -4,6 +4,7 @@ import AuthInput from "~/components/Shared/Input/AuthInput.vue";
 import AuthCheckBox from "~/components/Shared/CheckBox/AuthCheckBox.vue";
 import AuthButton from "~/components/Shared/Button/AuthButton.vue";
 
+import {useReCaptchaToken} from "~/composables/shared/useReCaptchToken";
 import { useValidation } from "~/composables/shared/useValidation";
 import { IFormRegister } from "~/composables/Interfaces/IFormRegister";
 import { useRouter } from "nuxt/app";
@@ -49,6 +50,10 @@ const load = reactive({
     errorData: <any>'',
     successRegister: <boolean> false
 });
+
+onMounted(async () => {
+    form.reCaptcha = <string|undefined> await useReCaptchaToken().getToken('sign_in');
+});
 </script>
 
 <template>
@@ -73,7 +78,6 @@ const load = reactive({
                             placeholder="Surname"
                             :rules="[rules.require, rules.min2]"
                             :ref="(el: any) => formRef[el?.name] = el"
-                            :error="load.errorData"
                     />
                 </div>
 
@@ -85,7 +89,6 @@ const load = reactive({
                         placeholder="E-mail"
                         :rules="[rules.require, rules.email]"
                         :ref="(el: any) => formRef[el?.name] = el"
-                        :error="load.errorData"
                 />
 
                 <AuthInput
@@ -97,7 +100,6 @@ const load = reactive({
                         classes="password-field"
                         :rules="[rules.min8, rules.max50]"
                         :ref="(el: any) => formRef[el?.name] = el"
-                        :error="load.errorData"
                 />
 
                 <AuthInput

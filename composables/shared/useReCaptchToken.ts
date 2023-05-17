@@ -1,12 +1,11 @@
-import {useReCaptcha } from "vue-recaptcha-v3";
+import { useReCaptcha } from "vue-recaptcha-v3";
 
 export const useReCaptchaToken = () => {
 
     const recaptchaInstance = useReCaptcha();
 
-    const getToken = async (action: string) => {
+    const getToken = async (action: string): Promise<string|undefined> => {
         const loaded = await recaptchaInstance?.recaptchaLoaded();
-        console.log('loaded', loaded)
         const token = await recaptchaInstance?.executeRecaptcha(action);
         return token;
     }

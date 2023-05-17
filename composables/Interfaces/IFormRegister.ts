@@ -6,5 +6,5 @@ export interface IFormRegister {
     password_confirmation: string,
     agree: boolean,
     lang?: string,
-    reCaptcha: string
+    reCaptcha: string|undefined
 }
