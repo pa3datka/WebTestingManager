@@ -23,8 +23,9 @@ const verified = async () => {
     if (data.result) {
         await new Promise((resolve, reject) => {
             setTimeout(async () => {}, 2000);
+            resolve(true);
         });
-        return router.push({name: 'profile'});
+        return router.push({name: '/profile'});
 
     } else {
         return router.push('/error-404');
