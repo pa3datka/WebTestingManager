@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
-const langs = {
+
+interface ILangs {
+    [key: string]: string;
+};
+const langs = <ILangs> {
     'ua': 'Українська',
     'ru': 'Русский',
     'pl': 'Polski',
@@ -13,8 +17,8 @@ const langs = {
 };
 
 const data = reactive({
-    isShowList: false,
-    activeLang: 'en'
+    isShowList:<boolean> false,
+    activeLang:<string> 'en'
 });
 const showList = () => {
     data.isShowList = !data.isShowList;
@@ -50,7 +54,7 @@ onMounted(() => {
               :class="'lang-list__item-' + key"
               v-for="(lang, key) in langs"
               :key="key"
-              @click="changeLang(key)"
+              @click="changeLang(String(key))"
           >
               <div>{{ lang }}</div>
           </li>

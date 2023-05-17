@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
-const auth = true;
+import { useRouter } from "nuxt/app";
+
+const router = useRouter();
+const auth = false;
 
 const data = reactive({
     isShow: false,
@@ -18,8 +21,8 @@ onMounted(() => {
 <template>
   <div class="auth">
       <div class="guest-group d-flex-md align-items-center" v-if="!auth">
-          <div class="sign-in hover">SIGN IN</div>
-          <div class="sign-up hover">SIGN UP</div>
+          <div class="sign-in hover" >SIGN IN</div>
+          <div class="sign-up hover" @click="router.push('/auth/sign-up')">SIGN UP</div>
       </div>
       <div class="user-group d-flex align-items-center" v-if="auth">
           <div class="notify d-flex align-items-center">

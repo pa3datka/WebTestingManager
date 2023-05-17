@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
-const showDrawer = () => {
-    console.log('show drawer')
-}
 
 onMounted(() => {
     const drawer = hideOnClickMenu();
@@ -22,8 +19,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.mobile-menu-burger {
-    padding: 0 5px;
-    height: 100%;
-}
+
 </style>

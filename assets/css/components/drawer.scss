@@ -6,7 +6,7 @@
     bottom: 0;
     right: rem-calc(-270);
     width: rem-calc(238);
-    z-index: 10;
+    z-index: 12;
     transition: right 0.2s ease-in-out;
 
     .drawer {
@@ -61,7 +61,7 @@
     bottom: 0;
     background-color: $color-dark-bg;
     opacity: .7;
-    z-index: 9;
+    z-index: 11;
   }
 }
 

@@ -1,6 +1,7 @@
 header {
   height: rem-calc(62);
   position: sticky;
+  z-index: 11;
   top: 0;
   width: 100%;
   right: 0;
@@ -21,6 +22,10 @@ header {
 
   .right-header {
     column-gap: rem-calc(28);
+    .mobile-menu-burger {
+      padding: 0 5px;
+      height: 100%;
+    }
 
     @import "./parts/header/auth";
   }

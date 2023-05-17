@@ -4,7 +4,6 @@ import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
 const hide = hideOnClickMenu();
 
 const signOut = () => {
-    console.log('auth');
     hide.hideDrawerForcibly();
 }
 

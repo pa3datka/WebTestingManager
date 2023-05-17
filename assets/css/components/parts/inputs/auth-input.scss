@@ -1,0 +1,84 @@
+.auth-input {
+  position: relative;
+}
+.auth-input input {
+  height: 40px;
+  width: 100%;
+  border: 1px solid #E4E5F1;
+  border-radius: 4px;
+  font-size: 16px;
+  padding-left: 20px;
+  color: #626167;
+}
+.password-field {
+  position: relative;
+}
+.password-field .btn-pass-block {
+  position: absolute;
+  padding: 8px;
+  right: 0;
+  top: 0;
+}
+.password-field .btn-pass-block:hover {
+  cursor: pointer;
+}
+.btn-pass-block .btn-hide,
+.btn-pass-block .btn-show {
+  height: 24px;
+  width: 24px;
+}
+
+.btn-pass-block .btn-show {
+  background: url("/assets/img/svg/password.svg");
+}
+.btn-pass-block .btn-hide  {
+  background: url("/assets/img/svg/not-password.svg");
+}
+
+.auth-input input:focus,
+.auth-input input:focus-visible {
+  outline: none !important;
+  border-color: #C9C8D3;
+}
+
+.input-error input,
+.input-error input:focus,
+.input-error input:focus-visible {
+  border: 1px solid #F86B6B;
+  color: #F86B6B;
+}
+.auth-input span {
+  display: none;
+}
+
+.input-error span {
+  display: inline-block;
+  padding-top: 4px;
+  font-size: 12px;
+  color: #F86B6B;
+
+  animation-duration: .4s;
+  animation-name: showError;
+}
+
+@keyframes showError {
+  from {
+    margin-left: 10%;
+  }
+
+  to {
+    margin-left: 0;
+  }
+}
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+  .auth-input input {
+    height: 48px;
+  }
+  .password-field .btn-pass-block {
+    padding: 12px;
+  }
+}

@@ -12,6 +12,10 @@
   justify-content: center;
 }
 
+.column-gap-20 {
+  column-gap: rem-calc(20);
+}
+
 @media (min-width: rem-calc(768)) {
   .d-flex-md {
     display: flex!important;
