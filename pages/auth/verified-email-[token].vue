@@ -60,5 +60,6 @@ definePageMeta({
 </template>
 
 <style lang="scss">
+@import "@/assets/css/variables.scss";
 @import "@/assets/css/components/parts/forms/auth-form";
 </style>

@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import {IResponseError} from "~/composables/Interfaces/IResponseError";
+
+definePageMeta({
+    name: "sign-in",
+    middleware: ['is-not-auth']
+});
+
 import AuthForm from "~/components/Shared/Form/AuthForm.vue";
 import AuthInput from "~/components/Shared/Input/AuthInput.vue";
 import AuthButton from "~/components/Shared/Button/AuthButton.vue";
@@ -7,11 +14,6 @@ import { useValidation } from "~/composables/shared/useValidation";
 import { useReCaptchaToken } from "~/composables/shared/useReCaptchToken";
 import { useAuth } from "~/composables/auth/useAuth";
 import { useRouter } from "nuxt/app";
-
-definePageMeta({
-    name: "sign-in",
-    middleware: ['is-not-auth']
-});
 
 const {validate, rules} = useValidation();
 const { login } = useAuth();
@@ -25,7 +27,7 @@ const form = <IFormRegister> reactive({
 
 const load = reactive({
     loading: <boolean>false,
-    errorData: <any>'',
+    messages: <string[]|undefined> [],
     successRegister: <boolean> false
 });
 
@@ -36,13 +38,13 @@ const submit = async () => {
     }
 
     load.loading = true;
-    const res = await login(form);
+    const res = <IResponseError> await login(form);
     load.loading = false;
-    if (res === true) {
+    if (res.status) {
         await router.push({ name: 'profile' });
         return;
     }
-    load.errorData = res;
+    load.messages = res.errors;
     return;
 };
 
@@ -53,7 +55,7 @@ onMounted(async () => {
 
 <template>
 <div class="container">
-    <AuthForm :is-footer="true">
+    <AuthForm :is-footer="true" :errors="load.messages">
         <template v-slot:title>Login</template>
         <template v-slot:content>
             <AuthInput
@@ -63,7 +65,6 @@ onMounted(async () => {
               type="text"
               :rules="[rules.require]"
               :ref="(el: any) => formRef[el?.name] = el"
-              :error="load.errorData"
             />
 
             <AuthInput
@@ -78,7 +79,7 @@ onMounted(async () => {
             />
 
             <div class="mt-sm-10 mt-md-20 align-text-right">
-                <nuxt-link>Забыли пароль?</nuxt-link>
+                <nuxt-link to="/auth/password-reset">Забыли пароль?</nuxt-link>
             </div>
         </template>
 

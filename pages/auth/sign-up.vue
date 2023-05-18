@@ -9,6 +9,7 @@ import { useValidation } from "~/composables/shared/useValidation";
 import { IFormRegister } from "~/composables/Interfaces/IFormRegister";
 import { useRouter } from "nuxt/app";
 import { useAuth } from "~/composables/auth/useAuth";
+import {IResponseError} from "~/composables/Interfaces/IResponseError";
 
 definePageMeta({
     name: "sign-up",
@@ -35,20 +36,20 @@ const submit = async () => {
     }
 
     load.loading = true;
-    const res = await register(form);
+    const res = <IResponseError> await register(form);
     load.loading = false;
-    if (res === true) {
+    if (res.status) {
         load.successRegister = true;
         setTimeout(() => router.push({name: 'home'}), 3000);
         return;
     }
-    load.errorData = res;
+    load.messages = (res?.errors ?? []);
     return;
 };
 
 const load = reactive({
     loading: <boolean>false,
-    errorData: <any>'',
+    messages: <string[]> [],
     successRegister: <boolean> false
 });
 
@@ -59,7 +60,7 @@ onMounted(async () => {
 
 <template>
     <div class="container">
-        <AuthForm v-show="!load.successRegister" :is-footer="true">
+        <AuthForm v-show="!load.successRegister" :is-footer="true" :errors="load.messages ?? []">
             <template v-slot:title>Registration</template>
             <template v-slot:content>
                 <div class="input-row">
@@ -71,7 +72,6 @@ onMounted(async () => {
                             placeholder="Name"
                             :rules="[rules.require, rules.min2]"
                             :ref="(el: any) => formRef[el?.name] = el"
-                            :error="load.errorData"
                     />
                     <AuthInput
                             class="mt-sm-10 mt-md-20 mt-lg-0"
