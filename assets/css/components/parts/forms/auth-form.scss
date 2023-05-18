@@ -2,16 +2,27 @@
   margin: 0 auto;
 }
 form {
-  max-width: 610px;
+  max-width: rem-calc(620);
   margin: 0 auto;
   height: auto;
-  background-color: #FFFFFF;
-  border-radius: 18px;
+  background-color: $color-white;
+  border-radius: rem-calc(18);
 
   .form-title {
-    font-size: 24px;
+    font-size: rem-calc(24);
     font-weight: 500;
     text-align: center;
+
+    .img-auth {
+      width: rem-calc(90);
+      height: rem-calc(115);
+      background-image: url("@/assets/img/svg/auth.svg");
+    }
+  }
+
+  .errors {
+    font-size: $font13;
+    color: $color-red;
   }
 
   .form-content {
@@ -20,17 +31,17 @@ form {
       grid-template-columns: 1fr;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: rem-calc(768)) {
       .input-row {
         grid-template-columns: 1fr 1fr;
-        column-gap: 20px;
+        column-gap: rem-calc(20);
       }
     }
   }
 
   .form-footer {
-    height: 56px;
-    border-top: 1px solid #F1F2F6;
+    height: rem-calc(56);
+    border-top: rem-calc(1) solid $color-white-3;
 
   }
 }

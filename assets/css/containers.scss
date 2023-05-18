@@ -127,6 +127,10 @@
   padding-top: rem-calc(10);
 }
 
+.pt-sm-15 {
+  padding-top: rem-calc(15);
+}
+
 .pt-sm-20 {
   padding-top: rem-calc(20);
 }
@@ -219,6 +223,10 @@
 @media (min-width: rem-calc(768)) {
   .pt-md-10 {
     padding-top: rem-calc(10);
+  }
+
+  .pt-md-15 {
+    padding-top: rem-calc(15);
   }
 
   .pt-md-20 {
@@ -323,6 +331,10 @@
 
   .pt-lg-10 {
     padding-top: rem-calc(10);
+  }
+
+  .pt-lg-15 {
+    padding-top: rem-calc(15);
   }
 
   .pt-lg-20 {
@@ -465,5 +477,12 @@
 }
 .fs-18 {
   font-size: rem-calc(18);
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+.fw-400 {
+  font-weight: 400;
 }
 //END FONTS

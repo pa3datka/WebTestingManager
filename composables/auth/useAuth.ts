@@ -2,25 +2,34 @@ import { useCustomCookies } from "~/composables/shared/useCustomCookies";
 import { IFormRegister } from "~/composables/Interfaces/IFormRegister";
 import { IFormLogin } from "~/composables/Interfaces/IFormLogin";
 import {useAuthStore} from "~/store/auth/auth";
+import {IFormResetPassword} from "~/composables/Interfaces/IFormResetPassword";
+import {IFormNewPassword} from "~/composables/Interfaces/IFormNewPassword";
+import {IResponseError} from "~/composables/Interfaces/IResponseError";
+import {IErrorResponseData} from "~/composables/Interfaces/IErrorResponseData";
 
 export const useAuth = () => {
     const { $httpRequest } = useNuxtApp();
     const { setAuthToken } = useCustomCookies();
 
-    const register = async (form: IFormRegister) => {
+    const register = async (form: IFormRegister): Promise<IResponseError> => {
         try {
             form.lang = 'ru';
             // @ts-ignore
             const res = await $httpRequest.post('auth/register', { ...form });
             if (res?.status) {
-                return res?.status;
+                return { status: res?.status };
             }
+
+            return { status: false, errors: getErrors(res) };
         } catch (e: any) {
-            return getErrors(e?.response?._data?.errors);
+            return {
+                status: false,
+                errors: getErrors(e?.response?._data)
+            };
         }
     };
 
-    const login = async (form: IFormLogin) => {
+    const login = async (form: IFormLogin): Promise<IResponseError> => {
         try {
             // @ts-ignore
             const res = await $httpRequest.post('auth/login', { ...form });
@@ -28,11 +37,14 @@ export const useAuth = () => {
                 const { setUser } = useAuthStore();
                 setAuthToken(res.result.access_token);
                 setUser(res.result.user);
-                return res?.status;
+                return { status: res?.status };
             }
-            return false;
+            return { status: false, errors: getErrors(res) };
         } catch (e: any) {
-            return getErrors(e?.response?._data?.message);
+            return {
+                status: false,
+                errors: getErrors(e?.response?._data)
+            };
         }
     }
 
@@ -77,15 +89,60 @@ export const useAuth = () => {
         }
     }
 
-    const getErrors = (response: []|string) => {
-        if (!response) {
-            return 'Server error';
+    const passwordReset = async (form: IFormResetPassword) => {
+        try {
+            // @ts-ignore
+            $httpRequest.post('auth/password-reset', { ...form });
+        } catch (e: any) {
+            console.log(e);
         }
-        if (typeof response === 'string') {
-            return response;
-        }
-        return Object.values(response).reduce((error, current) => error += (current[0] + ' '), '');
     }
 
-    return { register, verifiedEmail, me, logout, login };
+    const newPassword = async (form: IFormNewPassword): Promise<IResponseError> => {
+        try {
+            // @ts-ignore
+            const res = await $httpRequest.post('auth/new-password', { ...form });
+            if (res?.status) {
+                return { status: res?.status }
+            }
+            return { status: false, errors: getErrors(res) };
+        } catch (e: any) {
+
+            return {
+                status: false,
+                errors: getErrors(e?.response?._data)
+            };
+        }
+    }
+
+    const getErrors = (response: IErrorResponseData|string): string[] => {
+
+        if (typeof response === 'string') {
+            return [response];
+        }
+
+        let arrErr = <string[]> [];
+
+        const errors = <string[]> Object.values(response?.errors ?? {});
+        if (errors.length) {
+            for (let i = 0; i <= errors.length;i++) {
+                if (typeof errors[i] !== 'undefined') {
+                    // @ts-ignore
+                    errors[i].forEach((err: string) => arrErr.push(err));
+                }
+            }
+        }
+
+        if (!arrErr.length && response?.message) {
+            arrErr.push(response?.message);
+        }
+
+        if (!arrErr.length) {
+            return ['Server error'];
+        }
+
+        return arrErr;
+    }
+
+    return { register, verifiedEmail, me, logout, login, passwordReset, newPassword };
 }
