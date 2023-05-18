@@ -43,7 +43,7 @@ onMounted(() => {
                   class="user d-flex-md align-items-center hover"
                   @click="showMenu()"
               >
-                  <div class="name">{{ user.firstname + user.lastname ? '. ' + user.lastname[0] : '' }}</div>
+                  <div class="name">{{ user.firstname + (user.lastname ? '. ' + user.lastname[0] : '') }}</div>
                   <div class="avatar">
                       <img class="img-avatar" src="/img/ava.jpeg" alt="Avatar">
                   </div>

@@ -7,14 +7,7 @@ export default defineNuxtConfig({
         public: {
             apiBase: process.env.API_BASE_URL,
             appUrl: process.env.APP_DOMAIN,
-            recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
-            coockie: {
-                key: process.env.COOCKIE_AUTH_KEY,
-                options: {
-                    maxAge: process.env.COOCKIE_OPTIONS_MAX_AGE,
-                    domain: process.env.COOCKIE_OPTIONS_DOMAIN,
-                }
-            }
+            recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY
         }
     },
 
