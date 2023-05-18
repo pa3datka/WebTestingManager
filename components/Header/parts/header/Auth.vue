@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
-import {useRouter} from "nuxt/app";
-import {useAuthStore} from "~/store/auth/auth";
+import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
+import { useRouter } from "nuxt/app";
+import { useAuthStore } from "~/store/auth/auth";
+import { useAuth } from "~/composables/auth/useAuth";
 
+const { logout } = useAuth();
 const router = useRouter();
 const user = computed(() => useAuthStore().getUser);
 const isAuth = computed(() => useAuthStore().isAuth);
-
-const auth = false;
 
 const data = reactive({
     isShow: false,
@@ -16,6 +16,11 @@ const data = reactive({
 const showMenu = () => {
     data.isShow = !data.isShow;
 };
+
+const logOut = () => {
+    logout();
+    return router.push('/');
+}
 
 onMounted(() => {
     hideOnClickMenu().hideUserMenu('user', 'user-container', 'show-menu', showMenu);
@@ -60,7 +65,7 @@ onMounted(() => {
                     <hr>
                     <div class="item d-flex align-items-center hover">
                         <svg-template name="sign-out"/>
-                        <div>Sign out</div>
+                        <div @click="logOut">Sign out</div>
                     </div>
                 </div>
             </div>

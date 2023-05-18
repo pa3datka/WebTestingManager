@@ -1,5 +1,6 @@
 import { useCustomCookies } from "~/composables/shared/useCustomCookies";
 import { IFormRegister } from "~/composables/Interfaces/IFormRegister";
+import { IFormLogin } from "~/composables/Interfaces/IFormLogin";
 import {useAuthStore} from "~/store/auth/auth";
 
 export const useAuth = () => {
@@ -18,6 +19,22 @@ export const useAuth = () => {
             return getErrors(e?.response?._data?.errors);
         }
     };
+
+    const login = async (form: IFormLogin) => {
+        try {
+            // @ts-ignore
+            const res = await $httpRequest.post('auth/login', { ...form });
+            if (res?.status) {
+                const { setUser } = useAuthStore();
+                setAuthToken(res.result.access_token);
+                setUser(res.result.user);
+                return res?.status;
+            }
+            return false;
+        } catch (e: any) {
+            return getErrors(e?.response?._data?.message);
+        }
+    }
 
     const me = async () => {
         const { setUser, clearUser } = useAuthStore();
@@ -70,5 +87,5 @@ export const useAuth = () => {
         return Object.values(response).reduce((error, current) => error += (current[0] + ' '), '');
     }
 
-    return { register, verifiedEmail, me, logout };
+    return { register, verifiedEmail, me, logout, login };
 }

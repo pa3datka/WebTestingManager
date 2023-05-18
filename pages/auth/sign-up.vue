@@ -12,6 +12,7 @@ import { useAuth } from "~/composables/auth/useAuth";
 
 definePageMeta({
     name: "sign-up",
+    middleware: ['is-not-auth']
 });
 
 const { register } = useAuth();
@@ -52,7 +53,7 @@ const load = reactive({
 });
 
 onMounted(async () => {
-    form.reCaptcha = <string|undefined> await useReCaptchaToken().getToken('sign_in');
+    form.reCaptcha = <string|undefined> await useReCaptchaToken().getToken('sign_up');
 });
 </script>
 
@@ -136,7 +137,7 @@ onMounted(async () => {
             </template>
 
             <template v-slot:footer>
-                Already have an account?&nbsp;<nuxt-link to="/">Sign in</nuxt-link>
+                <div class="t-dark-grey">Already have an account?&nbsp;<nuxt-link to="/auth/sign-in">Sign in</nuxt-link></div>
             </template>
         </AuthForm>
 

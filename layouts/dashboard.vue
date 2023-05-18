@@ -10,10 +10,8 @@ import ThisDashboardMobile from "~/components/Header/ThisDashboardMobile.vue";
         <div class="tm-main-dashboard">
             <main-header />
             <Drawer />
-            <div class="container">
-                <NuxtPage />
-            </div>
 
+            <NuxtPage />
         </div>
         <div class="dashboard-container">
             <Dashboard />
