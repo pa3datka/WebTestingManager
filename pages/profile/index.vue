@@ -7,7 +7,7 @@ definePageMeta({
 </script>
 
 <template>
-
+<div class="container">PROFILE</div>
 </template>
 
 <style scoped>
