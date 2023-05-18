@@ -2,7 +2,8 @@
 import {string} from "postcss-selector-parser";
 
 definePageMeta({
-    name: "new-password"
+    name: "new-password",
+    middleware: ['is-not-auth']
 });
 
 import AuthForm from "~/components/Shared/Form/AuthForm.vue";
@@ -51,7 +52,6 @@ const submit = async () => {
     if (result.status) {
         return router.push({name: 'sign-in'});
     }
-    console.log(result.errors)
     load.messages = result.errors;
     return;
 };

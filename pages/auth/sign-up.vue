@@ -87,7 +87,7 @@ onMounted(async () => {
                         class="mt-sm-10 mt-md-20 mt-lg-20"
                         v-model="form.email"
                         name="email"
-                        type="text"
+                        type="email"
                         placeholder="E-mail"
                         :rules="[rules.require, rules.email]"
                         :ref="(el: any) => formRef[el?.name] = el"

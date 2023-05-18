@@ -12,16 +12,14 @@ const data = reactive({
     result: false
 });
 const verified = async () => {
-    //const res = await verifiedEmail(String(route.params.token));
-
-    data.result = await new Promise((resolve, reject) => {
+    data.result = await new Promise((resolve) => {
         setTimeout(async () => {
             resolve(await verifiedEmail(String(route.params.token)));
         }, 1000);
     });
 
     if (data.result) {
-        await new Promise((resolve, reject) => {
+        await new Promise((resolve) => {
             setTimeout(async () => {
                 resolve(true);
             }, 2000);
