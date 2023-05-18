@@ -2,18 +2,18 @@ import { AppConfig } from "nitropack";
 
 export const useCustomCookies = () => {
 
-    const config = <AppConfig> useAppConfig();
+    const config = useRuntimeConfig().coockie;
 
     const getAuthToken = (): string|undefined => {
-        return useCookie('access_token').value || '';
+        return useCookie(config?.key).value || '';
     }
 
     const setAuthToken = (token: string): void => {
-        useCookie(config.authCookie.key, config.authCookie.options).value = token;
+        useCookie(config?.key, config?.options).value = token;
     }
 
     const removeAuthToken = (): void => {
-        useCookie(config.authCookie.key).value = null;
+        useCookie(config?.key).value = null;
     }
 
     const isToken = (): boolean => {

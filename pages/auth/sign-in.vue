@@ -1,13 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-    name: "profile",
-    layout: 'dashboard',
-    middleware: ['is-auth']
+    name: "sign-in",
 });
 </script>
 
 <template>
-
+<div>sign in</div>
 </template>
 
 <style scoped>
