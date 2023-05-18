@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { hideOnClickMenu } from "~/composables/shared/HideOnClickMenu";
 import { useAuthStore } from "~/store/auth/auth";
-import {useAuth} from "~/composables/auth/useAuth";
+import { useAuth } from "~/composables/auth/useAuth";
+import { useRouter } from "nuxt/app";
 
+const router = useRouter();
 const isAuth = computed(() => useAuthStore().isAuth);
 const hide = hideOnClickMenu();
 const { logout } = useAuth();
@@ -10,6 +12,7 @@ const { logout } = useAuth();
 const signOut = () => {
     hide.hideDrawerForcibly();
     logout();
+    router.push('/');
 }
 
 interface LinkMenu {
