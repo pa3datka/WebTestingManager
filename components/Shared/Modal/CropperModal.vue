@@ -26,7 +26,7 @@ const props = defineProps({
 const data = reactive({
     notification: <string> ''
 });
-const cropperRef = ref(null);
+const cropperRef = <Ref> ref(null);
 
 const crop = async (e: any) => {
     if (e) {
@@ -36,9 +36,9 @@ const crop = async (e: any) => {
     }
 }
 
-const change = ({coordinates}) => {
+const change = ({coordinates}: any) => {
     if (coordinates.width < props.width || coordinates.height < props.height) {
-        cropperRef.value.setCoordinates({
+        cropperRef && cropperRef.value.setCoordinates({
             width: props.width,
             height: props.height,
             left: coordinates.left,
@@ -51,7 +51,7 @@ const change = ({coordinates}) => {
         }, 2000);
     }
     if (coordinates.width > props.width || coordinates.height > props.height) {
-        cropperRef.value.setCoordinates({
+        cropperRef && cropperRef.value.setCoordinates({
             width: props.width,
             height: props.height,
             left: coordinates.left,
@@ -81,7 +81,7 @@ const change = ({coordinates}) => {
                     :stencil-props="{movable: true, resizable: false,aspectRatio: props.aspectRatio}"
                     :resize-image="{adjustStencil: false}"
                     image-restriction="stencil"
-                    :ref="el => cropperRef = el"
+                    :ref="(el: any) => cropperRef = el"
                 :background-wrapper-component="CustomBackgroundCropper"
             />
 
