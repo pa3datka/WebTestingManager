@@ -1,0 +1,38 @@
+.cropper-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .cropper-info {
+    position: absolute;
+    top: rem-calc(10);
+    left: 40%;
+    font-size: rem-calc(20);
+    color: $color-white;
+    z-index: 223;
+  }
+
+  .cropper-background {
+    position: fixed;
+    z-index: 21;
+    opacity: .7;
+    background-color: $color-dark;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .cropper-wrapper {
+    position: absolute;
+    z-index: 22;
+    background-color: #FFFFFF;
+    border-radius: rem-calc(10);
+    padding: rem-calc((20, 10));
+    .cropper-item {
+      height: 40vh;
+      width: 40vh;
+    }
+  }
+}

@@ -27,20 +27,20 @@ onMounted(() => {
         </div>
         <menu>
             <li class="d-flex align-items-center">
-                <nuxt-link class="d-flex align-items-center" to="/tests">
+                <nuxt-link class="d-flex align-items-center" to="/profile">
                     <div class="svg-link">
                         <svg-template name="home"/>
                     </div>
-                    <span>link.name</span>
+                    <span>Home</span>
                 </nuxt-link>
             </li>
 
             <li class="d-flex align-items-center hover">
-                <nuxt-link class="d-flex align-items-center">
+                <nuxt-link class="d-flex align-items-center" to="/profile/add-test">
                     <div class="svg-link">
-                        <svg-template name="home"/>
+                        <svg-template name="add-test"/>
                     </div>
-                    <span>link.name</span>
+                    <span>Add test</span>
                 </nuxt-link>
             </li>
         </menu>
