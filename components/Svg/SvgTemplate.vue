@@ -8,6 +8,7 @@ import ArrowBackSvg from '@/components/Svg/parts/ArrowBackSvg.vue';
 import AddTestSvg from '@/components/Svg/parts/AddTestSvg.vue';
 import CollapseSvg from '@/components/Svg/parts/CollapseSvg.vue';
 import CloseSquare from "~/components/Svg/parts/CloseSquare.vue";
+import SelectListSvg from "~/components/Svg/parts/SelectListSvg.vue";
 
 const props = defineProps({
     name: {
@@ -29,6 +30,7 @@ const svg = <ISvgObject> {
     'add-test': AddTestSvg,
     'collapse': CollapseSvg,
     'close': CloseSquare,
+    'select_list': SelectListSvg,
 }
 </script>
 

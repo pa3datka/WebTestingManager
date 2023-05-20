@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CropperModal from "~/components/Shared/Modal/CropperModal.vue";
+import Selection from "~/components/Shared/Input/Selection.vue";
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -74,6 +75,23 @@ const closeCropper = (val: boolean): void => {
         :aspect-ratio="1/1"
     />
 
+    <div class="chose-image-container">
+        <div class="chose-background"></div>
+        <div class="chose-modal-container">
+            <div class="chose-image-modal">
+                <div class="chose-modal-header">
+                  <div class="chose-modal-header__title">Chose a cover</div>
+                  <div class="chose-modal-header__close hover"></div>
+                </div>
+
+                <div class="chose-modal-action">
+                   <Selection />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </template>
 
 
@@ -82,5 +100,83 @@ const closeCropper = (val: boolean): void => {
 @import "@/assets/css/components/parts/buttons/cycle-radius-btn";
 @import "@/assets/css/components/parts/inputs/image-thumbnail-uploader";
 @import "@/assets/css/components/parts/modals/cropper-modal";
+
+
+
+.chose-image-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .chose-background {
+        position: fixed;
+        z-index: 21;
+        opacity: 0.75;
+        background-color: #262342;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .chose-modal-container {
+        position: absolute;
+        z-index: 22;
+        width: 95%;
+        max-width: rem-calc(975);
+        .chose-image-modal {
+            width: 100%;
+            height: 100%;
+            max-width: rem-calc(976);
+            background-color: $color-white;
+            border-radius: rem-calc(14);
+
+          .chose-modal-header {
+            height: rem-calc(81);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: rem-calc(48);
+            padding-right: rem-calc(15);
+
+
+            .chose-modal-header__title {
+              font-size: $font20;
+              font-weight: $font-weight5;
+            }
+            .chose-modal-header__close {
+              height: rem-calc(50);
+              width: rem-calc(50);
+              background-image: url("@/assets/img/svg/modal-close.svg");
+              background-repeat: no-repeat;
+              background-position: center center;
+            }
+          }
+
+          .chose-modal-action {
+            height: rem-calc(88);
+            background-color: $color-white-2;
+            border-bottom: rem-calc(1) solid $color-grey-7;
+            border-top: rem-calc(1) solid $color-grey-7;
+            padding: rem-calc((20, 48));
+          }
+        }
+    }
+
+    @media (min-width: rem-calc(768)) {
+        .chose-modal-container {
+            width: 80%;
+        }
+    }
+
+    @media (min-width: rem-calc(992)) {
+        .chose-modal-container {
+            width: 70%;
+        }
+    }
+
+}
 
 </style>
