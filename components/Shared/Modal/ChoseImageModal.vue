@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Selection from "~/components/Shared/Input/Selection.vue";
 import {computed} from "@vue/reactivity";
+import {ISelection} from "~/composables/Interfaces/ComponentIntefaces/ISelection";
 
 const props = defineProps({
   modelValue: {
@@ -12,10 +13,10 @@ const props = defineProps({
 const emit = defineEmits(['choseImage']);
 
 const data = reactive({
-  imageSize: <number> 1
+  imageSizeSelectedId: <number> 1
 });
 
-const categories = [
+const categories = <ISelection[]> [
   {id: 1, name: 'mathematics', svg: 'home', color: 'strong-cyan'},
   {id: 2, name: 'history', svg: 'home', color: 'light-grayish-red'},
   {id: 3, name: 'language', svg: 'home', color: 'soft-navy'},
@@ -23,14 +24,30 @@ const categories = [
   {id: 5, name: 'physics', svg: 'home', color: 'primary'}
 ];
 
-const sizes = [
-  {id: 1, name: 'small'},
-  {id: 2, name: 'medium'},
-  {id: 3, name: 'large'},
+const sizes = <ISelection[]> [
+  {id: 0, name: 'small'},
+  {id: 1, name: 'medium'},
+  {id: 2, name: 'large'},
 ];
 
 
-const size = computed(() => sizes.find(size => size.id === data.imageSize));
+const imageSizeId = computed( {
+  get: (): number => {
+    return data.imageSizeSelectedId;
+  },
+  set: (val: number) => {
+    localStorage.setItem('chose_size_id', String(val));
+    data.imageSizeSelectedId = val;
+  }
+});
+
+
+onMounted(() => {
+  imageSizeId.value = Number(localStorage.getItem('chose_size_id') ?? 1);
+});
+
+
+const size = computed(() => sizes.find(size => size.id === imageSizeId.value));
 
 const choseImage = (path: string) => {
   emit('choseImage', path);
@@ -52,22 +69,25 @@ const choseImage = (path: string) => {
               :svg-is-label="true"
               :name="'categories'"
               :list="categories"
+              placeholder="Chose a category"
           />
 
-          <Selection
-              :name="'image-size'"
-              :list="sizes"
-              :is-label="true"
-              v-model="data.imageSize"
-              :selected="sizes[2]"
-          />
+          <client-only>
+            <Selection
+                :name="'image-size'"
+                :list="sizes"
+                :is-label="true"
+                v-model="imageSizeId"
+                :selected="sizes[imageSizeId]"
+            />
+          </client-only>
         </div>
         <div class="chose-modal-content  scroll">
           <div class="category">
             <div class="category-title">Language</div>
             <div
                 class="category-list"
-                :class="`img-${size?.name}`"
+                :class="`img-${sizes[imageSizeId].name}`"
             >
               <div
                   class="category-list_item"
