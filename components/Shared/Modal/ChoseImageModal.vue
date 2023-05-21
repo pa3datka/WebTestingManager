@@ -3,14 +3,13 @@ import Selection from "~/components/Shared/Input/Selection.vue";
 import {computed} from "@vue/reactivity";
 import {ISelection} from "~/composables/Interfaces/ComponentIntefaces/ISelection";
 
+const emit = defineEmits(['choseImage']);
 const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false
   }
 });
-
-const emit = defineEmits(['choseImage']);
 
 const data = reactive({
   imageSizeSelectedId: <number> 1
@@ -23,7 +22,6 @@ const categories = <ISelection[]> [
   {id: 4, name: 'geometry', svg: 'home', color: 'bright-red'},
   {id: 5, name: 'physics', svg: 'home', color: 'primary'}
 ];
-
 const sizes = <ISelection[]> [
   {id: 0, name: 'small'},
   {id: 1, name: 'medium'},
@@ -45,9 +43,6 @@ const imageSizeId = computed( {
 onMounted(() => {
   imageSizeId.value = Number(localStorage.getItem('chose_size_id') ?? 1);
 });
-
-
-const size = computed(() => sizes.find(size => size.id === imageSizeId.value));
 
 const choseImage = (path: string) => {
   emit('choseImage', path);
@@ -82,6 +77,7 @@ const choseImage = (path: string) => {
             />
           </client-only>
         </div>
+
         <div class="chose-modal-content  scroll">
           <div class="category">
             <div class="category-title">Language</div>
@@ -99,6 +95,7 @@ const choseImage = (path: string) => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
