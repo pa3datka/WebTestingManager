@@ -2,6 +2,7 @@
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import {onMounted} from "@vue/runtime-core";
 import {computed} from "@vue/reactivity";
+import {ISelection} from "~/composables/Interfaces/ComponentIntefaces/ISelection";
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -27,7 +28,7 @@ const props = defineProps({
   },
   list: {
     type: Array,
-    default: []
+    default: <ISelection[]>[]
   },
   selected: {
     type: Object,
@@ -37,14 +38,14 @@ const props = defineProps({
 const selectedRef = <Ref> ref(null);
 const data = reactive({
   isLabel: true,
-  selected: {},
+  selected: <ISelection> {},
   beforeColorClass: <string> '',
   searchString: <string> '',
 });
 
 const selectItem = (itemId: number) => {
   data.beforeColorClass = data.selected?.color + '-bg';
-  data.selected = <object> props.list?.find(item => Number(item.id) === Number(itemId));
+  data.selected = <ISelection> props.list?.find((item: any) => Number(item.id) === Number(itemId));
   selectedRef.value.classList.remove('select-focus');
 
   selectedRef.value.querySelector('input').classList.add('d-none');
@@ -56,18 +57,17 @@ const selectItem = (itemId: number) => {
 
 onMounted(() => {
   if (props.selected) {
-    data.selected = props.selected;
+    data.selected = <ISelection>props.selected;
   }
 
 
   const select = <Element> document.querySelector('#select-id-'+ props.name);
   const selected = <Element> select.querySelector('.input-wrapper');
-  console.log(props.name, selected)
 
   selected && selected.addEventListener('click', () => {
-    select.querySelector('input').focus();
+    const input = select.querySelector('input');
+    input && input.focus();
     select.classList.add('select-focus');
-    console.log(props.name, selected)
   });
 
   selected && window.addEventListener('click', (e) => {
@@ -86,12 +86,12 @@ onMounted(() => {
 
 });
 
-const searchList = computed(() => {
+const searchList = computed((): ISelection[] => {
   if (!data.searchString) {
-    return props.list;
+    return <ISelection[]>props.list;
   }
 
-  return props.list.filter(item => item.name.includes(data.searchString));
+  return <ISelection[]> props.list.filter((item: any): ISelection[] => item.name.includes(data.searchString));
 });
 
 </script>
@@ -101,7 +101,10 @@ const searchList = computed(() => {
     <div class="custom-select__label" v-if="props.isLabel">Вид:</div>
     <div class="select" :ref="(el: any) => selectedRef = el" :id="'select-id-' + props.name">
       <div class="input-wrapper">
-        <SvgTemplate :name="data.selected?.svg ? data.selected?.svg : 'select_list'" v-if="props.svgIsLabel" :class="(data.selected?.color ? `${data.selected?.color}-stroke` : 'grey-stroke')"/>
+        <SvgTemplate
+            :name="data.selected?.svg ? data.selected?.svg : 'select_list'"
+            v-if="props.svgIsLabel"
+            :class="(data.selected?.color ? `${data.selected?.color}-stroke` : 'grey-stroke')"/>
         <input  class="hover" type="text" v-model="data.searchString" placeholder="Выберите картинку">
         <div class="selected-value d-none">
           {{ data.selected.name }}
@@ -118,7 +121,7 @@ const searchList = computed(() => {
             <SvgTemplate v-if="props.svgIsLabel && item?.svg" :name="item?.svg" :class="`${item.color}-bg`"/>
             <div>{{ item.name }}</div>
           </div>
-          <div class="selected-value-item" :class="{'selected-value-item-active': data.selected.id === item.id}"></div>
+          <div class="selected-value-item" :class="{'selected-value-item-active': item && data.selected.id === item?.id}"></div>
         </li>
       </menu>
     </div>

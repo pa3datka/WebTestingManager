@@ -67,7 +67,7 @@ const choseImage = (path: string) => {
             <div class="category-title">Language</div>
             <div
                 class="category-list"
-                :class="`img-${size.name}`"
+                :class="`img-${size?.name}`"
             >
               <div
                   class="category-list_item"
