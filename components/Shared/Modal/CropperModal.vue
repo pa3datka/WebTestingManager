@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Cropper } from 'vue-advanced-cropper';
-import 'vue-advanced-cropper/dist/style.css';
-import 'vue-advanced-cropper/dist/theme.compact.css';
+
+
 import CustomBackgroundCropper from "~/components/Shared/Modal/CustomBackgroundCropper.vue";
 
 const emit = defineEmits(['cropImage', 'closeCropper']);
