@@ -3,6 +3,7 @@ import { Cropper } from 'vue-advanced-cropper';
 
 
 import CustomBackgroundCropper from "~/components/Shared/Modal/CustomBackgroundCropper.vue";
+import { onUnmounted, onMounted } from "@vue/runtime-core";
 
 const emit = defineEmits(['cropImage', 'closeCropper']);
 const props = defineProps({
@@ -64,6 +65,16 @@ const change = ({coordinates}: any) => {
         }, 2000);
     }
 }
+
+onMounted(() => {
+  const body = document.querySelector('body');
+  body && (body.style.overflow = 'hidden');
+});
+
+onUnmounted(() => {
+  const body = document.querySelector('body');
+  body && (body.style.overflow = '');
+});
 </script>
 
 <template>

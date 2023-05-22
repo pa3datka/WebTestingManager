@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import Selection from "~/components/Shared/Input/Selection.vue";
-import {computed} from "@vue/reactivity";
-import {ISelection} from "~/composables/Interfaces/ComponentIntefaces/ISelection";
+import { computed } from "@vue/reactivity";
+import { ISelection } from "~/composables/Interfaces/ComponentIntefaces/ISelection";
+import { onUnmounted, onMounted } from "@vue/runtime-core";
 
 const emit = defineEmits(['choseImage']);
 const props = defineProps({
@@ -42,6 +43,13 @@ const imageSizeId = computed( {
 
 onMounted(() => {
   imageSizeId.value = Number(localStorage.getItem('chose_size_id') ?? 1);
+  const body = document.querySelector('body');
+  body && (body.style.overflow = 'hidden');
+});
+
+onUnmounted(() => {
+  const body = document.querySelector('body');
+  body && (body.style.overflow = '');
 });
 
 const choseImage = (path: string) => {
