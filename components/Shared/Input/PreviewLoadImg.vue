@@ -81,9 +81,8 @@ const closeModalChose = () => {
       :image="modelValue"
       v-on:close-cropper="closeCropper"
       v-on:crop-image="emitImage"
-      :width="500"
-      :height="500"
       :aspect-ratio="1/1"
+
   />
 
   <ChoseImageModal v-if="data.closeChose" v-on:chose-image="choseImage">

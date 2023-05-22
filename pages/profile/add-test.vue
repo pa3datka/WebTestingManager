@@ -8,7 +8,7 @@ definePageMeta({
 import PreviewLoadImg from "~/components/Shared/Input/PreviewLoadImg.vue";
 
 const data = reactive({
-    img: ''
+    img: <string> ''
 });
 </script>
 
