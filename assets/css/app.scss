@@ -69,6 +69,9 @@ body {
   /* Handle */
   &::-webkit-scrollbar-thumb {
     background: #C4C3CD;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   /* Handle on hover */

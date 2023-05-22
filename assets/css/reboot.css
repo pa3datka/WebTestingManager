@@ -120,9 +120,15 @@ input:-webkit-autofill {
 }
 
 input,
-textarea {
+textarea,
+textarea:focus,
+textarea:focus-visible {
     border-radius: 0;
+    border: none;
+    outline: none;
 }
+
+
 input::-moz-placeholder, textarea::-moz-placeholder {
     opacity: 1;
 }

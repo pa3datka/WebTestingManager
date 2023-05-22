@@ -45,7 +45,7 @@ onMounted(() => {
             </li>
         </menu>
 
-        <div class="collapse hover" @click="openDashboard()">
+        <div class="container-collapse hover" @click="openDashboard()">
             <div class="btn-collapse d-flex align-items-center">
                 <div class="btn-svg">
                     <svg-template name="collapse"/>

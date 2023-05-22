@@ -82,7 +82,6 @@ const closeModalChose = () => {
       v-on:close-cropper="closeCropper"
       v-on:crop-image="emitImage"
       :aspect-ratio="1/1"
-
   />
 
   <ChoseImageModal v-if="data.closeChose" v-on:chose-image="choseImage">
@@ -91,16 +90,3 @@ const closeModalChose = () => {
     </template>
   </ChoseImageModal>
 </template>
-
-
-<style lang="scss">
-@import "@/assets/css/variables.scss";
-@import "@/assets/css/components/parts/buttons/cycle-radius-btn";
-@import "@/assets/css/components/parts/inputs/image-thumbnail-uploader";
-@import "@/assets/css/components/parts/modals/cropper-modal";
-@import "@/assets/css/components/parts/modals/chose-upload-images-modal";
-@import "@/assets/css/components/parts/inputs/select-svg-label";
-@import 'vue-advanced-cropper/dist/style.css';
-@import 'vue-advanced-cropper/dist/theme.compact.css';
-
-</style>
