@@ -1,5 +1,5 @@
 .dashboard-wrapper {
-  width: rem-calc(277);
+  width: rem-calc(186);
   height: 100%;
   background-color: $color-white-bg;
   transition: all .2s ease-in-out;
@@ -7,14 +7,19 @@
 
   .top {
     .logo-container {
-      padding-left: rem-calc(40);
-      padding-top: rem-calc(28);
 
+      padding-top: rem-calc(28);
+      display: flex;
+      justify-content: center;
       .logo-main {
         column-gap: rem-calc(8);
         color: $color-text-dark;
         font-size: $font18;
         font-weight: $font-weight5;
+      }
+
+      span {
+        display: none;
       }
     }
   }
@@ -107,6 +112,22 @@
   }
 }
 
+@media (min-width: rem-calc(992)) {
+  .dashboard-wrapper {
+    width: rem-calc(277);
+
+    .top {
+      .logo-container {
+        padding-left: rem-calc(40);
+        display: block;
+        span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
 .dashboard-min {
   width: rem-calc(104);
   background-color: $color-blue;
@@ -115,6 +136,7 @@
     .logo-container {
       padding-left: rem-calc(32);
       padding-top: rem-calc(28);
+      display: block!important;
 
       .logo-main {
         display: none !important;
@@ -191,3 +213,5 @@
     }
   }
 }
+
+

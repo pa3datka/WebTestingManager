@@ -129,6 +129,5 @@ onMounted(() => {
       </menu>
 
     </div>
-
   </div>
 </template>

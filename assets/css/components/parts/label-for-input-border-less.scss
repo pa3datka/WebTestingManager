@@ -1,0 +1,31 @@
+.label-border-less {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: rem-calc(11);
+  border-bottom: rem-calc(1) solid #EDEEF8;
+
+  .label {
+    padding-bottom: rem-calc(11);
+    font-size: $font13;
+    color: #626167;
+    line-height: 150%;
+  }
+
+  .input {
+    padding-bottom: rem-calc(11);
+  }
+}
+.label-border-less-not-border {
+  border-bottom: none!important;
+}
+
+@media (min-width: rem-calc(992)) {
+  .label-border-less {
+
+    .label {
+      font-size: $font15;
+    }
+
+  }
+}

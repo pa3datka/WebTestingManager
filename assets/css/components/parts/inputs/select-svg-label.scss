@@ -72,10 +72,13 @@
       background-color: #FFFFFF;
       border-bottom-right-radius: rem-calc(4);
       border-bottom-left-radius: rem-calc(4);
-
+      box-shadow: 1px 4px 16px rgba(44, 100, 220, 0.13);
 
 
       li {
+        &:last-child {
+          border-bottom: none;
+        }
         height: rem-calc(48);
         display: flex;
         align-items: center;

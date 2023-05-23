@@ -12,11 +12,16 @@
   justify-content: center;
 }
 
-.column-gap-20 {
-  column-gap: rem-calc(20);
+.justify-content-center-ms {
+  justify-content: center;
 }
 
+
+
 @media (min-width: rem-calc(768)) {
+  .justify-content-center-ms {
+    justify-content: inherit;
+  }
   .d-flex-md {
     display: flex!important;
   }
@@ -26,4 +31,145 @@
   .d-flex-lg {
     display: flex!important;
   }
+  .justify-content-center-ms {
+    justify-content: inherit;
+  }
 }
+
+//COLUMN-GAP
+.column-gap-sm-10 {
+  column-gap: rem-calc(10);
+}
+
+.column-gap-sm-15 {
+  column-gap: rem-calc(15);
+}
+
+.column-gap-sm-20 {
+  column-gap: rem-calc(20);
+}
+
+.column-gap-sm-24 {
+  column-gap: rem-calc(25);
+}
+
+.column-gap-sm-25 {
+  column-gap: rem-calc(25);
+}
+
+.column-gap-sm-30 {
+  column-gap: rem-calc(30);
+}
+
+.column-gap-sm-31 {
+  column-gap: rem-calc(31);
+}
+
+.column-gap-sm-32 {
+  column-gap: rem-calc(32);
+}
+
+.column-gap-sm-35 {
+  column-gap: rem-calc(35);
+}
+
+@media (min-width: rem-calc(768)) {
+  .column-gap-md-10 {
+    column-gap: rem-calc(10);
+  }
+
+  .column-gap-md-15 {
+    column-gap: rem-calc(15);
+  }
+
+  .column-gap-md-20 {
+    column-gap: rem-calc(20);
+  }
+
+  .column-gap-md-25 {
+    column-gap: rem-calc(25);
+  }
+
+  .column-gap-md-30 {
+    column-gap: rem-calc(30);
+  }
+
+  .column-gap-md-31 {
+    column-gap: rem-calc(31);
+  }
+
+  .column-gap-md-32 {
+    column-gap: rem-calc(32);
+  }
+
+  .column-gap-md-35 {
+    column-gap: rem-calc(35);
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .column-gap-lg-10 {
+    column-gap: rem-calc(10);
+  }
+
+  .column-gap-lg-15 {
+    column-gap: rem-calc(15);
+  }
+
+  .column-gap-lg-20 {
+    column-gap: rem-calc(20);
+  }
+
+  .column-gap-lg-25 {
+    column-gap: rem-calc(25);
+  }
+
+  .column-gap-lg-30 {
+    column-gap: rem-calc(30);
+  }
+
+  .column-gap-lg-31 {
+    column-gap: rem-calc(31);
+  }
+
+  .column-gap-lg-32 {
+    column-gap: rem-calc(32);
+  }
+
+  .column-gap-lg-35 {
+    column-gap: rem-calc(35);
+  }
+}
+// END COLUMN-GAP
+
+//ROW GAP
+.row-gap-sm-24 {
+  row-gap: rem-calc(24);
+}
+
+@media (min-width: rem-calc(768)) {
+
+}
+
+@media (min-width: rem-calc(992)) {
+
+}
+//END ROW GAP
+
+//FLEX WRAP
+.flex-wrap-sm {
+  flex-wrap: wrap;
+}
+
+@media (min-width: rem-calc(768)) {
+  .flex-wrap-sm {
+    flex-wrap: inherit;
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .flex-wrap-sm {
+    flex-wrap: inherit;
+  }
+}
+//END FLEX WRAP

@@ -1,0 +1,47 @@
+.input-borderless {
+  height: 100%;
+
+  input[type="number"] {
+    background-image: url("/assets/img/svg/number-arrow.svg");
+    background-repeat: no-repeat;
+    background-position: center right;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    opacity: 1 !important;
+    background: transparent !important;
+    border-width: 0px;
+    margin: 0;
+    height: 20px;
+    width: 24px;
+    cursor: pointer;
+  }
+
+  input {
+    height: 100%;
+    font-size: $font13;
+    color: #262342;
+    text-align: right;
+    letter-spacing: 0.03em;
+
+    &::placeholder {
+      color: #262342;
+      font-size: $font13;
+      text-align: right;
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .input-borderless {
+
+    input {
+      font-size: $font15;
+
+      &::placeholder {
+        font-size: $font15;
+      }
+    }
+  }
+}

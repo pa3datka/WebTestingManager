@@ -126,6 +126,7 @@ textarea:focus-visible {
     border-radius: 0;
     border: none;
     outline: none;
+    -moz-appearance: none;
 }
 
 
