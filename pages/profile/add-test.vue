@@ -8,6 +8,8 @@ import SelectionBorderless from "~/components/Shared/Input/SelectionBorderless.v
 import LabelForInputBorderless from "~/components/Shared/LabelForInputBorderless.vue";
 import InputBorderless from "~/components/Shared/Input/InputBorderless.vue";
 import Switch from "~/components/Shared/Input/Switch.vue";
+import ButtonNumberQuest from "~/components/Shared/Button/ButtonNumberQuest.vue";
+import ButtonCycleLabelSvg from "~/components/Shared/Button/ButtonCycleLabelSvg.vue";
 
 import {useCategoriesStore} from "~/store/shared/CategoriesStore";
 
@@ -51,20 +53,52 @@ const data = reactive({
     { id: 1, name: 'show immediately'},
     { id: 2, name: 'show after completion'},
     { id: 3, name: 'never show'},
-  ]
+  ],
+
+  activeQuest: 1,
+  questsBtn: [
+    { active: true, id: 1, value: '1', activeValue: 'quest' },
+
+  ],
 });
 
+const addQuest = () => {
+  let lastItemId = <number> data.questsBtn.length - 1;
+  const newQuest = { id: data.questsBtn[lastItemId].id + 1, value: String((data.questsBtn[lastItemId].id + 1)), activeValue: 'quest', active: true };
+  data.questsBtn.map((quest, index) => {
+    data.questsBtn[index].active = false;
+  });
+  data.questsBtn.push( newQuest );
+}
+const activeButton = (val: any) => {
+  data.questsBtn.map((quest, index) => {
+    data.questsBtn[index].active = false;
+    if (quest.id === val.id) {
+      data.questsBtn[index].active = val.active;
+    }
+
+  });
+  console.log(val);
+};
+const deleteQuest = () => {
+  data.questsBtn.map((quest, index) => {
+    if (quest.active) {
+      console.log(index)
+      data.questsBtn.splice(index, 1);
+    }
+  });
+}
 </script>
 
 <template>
   <div class="container">
     <Collapse :label-svg="'label-setting'">
       <template v-slot:Title>
-        Общие настройки
+        General settings
       </template>
       <template v-slot:content>
         <div class="d-grid grid-columns-1-sm grid-columns-2-1-lg column-gap-lg-20 row-gap-sm-24">
-          <div class="d-flex column-gap-sm-24 column-gap-lg-32 flex-wrap-sm justify-content-center-ms row-gap-sm-24">
+          <div class="d-flex column-gap-sm-24 column-gap-lg-32 flex-wrap-sm flex-no-wrap-md justify-content-center-ms row-gap-sm-24">
             <PreviewLoadImg v-model="data.img"/>
 
             <div class="W-100 max-width-lg-455" >
@@ -137,6 +171,40 @@ const data = reactive({
           </div>
         </div>
       </template>
+    </Collapse>
+
+    <Collapse class="mt-sm-20" :label-svg="'label-edit'">
+      <template v-slot:Title>
+        Question editor
+      </template>
+      <template v-slot:content>
+        <div class="d-flex flex-no-wrap-sm justify-space-between column-gap-sm-15 column-gap-lg-20">
+          <div class="quest-buttons-container d-flex column-gap-sm-8 column-gap-lg-12 row-gap-sm-8 row-gap-lg-12 flex-wrap-sm">
+
+            <ButtonNumberQuest
+                v-for="btn in data.questsBtn"
+                :key="btn.id"
+                v-on:active="activeButton"
+                :is-active="btn.active"
+                :value="btn.value"
+                :active-value="btn.activeValue"
+                :id="btn.id"
+            />
+            <ButtonNumberQuest
+                :is-active="false"
+                :value="'+'"
+                @click="addQuest"
+            />
+          </div>
+          <div class="">
+            <ButtonCycleLabelSvg v-show="data.questsBtn.length > 1" value="Delete quest" class="button-cycle-label-svg-min hover-error" @click="deleteQuest">
+              <template v-slot:label>
+                <SvgTemplate name="delete"/>
+              </template>
+            </ButtonCycleLabelSvg>
+          </div>
+        </div>
+      </template>
 
     </Collapse>
   </div>
@@ -145,6 +213,7 @@ const data = reactive({
 <style lang="scss">
 @import "@/assets/css/variables.scss";
 @import "@/assets/css/components/parts/buttons/cycle-radius-btn";
+@import "@/assets/css/components/parts/buttons/button-cycle-label-svg";
 @import "@/assets/css/components/parts/inputs/image-thumbnail-uploader";
 @import "@/assets/css/components/parts/inputs/textarea";
 @import "@/assets/css/components/parts/modals/cropper-modal";
