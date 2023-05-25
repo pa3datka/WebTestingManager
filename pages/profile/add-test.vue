@@ -10,6 +10,7 @@ import InputBorderless from "~/components/Shared/Input/InputBorderless.vue";
 import Switch from "~/components/Shared/Input/Switch.vue";
 import ButtonNumberQuest from "~/components/Shared/Button/ButtonNumberQuest.vue";
 import ButtonCycleLabelSvg from "~/components/Shared/Button/ButtonCycleLabelSvg.vue";
+import TypeAnswersSelection from "~/components/CreateTest/TypeAnswersSelection.vue";
 
 import {useCategoriesStore} from "~/store/shared/CategoriesStore";
 
@@ -97,7 +98,7 @@ const deleteQuest = () => {
         General settings
       </template>
       <template v-slot:content>
-        <div class="d-grid grid-columns-1-sm grid-columns-2-1-lg column-gap-lg-20 row-gap-sm-24">
+        <div class="content-collapse collapse-container d-grid grid-columns-1-sm grid-columns-2-1-lg column-gap-lg-20 row-gap-sm-24">
           <div class="d-flex column-gap-sm-24 column-gap-lg-32 flex-wrap-sm flex-no-wrap-md justify-content-center-ms row-gap-sm-24">
             <PreviewLoadImg v-model="data.img"/>
 
@@ -178,7 +179,7 @@ const deleteQuest = () => {
         Question editor
       </template>
       <template v-slot:content>
-        <div class="d-flex flex-no-wrap-sm justify-space-between column-gap-sm-15 column-gap-lg-20">
+        <div class="collapse-container pb-sm-25 pt-sm-25 pb-lg-40 pt-lg-40 d-flex flex-no-wrap-sm justify-space-between column-gap-sm-15 column-gap-lg-20">
           <div class="quest-buttons-container d-flex column-gap-sm-8 column-gap-lg-12 row-gap-sm-8 row-gap-lg-12 flex-wrap-sm">
 
             <ButtonNumberQuest
@@ -204,6 +205,13 @@ const deleteQuest = () => {
             </ButtonCycleLabelSvg>
           </div>
         </div>
+
+        <div class="d-flex quest-container">
+          <div class="">
+            <TypeAnswersSelection />
+          </div>
+          <div class="collapse-container"></div>
+        </div>
       </template>
 
     </Collapse>
@@ -227,4 +235,7 @@ const deleteQuest = () => {
 @import '@/assets/css/components/parts/inputs/switch';
 @import '@/assets/css/components/parts/label-for-input-border-less';
 
+.quest-container {
+  border-top: rem-calc(1) solid #E4E5F1;
+}
 </style>

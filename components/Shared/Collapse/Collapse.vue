@@ -44,7 +44,7 @@ const collapse = async () => {
       </div>
     </div>
 
-    <div class="content-collapse">
+    <div class="">
       <slot name="content"></slot>
     </div>
 

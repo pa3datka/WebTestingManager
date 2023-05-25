@@ -68,9 +68,14 @@
 
   .content-collapse {
     width: 100%;
-    padding: rem-calc((24, 16, 32, 16));
     height: auto;
+    padding-top: rem-calc(24);
+    padding-bottom: rem-calc(32);
+  }
 
+  .collapse-container {
+    padding-left: rem-calc(16);
+    padding-right: rem-calc(16);
   }
 }
 
@@ -97,7 +102,13 @@
     }
 
     .content-collapse {
-      padding: rem-calc((24, 20, 32, 20));
+      padding-top: rem-calc(24);
+      padding-bottom: rem-calc(32);
+    }
+
+    .collapse-container {
+      padding-left: rem-calc(20);
+      padding-right: rem-calc(20);
     }
   }
 }
@@ -126,8 +137,13 @@
     }
 
     .content-collapse {
-      padding: rem-calc((40, 32, 48, 32));
+      padding-top: rem-calc(40);
+      padding-bottom: rem-calc(48);
+    }
 
+    .collapse-container {
+      padding-left: rem-calc(32);
+      padding-right: rem-calc(32);
     }
   }
 
