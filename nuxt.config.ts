@@ -1,8 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {RuntimeConfig} from "nuxt/schema";
-import {ConfigLayerMeta} from "c12";
 
-export default defineNuxtConfig({
+import { ConfigSchema } from "@nuxt/schema/schema/config";
+
+const config = <ConfigSchema> {
+    app: {
+        rootId: '_tmt',
+        head: {
+            meta: [
+                { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+            ],
+        },
+
+    },
     runtimeConfig: {
         public: {
             apiBase: process.env.API_BASE_URL,
@@ -37,6 +46,6 @@ export default defineNuxtConfig({
         strict: true,
         typeCheck: true
     },
-
-
-})
+};
+// @ts-ignore
+export default defineNuxtConfig(config);

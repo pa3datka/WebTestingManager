@@ -47,9 +47,6 @@ const closeCropper = (val: boolean): void => {
 const closeModalChose = () => {
   data.closeChose = !data.closeChose;
 }
-
-
-
 </script>
 
 <template>
@@ -74,15 +71,16 @@ const closeModalChose = () => {
         <input type="file" class="custom-file-input-btn" accept="image/*" name="upload-img2" @change="getImage"/>
       </div>
     </div>
+    <CropperModal
+        v-if="data.closeCropper"
+        :image="modelValue"
+        v-on:close-cropper="closeCropper"
+        v-on:crop-image="emitImage"
+        :aspect-ratio="1/1"
+    />
   </div>
 
-  <CropperModal
-      v-if="data.closeCropper"
-      :image="modelValue"
-      v-on:close-cropper="closeCropper"
-      v-on:crop-image="emitImage"
-      :aspect-ratio="1/1"
-  />
+
 
   <ChoseImageModal v-if="data.closeChose" v-on:chose-image="choseImage">
     <template v-slot:close>

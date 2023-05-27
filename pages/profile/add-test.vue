@@ -10,9 +10,19 @@ import InputBorderless from "~/components/Shared/Input/InputBorderless.vue";
 import Switch from "~/components/Shared/Input/Switch.vue";
 import ButtonNumberQuest from "~/components/Shared/Button/ButtonNumberQuest.vue";
 import ButtonCycleLabelSvg from "~/components/Shared/Button/ButtonCycleLabelSvg.vue";
-import TypeAnswersSelection from "~/components/CreateTest/TypeAnswersSelection.vue";
+import PreviewLoadImg from "~/components/Shared/Input/PreviewLoadImg.vue";
+import SelectionTypeQuest from "~/components/CreateTest/SelectionTypeQuest.vue";
+import ListTypeQuest from "~/components/CreateTest/ListTypeQuest.vue";
+import InputNumber from "~/components/Shared/Input/InputNumber.vue";
+import CheckBoxTextOrSvg from "~/components/Shared/CheckBox/CheckBoxTextOrSvg.vue";
 
-import {useCategoriesStore} from "~/store/shared/CategoriesStore";
+import { ITypeSelection } from "~/composables/Interfaces/ComponentIntefaces/ITypeSelection";
+import { ISelectionBorderless } from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
+
+import { useCategoriesStore } from "~/store/shared/CategoriesStore";
+import { computed } from "@vue/reactivity";
+import {rule} from "postcss";
+import InputImage from "~/components/Shared/Input/InputImage.vue";
 
 const categories = computed(() => useCategoriesStore().getCategories);
 
@@ -21,9 +31,6 @@ definePageMeta({
   layout: 'dashboard',
   middleware: ['is-auth']
 });
-import PreviewLoadImg from "~/components/Shared/Input/PreviewLoadImg.vue";
-import {computed} from "@vue/reactivity";
-import {ISelectionBorderless} from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
 
 const data = reactive({
   img: <string> '',
@@ -38,6 +45,12 @@ const data = reactive({
   showAnswers: <number> 0,
   cheating: <number|string> '',
   shuffleAnswers: <boolean> false,
+
+  typeAnswer: <number> 1,
+  quest: <string> '',
+  questPints: <number> 0,
+  answer: <string> '',
+  checkbox: <boolean> false,
 
   typeAssessmentArr:  <ISelectionBorderless[]> [
       { id: 1, name: 'points'},
@@ -60,6 +73,14 @@ const data = reactive({
   questsBtn: [
     { active: true, id: 1, value: '1', activeValue: 'quest' },
 
+  ],
+
+  questTypes: <ITypeSelection[]> [
+    { id: 1, name: 'text', description: 'Select one or more answers' },
+    { id: 2, name: 'picture', description: 'Select one or more pictures' },
+    { id: 3, name: 'Sequence (text)', description: 'Specify the sequence of answers' },
+    { id: 4, name: 'Sequence (pictures)', description: 'Specify the sequence of answers' },
+    { id: 5, name: 'Fill in the gaps', description: 'Insert missing characters or words' },
   ],
 });
 
@@ -206,11 +227,36 @@ const deleteQuest = () => {
           </div>
         </div>
 
-        <div class="d-flex quest-container">
-          <div class="">
-            <TypeAnswersSelection />
+        <div class="quest-container">
+          <div class="answer-types-container">
+              <div class="answer-types-title">Question Format</div>
+
+              <div class="desktop-answer-types">
+                <ListTypeQuest v-model="data.typeAnswer" :list="data.questTypes" :selected-id="data.typeAnswer"/>
+              </div>
+
+              <div class="mobile-type-container">
+                <SelectionTypeQuest v-model="data.typeAnswer" :list="data.questTypes" :selected-id="data.typeAnswer"/>
+              </div>
+            </div>
+
+          <div class="collapse-container quest-builder">
+            <div class="quest-builder__quest">
+              <div class="title pb-sm-24">Quest</div>
+              <InputImage class="mt-sm-24"/>
+              <Textarea class="mt-sm-14" v-model="data.quest" :name="'quest'" :placeholder="'Enter quest'" />
+              <InputNumber class="mt-sm-14" v-model="data.questPints" name="quest-point" placeholder="Enter count points"/>
+
+
+
+              <div class="title pt-sm-24 pb-sm-24">Answers</div>
+              <div class="quest-option">
+                <AuthInput v-model="data.answer" name="answer" placeholder="Option"/>
+
+
+              </div>
+            </div>
           </div>
-          <div class="collapse-container"></div>
         </div>
       </template>
 
@@ -234,8 +280,85 @@ const deleteQuest = () => {
 @import '@/assets/css/components/parts/inputs/input-borderless';
 @import '@/assets/css/components/parts/inputs/switch';
 @import '@/assets/css/components/parts/label-for-input-border-less';
+@import '@/assets/css/components/parts/inputs/selection-type-quest';
+@import '@/assets/css/components/parts/lists/list-type-quest';
 
 .quest-container {
+  margin-bottom: 300px;
+  display: grid;
+  grid-template-columns: 1fr;
   border-top: rem-calc(1) solid #E4E5F1;
+
+  .answer-types-container {
+    width: 100%;
+    background-color: #F8F8FC;
+    padding: rem-calc((24, 16));
+
+    .answer-types-title {
+      padding-left: rem-calc(0);
+      padding-right: rem-calc(16);
+      padding-bottom: 16px;
+      font-weight: $font-weight5;
+      font-size: $font15;
+    }
+
+    .desktop-answer-types {
+      max-width: rem-calc(439);
+      display: none;
+    }
+
+    .mobile-type-container {
+      display: block;
+    }
+  }
+
+  .quest-builder {
+    .quest-builder__quest {
+      padding-top: 24px;
+      .title {
+        font-size: $font15;
+        font-weight: $font-weight5;
+        color: #262342;
+      }
+    }
+
+    .text-input {
+      height: 163px;
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .quest-container {
+    grid-template-columns: auto 1fr;
+
+    .answer-types-container {
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .quest-container {
+
+    .answer-types-container {
+      padding: rem-calc((40, 16));
+      border-right: rem-calc(1) solid #E4E5F1;
+
+      .answer-types-title {
+        padding-left: rem-calc(16);
+        padding-right: rem-calc(16);
+        font-size: $font17;
+      }
+
+      .mobile-type-container {
+        display: none;
+      }
+
+      .desktop-answer-types {
+        display: block;
+      }
+    }
+  }
+
 }
 </style>

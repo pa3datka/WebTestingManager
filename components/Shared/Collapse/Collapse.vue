@@ -11,7 +11,7 @@ const collapseRef = <Ref>ref(null);
 
 const collapse = async () => {
   const btnHeight = collapseRef.value.querySelector('.btn-collapse').clientHeight;
-  const contentHeight = collapseRef.value.querySelector('.content-collapse').clientHeight;
+  const contentHeight = collapseRef.value.querySelector('.content').clientHeight;
 
   if (!collapseRef.value.classList.contains('hide-collapse')) {
     collapseRef.value.style.overflow = 'hidden';
@@ -44,7 +44,7 @@ const collapse = async () => {
       </div>
     </div>
 
-    <div class="">
+    <div class="content">
       <slot name="content"></slot>
     </div>
 

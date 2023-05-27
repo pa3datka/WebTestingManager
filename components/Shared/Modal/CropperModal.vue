@@ -67,22 +67,22 @@ onUnmounted(() => {
     <div class="cropper-info" v-show="data.notification">
       {{ data.notification }}
     </div>
-    <div class="cropper-wrapper">
-      <cropper
-          @change="change"
-          class="cropper-item"
-          :src="image"
+      <div class="cropper-wrapper">
+        <cropper
+            @change="change"
+            class="cropper-item"
+            :src="image"
 
-          :stencil-props="{movable: true, resizable: false,aspectRatio: props.aspectRatio}"
-          :resize-image="{adjustStencil: false}"
-          image-restriction="stencil"
-          :ref="(el: any) => cropperRef = el"
-          :background-wrapper-component="CustomBackgroundCropper"
-      />
+            :stencil-props="{movable: true, resizable: false,aspectRatio: props.aspectRatio}"
+            :resize-image="{adjustStencil: false}"
+            image-restriction="stencil"
+            :ref="(el: any) => cropperRef = el"
+            :background-wrapper-component="CustomBackgroundCropper"
+        />
 
-      <button class="btn-cycle W-100 hover mt-sm-10" @click="crop(cropperRef)">
-        Done
-      </button>
+        <button class="btn-cycle W-100 hover mt-sm-10" @click="crop(cropperRef)">
+          Done
+        </button>
     </div>
   </div>
 </template>
