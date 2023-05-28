@@ -15,6 +15,8 @@ import SelectionTypeQuest from "~/components/CreateTest/SelectionTypeQuest.vue";
 import ListTypeQuest from "~/components/CreateTest/ListTypeQuest.vue";
 import InputNumber from "~/components/Shared/Input/InputNumber.vue";
 import CheckBoxTextOrSvg from "~/components/Shared/CheckBox/CheckBoxTextOrSvg.vue";
+import ButtonMin from "~/components/Shared/Button/ButtonMin.vue";
+import InputTextEditor from "~/components/Shared/Input/InputTextEditor.vue";
 
 import { ITypeSelection } from "~/composables/Interfaces/ComponentIntefaces/ITypeSelection";
 import { ISelectionBorderless } from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
@@ -240,7 +242,7 @@ const deleteQuest = () => {
               </div>
             </div>
 
-          <div class="collapse-container quest-builder">
+          <div class="collapse-container quest-builder pb-sm-32 pb-lg-48">
             <div class="quest-builder__quest">
               <div class="title pb-sm-24">Quest</div>
               <InputImage class="mt-sm-24"/>
@@ -253,8 +255,17 @@ const deleteQuest = () => {
               <div class="quest-option">
                 <AuthInput v-model="data.answer" name="answer" placeholder="Option"/>
 
+                <div class="btn-group">
+                  <CheckBoxTextOrSvg class="" v-model="data.checkbox" :id="'asnwer'" name="answer-check"/>
 
+                  <div class="btn-add-delete">
+                    <ButtonMin class="hover" text="+" />
+                    <ButtonMin class="hover" text="-" />
+                  </div>
+                </div>
               </div>
+              <div class="title pt-sm-24">Explanation</div>
+              <InputTextEditor class="mt-sm-20" />
             </div>
           </div>
         </div>
@@ -283,8 +294,8 @@ const deleteQuest = () => {
 @import '@/assets/css/components/parts/inputs/selection-type-quest';
 @import '@/assets/css/components/parts/lists/list-type-quest';
 
+
 .quest-container {
-  margin-bottom: 300px;
   display: grid;
   grid-template-columns: 1fr;
   border-top: rem-calc(1) solid #E4E5F1;
@@ -319,6 +330,22 @@ const deleteQuest = () => {
         font-size: $font15;
         font-weight: $font-weight5;
         color: #262342;
+      }
+
+      .quest-option {
+
+        .btn-group {
+          padding-top: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .btn-add-delete {
+            display: flex;
+            align-items: center;
+            column-gap: 8px;
+          }
+        }
       }
     }
 

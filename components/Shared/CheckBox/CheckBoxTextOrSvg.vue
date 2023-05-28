@@ -1,12 +1,3 @@
-<template>
-  <div class="checkbox-correct-answer" :class="{ 'input-checkbox-error': getErrorMessage }">
-    <input class="v-h " type="checkbox" :id="id" :name="name" @click="value = !value" :checked="value">
-    <label :for="id">
-      <slot name="label"></slot>
-    </label>
-  </div>
-</template>
-
 <script>
 export default {
   name: "CheckBox",
@@ -50,6 +41,15 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="checkbox-correct-answer" :class="{ 'input-checkbox-error': getErrorMessage }">
+    <input class="v-h " type="checkbox" :id="id" :name="name" @click="value = !value" :checked="value">
+    <label :for="id">
+      <slot name="label"></slot>
+    </label>
+  </div>
+</template>
 
 <style>
 .v-h {
