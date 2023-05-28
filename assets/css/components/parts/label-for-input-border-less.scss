@@ -3,12 +3,12 @@
   display: flex;
   justify-content: space-between;
   padding-top: rem-calc(11);
-  border-bottom: rem-calc(1) solid #EDEEF8;
+  border-bottom: rem-calc(1) solid $color-lavender;
 
   .label {
     padding-bottom: rem-calc(11);
     font-size: $font13;
-    color: #626167;
+    color: $color-castlerock;
     line-height: 150%;
   }
 

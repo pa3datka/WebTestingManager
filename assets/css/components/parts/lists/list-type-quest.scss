@@ -7,49 +7,50 @@
     column-gap: rem-calc(16);
 
     &:hover {
-      background-color: #FFFFFF;
+      background-color: $color-white;
 
       .item-cycle {
-        border: rem-calc(1) solid #2C64DC;
+        border: rem-calc(1) solid $color-button-blue;
       }
     }
 
     .item-cycle {
       height: rem-calc(21);
       width: rem-calc(21);
-      border: rem-calc(1) solid #C4C3CD;
+      border: rem-calc(1) solid $color-ghost;
       border-radius: 50%;
-      background-color: #FFFFFF;
+      background-color: $color-white;
     }
     .type_type {
       font-size: $font15;
       font-weight: $font-weight5;
-      color: #262342;
+      color: $color-black-market;
 
     }
 
     .type_description {
       font-size: $font14;
-      color: #8F8E9C;
+      color: $color-grey-suit;
       padding-top: rem-calc(8);
     }
   }
 
   .item-active {
-    background-color: #FFFFFF;
+    background-color: $color-white;
     border-radius: rem-calc(4);
+
     .item-cycle {
-      border-radius: 50%;
-      border-color: #2C64DC;
-      background-color: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 50%;
+      border-color: $color-button-blue;
+      background-color: $color-white;
 
       .item-cycle_center {
         height: rem-calc(10);
         width: rem-calc(10);
-        background-color: #2C64DC;
+        background-color: $color-button-blue;
         border-radius: 50%;
       }
     }

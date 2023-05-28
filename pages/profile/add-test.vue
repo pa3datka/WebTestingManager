@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import ButtonSaveGroup from "~/components/CreateTest/parts/ButtonSaveGroup.vue";
+import Collapse from "~/components/Shared/Collapse/Collapse.vue";
 
 import Selection from "~/components/Shared/Input/Selection.vue";
 import Textarea from "~/components/Shared/Input/Textarea.vue";
-import Collapse from "~/components/Shared/Collapse/Collapse.vue";
+
 import AuthInput from "~/components/Shared/Input/AuthInput.vue";
 import SelectionBorderless from "~/components/Shared/Input/SelectionBorderless.vue";
 import LabelForInputBorderless from "~/components/Shared/LabelForInputBorderless.vue";
@@ -17,14 +19,14 @@ import InputNumber from "~/components/Shared/Input/InputNumber.vue";
 import CheckBoxTextOrSvg from "~/components/Shared/CheckBox/CheckBoxTextOrSvg.vue";
 import ButtonMin from "~/components/Shared/Button/ButtonMin.vue";
 import InputTextEditor from "~/components/Shared/Input/InputTextEditor.vue";
+import InputImage from "~/components/Shared/Input/InputImage.vue";
 
 import { ITypeSelection } from "~/composables/Interfaces/ComponentIntefaces/ITypeSelection";
 import { ISelectionBorderless } from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
 
 import { useCategoriesStore } from "~/store/shared/CategoriesStore";
 import { computed } from "@vue/reactivity";
-import {rule} from "postcss";
-import InputImage from "~/components/Shared/Input/InputImage.vue";
+
 
 const categories = computed(() => useCategoriesStore().getCategories);
 
@@ -115,7 +117,11 @@ const deleteQuest = () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container page-add-test">
+    <div class="page-title">
+      <div class="page-title__text">Тест 18.08.2022 – черновик</div>
+      <ButtonSaveGroup />
+    </div>
     <Collapse :label-svg="'label-setting'">
       <template v-slot:Title>
         General settings
@@ -249,8 +255,6 @@ const deleteQuest = () => {
               <Textarea class="mt-sm-14" v-model="data.quest" :name="'quest'" :placeholder="'Enter quest'" />
               <InputNumber class="mt-sm-14" v-model="data.questPints" name="quest-point" placeholder="Enter count points"/>
 
-
-
               <div class="title pt-sm-24 pb-sm-24">Answers</div>
               <div class="quest-option">
                 <AuthInput v-model="data.answer" name="answer" placeholder="Option"/>
@@ -259,8 +263,8 @@ const deleteQuest = () => {
                   <CheckBoxTextOrSvg class="" v-model="data.checkbox" :id="'asnwer'" name="answer-check"/>
 
                   <div class="btn-add-delete">
-                    <ButtonMin class="hover" text="+" />
-                    <ButtonMin class="hover" text="-" />
+                    <ButtonMin class="hover button-active-success" text="+" />
+                    <ButtonMin class="hover button-active-warning" text="-" />
                   </div>
                 </div>
               </div>
@@ -276,116 +280,27 @@ const deleteQuest = () => {
 </template>
 
 <style lang="scss">
+//components
 @import "@/assets/css/variables.scss";
-@import "@/assets/css/components/parts/buttons/cycle-radius-btn";
-@import "@/assets/css/components/parts/buttons/button-cycle-label-svg";
-@import "@/assets/css/components/parts/inputs/image-thumbnail-uploader";
-@import "@/assets/css/components/parts/inputs/textarea";
-@import "@/assets/css/components/parts/modals/cropper-modal";
-@import "@/assets/css/components/parts/modals/chose-upload-images-modal";
-@import "@/assets/css/components/parts/inputs/select-svg-label";
+@import "@/assets/css/components/parts/buttons/button-cycle-svg";
 @import "@/assets/css/components/parts/collapse/collapse";
+@import "~/assets/css/components/parts/inputs/upload-image-container";
+@import "@/assets/css/components/parts/modals/chose-upload-images-modal";
+@import "@/assets/css/components/parts/modals/cropper-modal";
+@import "@/assets/css/components/parts/inputs/select-svg-label";
+@import "@/assets/css/components/parts/inputs/textarea";
+@import '@/assets/css/components/parts/inputs/input-borderless';
 @import 'vue-advanced-cropper/dist/style.css';
 @import 'vue-advanced-cropper/dist/theme.compact.css';
+@import "@/assets/css/components/parts/buttons/cycle-radius-btn";
+@import "@/assets/css/components/parts/buttons/button-cycle-label-svg";
 @import '@/assets/css/components/parts/inputs/auth-input';
-@import '@/assets/css/components/parts/inputs/input-borderless';
 @import '@/assets/css/components/parts/inputs/switch';
 @import '@/assets/css/components/parts/label-for-input-border-less';
 @import '@/assets/css/components/parts/inputs/selection-type-quest';
 @import '@/assets/css/components/parts/lists/list-type-quest';
+@import "@/assets/css/components/parts/inputs/input-text-editor";
 
-
-.quest-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  border-top: rem-calc(1) solid #E4E5F1;
-
-  .answer-types-container {
-    width: 100%;
-    background-color: #F8F8FC;
-    padding: rem-calc((24, 16));
-
-    .answer-types-title {
-      padding-left: rem-calc(0);
-      padding-right: rem-calc(16);
-      padding-bottom: 16px;
-      font-weight: $font-weight5;
-      font-size: $font15;
-    }
-
-    .desktop-answer-types {
-      max-width: rem-calc(439);
-      display: none;
-    }
-
-    .mobile-type-container {
-      display: block;
-    }
-  }
-
-  .quest-builder {
-    .quest-builder__quest {
-      padding-top: 24px;
-      .title {
-        font-size: $font15;
-        font-weight: $font-weight5;
-        color: #262342;
-      }
-
-      .quest-option {
-
-        .btn-group {
-          padding-top: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          .btn-add-delete {
-            display: flex;
-            align-items: center;
-            column-gap: 8px;
-          }
-        }
-      }
-    }
-
-    .text-input {
-      height: 163px;
-    }
-  }
-}
-
-@media (min-width: rem-calc(992)) {
-  .quest-container {
-    grid-template-columns: auto 1fr;
-
-    .answer-types-container {
-    }
-  }
-}
-
-@media (min-width: rem-calc(992)) {
-  .quest-container {
-
-    .answer-types-container {
-      padding: rem-calc((40, 16));
-      border-right: rem-calc(1) solid #E4E5F1;
-
-      .answer-types-title {
-        padding-left: rem-calc(16);
-        padding-right: rem-calc(16);
-        font-size: $font17;
-      }
-
-      .mobile-type-container {
-        display: none;
-      }
-
-      .desktop-answer-types {
-        display: block;
-      }
-    }
-  }
-
-}
+//page style
+@import "@/assets/css/components/pages/add-test-page";
 </style>

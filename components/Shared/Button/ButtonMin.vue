@@ -19,8 +19,23 @@ const props = defineProps({
   border: 1px solid #E4E5F1;
   border-radius: 4px;
   color: #8F8E9C;
-  &:active {
-    border-color: #8F8E9C;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .button-min {
+    height: 40px;
+    width: 40px;
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 992px) {
+  .button-min {
+    height: 48px;
+    width: 48px;
+    font-size: 19px;
   }
 }
 </style>

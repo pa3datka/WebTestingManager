@@ -8,15 +8,15 @@
   align-items: center;
   justify-content: center;
   height: 40vh;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: rem-calc(10);
+  margin-right: rem-calc(10);
 
 
   .chose-background {
     position: fixed;
     z-index: 21;
     opacity: 0.75;
-    background-color: #262342;
+    background-color: $color-black-market;
     top: 0;
     bottom: 0;
     left: 0;
@@ -32,7 +32,7 @@
     max-width: rem-calc(975);
     height: auto;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: rem-calc(14);
 
 
     .chose-image-modal {
@@ -69,15 +69,15 @@
 
       .chose-modal-action {
         min-height: rem-calc(78);
-        background-color: $color-white-2;
-        border-bottom: rem-calc(1) solid $color-grey-7;
-        border-top: rem-calc(1) solid $color-grey-7;
-        padding: rem-calc((20, 28));
         display: grid;
-        grid-template-columns: 1fr;
-        row-gap: rem-calc(10);
         align-items: center;
         justify-content: space-between;
+        row-gap: rem-calc(10);
+        padding: rem-calc((20, 28));
+        background-color: $color-white-solid;
+        border-bottom: rem-calc(1) solid $color-iris-ice;
+        border-top: rem-calc(1) solid $color-iris-ice;
+        grid-template-columns: 1fr;
       }
 
       .chose-modal-content {
@@ -90,32 +90,32 @@
         .category {
           .category-title {
             font-size: $font17;
-            color: $color-grey;
+            color: $color-grey-suit;
             padding-top: rem-calc(20);
           }
 
           .img-small {
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(rem-calc(80), 1fr));
           }
           .img-medium {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(rem-calc(100), 1fr));
           }
           .img-large {
-            grid-template-columns: repeat(auto-fill, minmax(120px, 60%));
+            grid-template-columns: repeat(auto-fill, minmax(rem-calc(120), 60%));
           }
           .category-list {
             display: grid;
             justify-content: center;
-            row-gap: 15px;
-            column-gap: 10px;
+            row-gap: rem-calc(15);
+            column-gap: rem-calc(10);
             padding-top: rem-calc(24);
 
             .category-list_item {
               padding: rem-calc(6);
-              border-radius: 20px;
+              border-radius: rem-calc(20);
 
               &:hover {
-                border: 1.5px solid #DDDEE7;
+                border: rem-calc(1.5) solid $color-hosta-flower;
               }
 
               img {
@@ -171,7 +171,7 @@
             .category-title {}
 
             .img-large {
-              grid-template-columns: repeat(auto-fill, minmax(120px, 40%));
+              grid-template-columns: repeat(auto-fill, minmax(rem-calc(120), 40%));
             }
             .category-list {
 
@@ -216,7 +216,7 @@
             .category-title {}
 
             .img-large {
-              grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+              grid-template-columns: repeat(auto-fill, minmax(rem-calc(120), 1fr));
             }
 
             .category-list {

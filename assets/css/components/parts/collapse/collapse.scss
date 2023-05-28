@@ -5,7 +5,7 @@
   .btn-collapse {
     &:after {
       content: url('/assets/img/svg/vector.svg');
-      transform: rotate(180deg)!important;
+      transform: rotate(180deg) !important;
     }
   }
 }
@@ -40,6 +40,8 @@
       align-items: center;
       justify-content: center;
       column-gap: rem-calc(12);
+      text-transform: uppercase;
+      font-weight: $font-weight5;
 
       &:before {
         content: '';
@@ -48,8 +50,8 @@
         background-position: center center;
         background-size: contain;
         border-radius: rem-calc(8);
-        height: rem-calc(20);
-        width: rem-calc(20);
+        height: rem-calc(24);
+        width: rem-calc(24);
       }
     }
 
@@ -85,7 +87,6 @@
     height: rem-calc(56);
   }
   .collapse {
-    //max-height: rem-calc(56);
 
     .btn-collapse {
       padding: rem-calc((0, 22));
@@ -94,8 +95,8 @@
 
       .btn-collapse__name {
         &:before {
-          height: rem-calc(23);
-          width: rem-calc(23);
+          height: rem-calc(28);
+          width: rem-calc(28);
         }
       }
 
@@ -119,7 +120,7 @@
   }
 
   .collapse {
-    //max-height: rem-calc(72);
+    min-height: rem-calc(72);
 
     .btn-collapse {
       height: rem-calc(72);
@@ -146,5 +147,4 @@
       padding-right: rem-calc(32);
     }
   }
-
 }

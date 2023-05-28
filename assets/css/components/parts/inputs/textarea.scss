@@ -6,14 +6,14 @@
     height: 100%;
     padding: rem-calc(20);
     font-size: $font15;
-    color: #262342;
-    border: rem-calc(1) solid #E4E5F1;
+    color: $color-black-market;
+    border: rem-calc(1) solid $color-iris-ice;
     border-radius: rem-calc(4);
     overflow: auto;
 
     &::placeholder {
-      font-size: 15px;
-      color: #626167;
+      font-size: $font15;
+      color: $color-castlerock;
     }
   }
 
@@ -25,15 +25,15 @@
 .input-error textarea,
 .input-error textarea:focus,
 .input-error textarea:focus-visible {
-  border: 1px solid #F86B6B;
-  color: #F86B6B;
+  border: rem-calc(1) solid $color-bittersweet;
+  color: $color-bittersweet;
 }
 
 .input-error span {
   display: inline-block;
-  padding-top: 4px;
-  font-size: 12px;
-  color: #F86B6B;
+  padding-top: rem-calc(4);
+  font-size: $font12;
+  color: $color-bittersweet;
 
   animation-duration: .4s;
   animation-name: showError;

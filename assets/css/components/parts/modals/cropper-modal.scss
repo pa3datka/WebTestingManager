@@ -17,7 +17,7 @@
     position: fixed;
     z-index: 21;
     opacity: .7;
-    background-color: $color-dark;
+    background-color: $color-black-market;
     top:0;
     bottom: 0;
     left: 0;
@@ -30,7 +30,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 22;
-    background-color: #FFFFFF;
+    background-color: $color-white;
     border-radius: rem-calc(10);
     padding: rem-calc((20, 10));
     .cropper-item {

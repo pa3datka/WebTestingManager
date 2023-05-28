@@ -66,6 +66,7 @@ export default {
 }
 
 .checkbox-correct-answer {
+  position: relative;
   display: flex;
   align-items: center;
   column-gap: 14px;
@@ -100,5 +101,36 @@ export default {
 .checkbox-correct-answer input:checked ~ label:before {
   background-color: #7AC74F!important;
   color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .checkbox-correct-answer label {
+    column-gap: 0;
+  }
+
+  .checkbox-correct-answer label:before {
+    content: '';
+    min-height: 40px;
+    min-width: 40px;
+    background-image: url("/assets/img/svg/check-none.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px 20px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  .checkbox-correct-answer input:checked ~ label:before {
+    background-image: url("/assets/img/svg/check-ok.svg");
+    background-color: #FFFFFF!important;
+  }
+}
+
+@media (min-width: 992px) {
+  .checkbox-correct-answer label:before {
+    content: '';
+    min-height: 48px;
+    min-width: 48px;
+  }
 }
 </style>

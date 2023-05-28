@@ -10,15 +10,15 @@
     height: 0;
 
     &:checked + .slider {
-      border: rem-calc(2) solid #2C64DC;
+      border: rem-calc(2) solid $color-button-blue;
     }
 
     &:checked + .slider:before {
       -webkit-transform: translateX(rem-calc(26));
       -ms-transform: translateX(rem-calc(26));
-      background-color: #2C64DC;
+      background-color: $color-button-blue;
       transform: translateX(rem-calc(14));
-      border: rem-calc(2) solid #2C64DC;
+      border: rem-calc(2) solid $color-button-blue;
     }
   }
 
@@ -29,11 +29,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #FFFFFF;
+    background-color: $color-white;
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: rem-calc(34);
-    border: rem-calc(2) solid #C4C3CD;
+    border: rem-calc(2) solid $color-ghost;
 
     &:before {
       position: absolute;
@@ -42,7 +42,7 @@
       width: rem-calc(16);
       left: rem-calc(2);
       bottom: rem-calc(2);
-      background-color: #C4C3CD;
+      background-color: $color-ghost;
       -webkit-transition: .4s;
       transition: .4s;
       border-radius: 50%;

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {Cropper} from 'vue-advanced-cropper';
+import ButtonCycle from "~/components/Shared/Button/ButtonCycleSvg.vue";
+import { Cropper } from 'vue-advanced-cropper';
 
 
 import CustomBackgroundCropper from "~/components/Shared/Modal/CustomBackgroundCropper.vue";
-import {onUnmounted, onMounted} from "@vue/runtime-core";
+import { onUnmounted, onMounted } from "@vue/runtime-core";
 
 const emit = defineEmits(['cropImage', 'closeCropper']);
 const props = defineProps({
@@ -35,20 +36,7 @@ const crop = async (e: any) => {
     emit('cropImage', canvas.toDataURL());
     emit('closeCropper', false);
   }
-}
-
-const change = ({coordinates}: any) => {
-  // if (coordinates.width < props.minWidth || coordinates.height < props.minHeight) {
-  //   console.log(coordinates)
-  //   data.notification = `Min image size ${props.minWidth}x${props.minHeight}`;
-  //
-  //   setTimeout(() => {
-  //     data.notification = '';
-  //     emit('cropImage', '');
-  //     emit('closeCropper', false);
-  //   }, 2000);
-  // }
-}
+};
 
 onMounted(() => {
   const body = document.querySelector('body');
@@ -69,10 +57,8 @@ onUnmounted(() => {
     </div>
       <div class="cropper-wrapper">
         <cropper
-            @change="change"
             class="cropper-item"
             :src="image"
-
             :stencil-props="{movable: true, resizable: false,aspectRatio: props.aspectRatio}"
             :resize-image="{adjustStencil: false}"
             image-restriction="stencil"
@@ -80,9 +66,12 @@ onUnmounted(() => {
             :background-wrapper-component="CustomBackgroundCropper"
         />
 
-        <button class="btn-cycle W-100 hover mt-sm-10" @click="crop(cropperRef)">
-          Done
-        </button>
+        <ButtonCycle
+            class="W-100 white-bg mt-sm-10 button-active-info"
+            text="Done"
+            type="button"
+            @click="crop(cropperRef)"
+        />
     </div>
   </div>
 </template>

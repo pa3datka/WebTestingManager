@@ -2,18 +2,18 @@
   position: relative;
   width: rem-calc(307);
   height: rem-calc(307);
-  padding: rem-calc((24, 60));
-  border-radius: rem-calc(4);
-  background-color: $color-white-2;
   display: flex;
   justify-content: center;
+  padding: rem-calc((24, 60));
+  border-radius: rem-calc(4);
+  background-color: $color-white-solid;
 
   .upload-wrapper {
     .thumbnail-img {
       position: relative;
       width: rem-calc(169);
       height: rem-calc(169);
-      border: 1px dashed $color-grey-7;
+      border: 1px dashed $color-iris-ice;
       border-radius: rem-calc(4);
 
       .thumbnail-img__empty {
@@ -21,26 +21,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
         .thumbnail-not-img-wrapper {
           display: flex;
           align-items: center;
           flex-flow: column;
           justify-content: center;
-
           row-gap: rem-calc(12);
 
           .thumbnail-not-img {
             height: rem-calc(40);
             width: rem-calc(40);
-            background-color: $color-blue-1;
+            background-color: $color-summer-sky;
             border-radius: 50%;
-            background-image: url("@/assets/img/svg/img-preview.svg");
+            background-image: url("/assets/img/svg/img-preview.svg");
             background-repeat: no-repeat;
             background-position: center center;
           }
 
           .thumbnail-not-img-text {
-            color: $color-grey;
+            color: $color-castlerock;
             font-size: $font13;
           }
         }
@@ -75,7 +75,7 @@
           width: rem-calc(24);
           background-color: $color-white;
           z-index: 2;
-          background-image: url("@/assets/img/svg/close.svg");
+          background-image: url("/assets/img/svg/close.svg");
           background-repeat: no-repeat;
           background-position: center center;
         }
@@ -100,24 +100,24 @@
           white-space: nowrap;
           -webkit-user-select: none;
           border-radius: rem-calc(50);
-          border: rem-calc(1) solid $color-grey-5;
+          border: rem-calc(1) solid $color-hosta-flower;
           width: rem-calc(169);
           text-align: center;
           height: rem-calc(32);
-          background-color: $color-white-2;
+          background-color: $color-white-solid;
           font-size: $font13;
-          color: $color-dark;
+          color: $color-black-market;
           line-height: 2.3;
         }
 
         &:hover::before {
-          color: #FFFFFF;
-          background-color: $color-blue-2;
+          color: $color-white;
+          background-color: $color-button-blue;
           cursor: pointer;
         }
         &:active::before {
-          background-color: $color-blue-1;
-          color: #FFFFFF;
+          background-color: $color-button-blue;
+          color: $color-white;
         }
       }
     }
@@ -147,10 +147,7 @@
             }
           }
 
-
-          input {
-
-          }
+          input {}
         }
       }
 

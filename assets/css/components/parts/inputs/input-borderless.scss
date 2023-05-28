@@ -11,22 +11,22 @@
     -webkit-appearance: none !important;
     opacity: 1 !important;
     background: transparent !important;
-    border-width: 0px;
+    border-width: 0;
     margin: 0;
-    height: 20px;
-    width: 24px;
+    height: rem-calc(20);
+    width: rem-calc(24);
     cursor: pointer;
   }
 
   input {
     height: 100%;
     font-size: $font13;
-    color: #262342;
+    color: $color-black-market;
     text-align: right;
     letter-spacing: 0.03em;
 
     &::placeholder {
-      color: #262342;
+      color: $color-black-market;
       font-size: $font13;
       text-align: right;
     }

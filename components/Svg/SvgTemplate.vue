@@ -10,32 +10,39 @@ import CollapseSvg from '@/components/Svg/parts/CollapseSvg.vue';
 import CloseSquare from "~/components/Svg/parts/CloseSquare.vue";
 import SelectListSvg from "~/components/Svg/parts/SelectListSvg.vue";
 import DeleteSvg from "~/components/Svg/parts/DeleteSvg.vue";
+import ExportSvg from "~/components/Svg/parts/ExportSvg.vue";
+import Password from "~/components/Svg/parts/PasswordSvg.vue"
+import CheckSvg from "~/components/Svg/parts/CheckSvg.vue";
 
 const props = defineProps({
-    name: {
-        type: String,
-        default: ''
-    }
+  name: {
+    type: String,
+    default: ''
+  }
 });
+
 interface ISvgObject {
-    [key: string]: any;
+  [key: string]: any;
 };
 
-const svg = <ISvgObject> {
-    'message': MessageSvg,
-    'notification': NotificationSvg,
-    'settings': SettingSvg,
-    'home': HomeSvg,
-    'sign-out': SignOutSvg,
-    'arrow-back': ArrowBackSvg,
-    'add-test': AddTestSvg,
-    'collapse': CollapseSvg,
-    'close': CloseSquare,
-    'select_list': SelectListSvg,
-    'delete': DeleteSvg,
+const svg = <ISvgObject>{
+  'message': MessageSvg,
+  'notification': NotificationSvg,
+  'settings': SettingSvg,
+  'home': HomeSvg,
+  'sign-out': SignOutSvg,
+  'arrow-back': ArrowBackSvg,
+  'add-test': AddTestSvg,
+  'collapse': CollapseSvg,
+  'close': CloseSquare,
+  'select_list': SelectListSvg,
+  'delete': DeleteSvg,
+  'export': ExportSvg,
+  'password': Password,
+  'check': CheckSvg,
 }
 </script>
 
 <template>
-    <component :is="svg[props.name]" />
+  <component :is="svg[props.name]"/>
 </template>

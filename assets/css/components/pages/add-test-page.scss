@@ -1,0 +1,251 @@
+.page-add-test {
+
+  .page-title {
+    max-width: rem-calc(1240);
+    display: block;
+    padding-bottom: rem-calc(16);
+    font-size: $font18;
+
+    .page-title__text {
+      color: $color-black-market;
+      padding-bottom: rem-calc(16);
+      font-weight: $font-weight5;
+    }
+
+    .btn-save-group {
+        width: 100%;
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr auto 1fr;
+        border: rem-calc(1) solid $color-iris-ice;
+        border-radius: rem-calc(14);
+
+        .delimiter {
+          height: 60%;
+          border-left: rem-calc(1) solid $color-iris-ice;
+        }
+
+        div:first-child {
+          button {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+          }
+
+        }
+        div:last-child {
+          button {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+          }
+
+        }
+        button {
+          border: none;
+        }
+    }
+  }
+
+  .quest-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-top: rem-calc(1) solid $color-iris-ice;
+
+    .answer-types-container {
+      width: 100%;
+      background-color: $color-white-solid;
+      padding: rem-calc((24, 16));
+
+      .answer-types-title {
+        padding-left: rem-calc(0);
+        padding-right: rem-calc(16);
+        padding-bottom: rem-calc(16);
+        font-weight: $font-weight5;
+        font-size: $font15;
+      }
+
+      .desktop-answer-types {
+        max-width: rem-calc(439);
+        display: none;
+      }
+
+      .mobile-type-container {
+        display: block;
+      }
+    }
+
+    .quest-builder {
+      .quest-builder__quest {
+        padding-top: rem-calc(24);
+        .title {
+          font-size: $font15;
+          font-weight: $font-weight5;
+          color: $color-black-market;
+        }
+
+        .quest-option {
+          display: block;
+
+          .btn-group {
+            padding-top: rem-calc(8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .btn-add-delete {
+              display: flex;
+              align-items: center;
+              column-gap: rem-calc(8);
+            }
+          }
+        }
+      }
+
+      .text-input {
+        height: rem-calc(163);
+      }
+    }
+  }
+
+}
+
+@media (min-width: rem-calc(768)) {
+  .page-add-test {
+
+    .page-title {
+
+      .page-title__text {}
+
+      .btn-save-group {}
+    }
+
+    .quest-container {
+
+      .quest-builder {
+
+        .quest-builder__quest {
+
+          .quest-option {
+            display: flex;
+            .auth-input {
+              width: 100%;
+              input {
+                border-right: none;
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+              }
+            }
+
+            .btn-group {
+              padding-top: 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              column-gap: rem-calc(10);
+
+              .checkbox-correct-answer {
+                //display: none;
+              }
+
+              .btn-add-delete {
+                display: flex;
+                align-items: center;
+                column-gap: rem-calc(10);
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .page-add-test {
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: $font20;
+      padding-bottom: rem-calc(32);
+
+      .page-title__text {
+        padding-bottom: 0;
+      }
+
+      .btn-save-group {
+          max-width: rem-calc(420);
+          column-gap: rem-calc(20);
+          grid-template-columns: auto auto;
+          justify-content: right;
+          border: none;
+
+          .delimiter {
+            display: none;
+          }
+
+          div:first-child {
+            button {
+              border-bottom-right-radius: rem-calc(14);
+              border-top-right-radius: rem-calc(14);
+            }
+
+          }
+          div:last-child {
+            button {
+              border-bottom-left-radius: rem-calc(14);
+              border-top-left-radius: rem-calc(14);
+            }
+
+          }
+          button {
+            width: auto;
+            border: 1px solid $color-iris-ice;
+          }
+
+      }
+    }
+
+    .quest-container {
+      grid-template-columns: auto 1fr;
+
+      .answer-types-container {
+        padding: rem-calc((40, 16));
+        border-right: rem-calc(1) solid $color-iris-ice;
+
+        .answer-types-title {
+          padding-left: rem-calc(16);
+          padding-right: rem-calc(16);
+          font-size: $font17;
+        }
+
+        .mobile-type-container {
+          display: none;
+        }
+
+        .desktop-answer-types {
+          display: block;
+        }
+      }
+
+      .quest-builder {
+
+        .quest-builder__quest {
+
+          .quest-option {
+
+            .btn-group {
+              column-gap: rem-calc(12);
+
+              .btn-add-delete {
+                column-gap: rem-calc(12);
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
