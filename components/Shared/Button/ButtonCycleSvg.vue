@@ -1,9 +1,5 @@
 <script setup lang="ts">
 const props = defineProps({
-  type: {
-    type: String,
-    default: 'button'
-  },
   text: {
     type: String,
     default: ''
@@ -12,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <button class="button-cycle-svg hover" :type="props.type">
+  <button class="button-cycle-svg hover" type="button">
     <slot name="svg"></slot>
     <div class="text">{{ props.text }}</div>
   </button>

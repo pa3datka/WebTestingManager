@@ -69,7 +69,6 @@ onUnmounted(() => {
         <ButtonCycle
             class="W-100 white-bg mt-sm-10 button-active-info"
             text="Done"
-            type="button"
             @click="crop(cropperRef)"
         />
     </div>
