@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import {ISelectionBorderless} from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
 import {PropType} from "@vue/runtime-core";
+import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const props = defineProps({
   selected: {
-    type: Object as PropType<ISelectionBorderless>,
+    type: Object as PropType<ITestSetting>,
     default: {}
   },
   modelValue: {
     type: Number,
-    default: Array
+    default: null
   },
   list: {
-    type: Array as PropType<ISelectionBorderless[]>,
+    type: Array as PropType<ITestSetting[]>,
     default: []
   },
   name: {
@@ -24,13 +25,13 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const data = reactive({
-  selected: <ISelectionBorderless>{},
+  selected: <ITestSetting>{},
   isShowOptions: <boolean> false,
 })
 
 onMounted(() => {
   if (!Object.keys(data.selected).length) {
-    data.selected = <ISelectionBorderless>props.selected;
+    data.selected = <ITestSetting>props.selected;
     emit('update:modelValue', data.selected.id);
   }
 
@@ -57,7 +58,7 @@ onMounted(() => {
 
 const toggleItem = (id: number): void => {
   show();
-  data.selected = <ISelectionBorderless> props.list?.find(item => item.id === id)
+  data.selected = <ITestSetting> props.list?.find(item => item.id === id)
   emit('update:modelValue', id);
 };
 

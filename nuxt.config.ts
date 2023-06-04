@@ -16,7 +16,8 @@ const config = <ConfigSchema> {
         public: {
             apiBase: process.env.API_BASE_URL,
             appUrl: process.env.APP_DOMAIN,
-            recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY
+            recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
+            imageApiUrl: process.env.IMAGE_API_URL
         }
     },
 

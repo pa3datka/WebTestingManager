@@ -14,6 +14,13 @@ import ExportSvg from "~/components/Svg/parts/ExportSvg.vue";
 import Password from "~/components/Svg/parts/PasswordSvg.vue"
 import CheckSvg from "~/components/Svg/parts/CheckSvg.vue";
 
+//categories
+import MathematicsSvg from "~/components/Svg/parts/Categories/MathematicsSvg.vue";
+import GeographySvg from "~/components/Svg/parts/Categories/GeographySvg.vue";
+import HistorySvg from "~/components/Svg/parts/Categories/HistorySvg.vue";
+import LanguageSvg from "~/components/Svg/parts/Categories/LanguageSvg.vue";
+import AstronomySvg from "~/components/Svg/parts/Categories/AstronomySvg.vue";
+
 const props = defineProps({
   name: {
     type: String,
@@ -40,6 +47,13 @@ const svg = <ISvgObject>{
   'export': ExportSvg,
   'password': Password,
   'check': CheckSvg,
+
+  // categories
+  'mathematics': MathematicsSvg,
+  'history': HistorySvg,
+  'geography': GeographySvg,
+  'language': LanguageSvg,
+  'astronomy': AstronomySvg,
 }
 </script>
 

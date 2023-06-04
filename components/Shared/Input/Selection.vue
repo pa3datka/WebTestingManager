@@ -3,6 +3,7 @@ import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import { onMounted, PropType } from "@vue/runtime-core";
 import { computed } from "@vue/reactivity";
 import { ISelection } from "~/composables/Interfaces/ComponentIntefaces/ISelection";
+import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -28,11 +29,11 @@ const props = defineProps({
     default: false
   },
   list: {
-    type: Array as PropType<ISelection[]>,
+    type: Array as PropType<ITestSetting[]>,
     default: []
   },
   selected: {
-    type: Object as PropType<ISelection>,
+    type: Object as PropType<ITestSetting>,
     default: {}
   }
 });
@@ -40,25 +41,25 @@ const props = defineProps({
 const selectedRef = <Ref> ref(null);
 const data = reactive({
   isLabel: <boolean> true,
-  selected: <ISelection> {},
+  selected: <ITestSetting> {},
   beforeColorClass: <string> '',
   searchString: <string> '',
 });
 
-const searchList = computed((): ISelection[] => {
+const searchList = computed((): ITestSetting[] => {
   if (!data.searchString) {
     return props.list;
   }
 
-  return props.list.filter((item: any): ISelection[] => item.name.includes(data.searchString));
+  return props.list.filter((item: any): ITestSetting[] => item.name.includes(data.searchString));
 });
 
-const selected = computed(() => { return <ISelection> data.selected});
+const selected = computed(() => { return <ITestSetting> data.selected});
 
 
 const selectItem = (itemId: number): void => {
   data.beforeColorClass = data.selected?.color + '-bg';
-  data.selected = <ISelection> props.list?.find((item: any) => Number(item.id) === Number(itemId));
+  data.selected = <ITestSetting> props.list?.find((item: any) => Number(item.id) === Number(itemId));
   selectedRef.value.classList.remove('select-focus');
 
   selectedRef.value.querySelector('input').classList.add('d-none');
@@ -69,7 +70,7 @@ const selectItem = (itemId: number): void => {
 
 onMounted(() => {
   if (props.selected) {
-    data.selected = <ISelection> props.selected;
+    data.selected = <ITestSetting> props.selected;
     emit('update:modelValue', data.selected.id);
   }
 

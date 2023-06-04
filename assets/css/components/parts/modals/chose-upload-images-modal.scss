@@ -21,12 +21,14 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100vh;
+    height: 100%;
   }
 
   .chose-modal-container {
-    position: absolute;
-    top: 20%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 22;
     width: 95%;
     max-width: rem-calc(975);
@@ -92,6 +94,7 @@
             font-size: $font17;
             color: $color-grey-suit;
             padding-top: rem-calc(20);
+            text-transform: capitalize;
           }
 
           .img-small {
@@ -120,6 +123,7 @@
 
               img {
                 width: 100%;
+                border-radius: 16px;
               }
             }
 

@@ -4,7 +4,8 @@ export default {
   emits: ['update:modelValue'],
   props: {
     modelValue: {
-      types: [String, Number],
+      type: Number,
+      default: null
     },
     name: {
       type: String,
@@ -72,10 +73,10 @@ export default {
         let int = parseInt(val);
 
         if (isNaN(int)) {
-          return '';
+          return null;
         }
 
-        (int < 0 || int === 0) && (int = '');
+        (int < 0 || int === 0) && (int = null);
         return int;
       }
 

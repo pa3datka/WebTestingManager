@@ -3,6 +3,9 @@ import Selection from "~/components/Shared/Input/Selection.vue";
 import { computed } from "@vue/reactivity";
 import { ISelection } from "~/composables/Interfaces/ComponentIntefaces/ISelection";
 import { onUnmounted, onMounted } from "@vue/runtime-core";
+import {IChoseCategoryImages} from "~/composables/Interfaces/TestInterfaces/IChoseCategoryImages";
+import {useTestStore} from "~/store/shared/Test";
+import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['choseImage']);
 const props = defineProps({
@@ -12,17 +15,18 @@ const props = defineProps({
   }
 });
 
+const baseUrl = useRuntimeConfig().public.imageApiUrl;
+const images = computed(() => useTestStore().getChoseImages);
+const categories =  computed((): ITestSetting[] => Object.values(useTestStore().getChoseImages).reduce((current, item: any) => {
+  let img = <ITestSetting> item.find(img => img);
+  current.push(img);
+  return current;
+}, []));
 const data = reactive({
-  imageSizeSelectedId: <number> 1
+  imageSizeSelectedId: <number> 1,
+  categories: <object> {},
 });
 
-const categories = <ISelection[]> [
-  {id: 1, name: 'mathematics', svg: 'home', color: 'strong-cyan'},
-  {id: 2, name: 'history', svg: 'home', color: 'light-grayish-red'},
-  {id: 3, name: 'language', svg: 'home', color: 'soft-navy'},
-  {id: 4, name: 'geometry', svg: 'home', color: 'bright-red'},
-  {id: 5, name: 'physics', svg: 'home', color: 'primary'}
-];
 const sizes = <ISelection[]> [
   {id: 0, name: 'small'},
   {id: 1, name: 'medium'},
@@ -41,7 +45,7 @@ const imageSizeId = computed( {
 });
 
 
-onMounted(() => {
+onMounted(async () => {
   imageSizeId.value = Number(localStorage.getItem('chose_size_id') ?? 1);
   const body = document.querySelector('body');
   body && (body.style.overflow = 'hidden');
@@ -66,7 +70,6 @@ const choseImage = (path: string) => {
           <div class="chose-modal-header__title">Chose a cover</div>
           <slot name="close"></slot>
         </div>
-
         <div class="chose-modal-action">
           <Selection
               :svg-is-label="true"
@@ -87,18 +90,18 @@ const choseImage = (path: string) => {
         </div>
 
         <div class="chose-modal-content  scroll">
-          <div class="category">
-            <div class="category-title">Language</div>
+          <div class="category" v-for="(categoryImages, key) in images" :key="key">
+            <div class="category-title">{{ key }}</div>
             <div
                 class="category-list"
                 :class="`img-${sizes[imageSizeId].name}`"
             >
               <div
-                  class="category-list_item"
-                  v-for="(item, key) in 100"
-                  @click="choseImage('/image-test-category.jpg')"
+                  class="category-list_item hover"
+                  v-for="(image, imageKey) in categoryImages" :key="imageKey"
+                  @click="choseImage(baseUrl + image.path)"
               >
-                <img src="/image-test-category.jpg">
+                <img :src="baseUrl + image.path">
               </div>
             </div>
           </div>
