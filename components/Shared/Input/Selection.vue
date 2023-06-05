@@ -2,8 +2,7 @@
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import { onMounted, PropType } from "@vue/runtime-core";
 import { computed } from "@vue/reactivity";
-import { ISelection } from "~/composables/Interfaces/ComponentIntefaces/ISelection";
-import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
+import { ITestSetting } from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -51,7 +50,7 @@ const searchList = computed((): ITestSetting[] => {
     return props.list;
   }
 
-  return props.list.filter((item: any): ITestSetting[] => item.name.includes(data.searchString));
+  return props.list.filter((item: any): ITestSetting[] => item.name.toLowerCase().includes(data.searchString.toLowerCase()));
 });
 
 const selected = computed(() => { return <ITestSetting> data.selected});
@@ -64,6 +63,7 @@ const selectItem = (itemId: number): void => {
 
   selectedRef.value.querySelector('input').classList.add('d-none');
   selectedRef.value.querySelector('.selected-value').classList.add('d-block');
+  data.searchString = '';
   emit('update:modelValue', itemId);
 };
 

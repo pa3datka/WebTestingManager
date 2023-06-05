@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "@vue/runtime-core";
-import {ITypeSelection} from "~/composables/Interfaces/ComponentIntefaces/ITypeSelection";
 import {computed} from "@vue/reactivity";
+import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -10,7 +10,7 @@ const props = defineProps({
     default: 1
   },
   list: {
-    type: Array as PropType<ITypeSelection[]>,
+    type: Array as PropType<ITestSetting[]>,
     default: []
   },
   selectedId: {

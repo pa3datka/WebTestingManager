@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {ITypeSelection} from "~/composables/Interfaces/ComponentIntefaces/ITypeSelection";
-import {onUnmounted, onMounted, PropType} from "@vue/runtime-core";
-import {computed} from "@vue/reactivity";
+import { onUnmounted, onMounted, PropType } from "@vue/runtime-core";
+import { computed } from "@vue/reactivity";
+import { ITestSetting } from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -10,7 +10,7 @@ const props = defineProps({
     default: 1
   },
   list: {
-    type: Array as PropType<ITypeSelection[]>,
+    type: Array as PropType<ITestSetting[]>,
     default: []
   },
   selectedId: {
@@ -40,7 +40,7 @@ onUnmounted(() => {
   window.removeEventListener('click', clickEvent);
 });
 
-const selectedItem = computed(() => <ITypeSelection> props.list.find((item: ITypeSelection) => item.id === props.selectedId));
+const selectedItem = computed(() => <ITestSetting> props.list.find((item: ITestSetting) => item.id === props.selectedId));
 
 const select = (id: number): void => {
   emit('update:modelValue', id);
@@ -55,8 +55,8 @@ const show = (): void => {
 <div class="selection-type-quest" @click="show">
 
   <div class="selected hover" >
-    <div class="value">{{ selectedItem.name }}</div>
-    <div class="description">{{ selectedItem.description }}</div>
+    <div class="value">{{ selectedItem?.name }}</div>
+    <div class="description">{{ selectedItem?.description }}</div>
   </div>
 
   <menu class="options" :class="{'show-options': data.isShow}">

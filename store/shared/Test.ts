@@ -24,16 +24,7 @@ export const useTestStore = defineStore('test', {
         getEvaluationTypes: (state):ITestSetting[] => state.evaluationTypes,
         getQuestTypes: (state):ITestSetting[] => state.questTypes,
         getCategories: (state):ITestSetting[] => state.categories,
-        getChoseImages: (state) => {
-            // @ts-ignore
-            return state.choseImages.reduce((current: {}, image: any) => {
-                // @ts-ignore
-                !current[image?.name] && (current[image?.name] = []);
-                // @ts-ignore
-                current[image?.name].push(image)
-                return current;
-            }, {});
-        },
+        getChoseImages: (state) => state.choseImages,
     },
 
     actions:{
@@ -48,7 +39,6 @@ export const useTestStore = defineStore('test', {
 
         updateTestConfigs(configs: ITestSettings): void {
             this.newTestConfiguration = <ITestSettings> configs;
-            console.log(this.newTestConfiguration)
         },
 
     },

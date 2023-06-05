@@ -52,7 +52,9 @@ await useTest().fetchTestSettings();
 
 
 const data = reactive({
-  settings: <ITestSettings> {},
+  settings: <ITestSettings> {
+    shuffle_answers: false
+  },
 
   typeAnswer: <number> 1,
   quest: <string> '',
@@ -61,7 +63,7 @@ const data = reactive({
 
   activeQuest: 1,
   questsBtn: [
-    { active: true, id: 1, value: '1', activeValue: 'quest' },
+    { active: true, id: 1, activeValue: 'quest' },
   ],
 });
 
@@ -85,17 +87,15 @@ const activeButton = (val: any) => {
     if (quest.id === val.id) {
       data.questsBtn[index].active = val.active;
     }
-
   });
-  console.log(val);
 };
 const deleteQuest = () => {
   data.questsBtn.map((quest, index) => {
     if (quest.active) {
-      console.log(index)
       data.questsBtn.splice(index, 1);
     }
   });
+  data.questsBtn[data.questsBtn.length -1].active = true;
 }
 </script>
 
@@ -180,55 +180,54 @@ const deleteQuest = () => {
             </LabelForInputBorderless>
 
           </div>
-          {{ data.settings }}
         </div>
       </template>
     </Collapse>
 
-<!--    <Collapse class="mt-sm-20" :label-svg="'label-edit'">-->
-<!--      <template v-slot:Title>-->
-<!--        Question editor-->
-<!--      </template>-->
-<!--      <template v-slot:content>-->
-<!--        <div class="collapse-container pb-sm-25 pt-sm-25 pb-lg-40 pt-lg-40 d-flex flex-no-wrap-sm justify-space-between column-gap-sm-15 column-gap-lg-20">-->
-<!--          <div class="quest-buttons-container d-flex column-gap-sm-8 column-gap-lg-12 row-gap-sm-8 row-gap-lg-12 flex-wrap-sm">-->
+    <Collapse class="mt-sm-20" :label-svg="'label-edit'">
+      <template v-slot:Title>
+        Question editor
+      </template>
+      <template v-slot:content>
+        <div class="collapse-container pb-sm-25 pt-sm-25 pb-lg-40 pt-lg-40 d-flex flex-no-wrap-sm justify-space-between column-gap-sm-15 column-gap-lg-20">
+          <div class="quest-buttons-container d-flex column-gap-sm-8 column-gap-lg-12 row-gap-sm-8 row-gap-lg-12 flex-wrap-sm">
 
-<!--            <ButtonNumberQuest-->
-<!--                v-for="btn in data.questsBtn"-->
-<!--                :key="btn.id"-->
-<!--                v-on:active="activeButton"-->
-<!--                :is-active="btn.active"-->
-<!--                :value="btn.value"-->
-<!--                :active-value="btn.activeValue"-->
-<!--                :id="btn.id"-->
-<!--            />-->
-<!--            <ButtonNumberQuest-->
-<!--                :is-active="false"-->
-<!--                :value="'+'"-->
-<!--                @click="addQuest"-->
-<!--            />-->
-<!--          </div>-->
-<!--          <div class="">-->
-<!--            <ButtonCycleLabelSvg v-show="data.questsBtn.length > 1" value="Delete quest" class="button-cycle-label-svg-min hover-error" @click="deleteQuest">-->
-<!--              <template v-slot:label>-->
-<!--                <SvgTemplate name="delete"/>-->
-<!--              </template>-->
-<!--            </ButtonCycleLabelSvg>-->
-<!--          </div>-->
-<!--        </div>-->
+            <ButtonNumberQuest
+                v-for="(btn, key) in data.questsBtn"
+                :key="btn.id"
+                v-on:active="activeButton"
+                :is-active="btn.active"
+                :value="String(key + 1)"
+                :active-value="btn.activeValue"
+                :id="btn.id"
+            />
+            <ButtonNumberQuest
+                :is-active="false"
+                :value="'+'"
+                @click="addQuest"
+            />
+          </div>
+          <div class="">
+            <ButtonCycleLabelSvg v-show="data.questsBtn.length > 1" value="Delete quest" class="button-cycle-label-svg-min hover-error" @click="deleteQuest">
+              <template v-slot:label>
+                <SvgTemplate name="delete"/>
+              </template>
+            </ButtonCycleLabelSvg>
+          </div>
+        </div>
 
-<!--        <div class="quest-container">-->
-<!--          <div class="answer-types-container">-->
-<!--              <div class="answer-types-title">Question Format</div>-->
+        <div class="quest-container">
+          <div class="answer-types-container">
+              <div class="answer-types-title">Question Format</div>
 
-<!--              <div class="desktop-answer-types">-->
-<!--                <ListTypeQuest v-model="data.typeAnswer" :list="data.questTypes" :selected-id="data.typeAnswer"/>-->
-<!--              </div>-->
+              <div class="desktop-answer-types">
+                <ListTypeQuest v-model="data.typeAnswer" :list="questTypes" :selected-id="data.typeAnswer"/>
+              </div>
 
-<!--              <div class="mobile-type-container">-->
-<!--                <SelectionTypeQuest v-model="data.typeAnswer" :list="data.questTypes" :selected-id="data.typeAnswer"/>-->
-<!--              </div>-->
-<!--            </div>-->
+              <div class="mobile-type-container">
+                <SelectionTypeQuest v-model="data.typeAnswer" :list="questTypes" :selected-id="data.typeAnswer"/>
+              </div>
+            </div>
 
 <!--          <div class="collapse-container quest-builder pb-sm-32 pb-lg-48">-->
 <!--            <div class="quest-builder__quest">-->
@@ -254,10 +253,10 @@ const deleteQuest = () => {
 <!--              <InputTextEditor class="mt-sm-20" />-->
 <!--            </div>-->
 <!--          </div>-->
-<!--        </div>-->
-<!--      </template>-->
+        </div>
+      </template>
 
-<!--    </Collapse>-->
+    </Collapse>
   </div>
 </template>
 

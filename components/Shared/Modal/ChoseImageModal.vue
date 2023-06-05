@@ -3,9 +3,8 @@ import Selection from "~/components/Shared/Input/Selection.vue";
 import { computed } from "@vue/reactivity";
 import { ISelection } from "~/composables/Interfaces/ComponentIntefaces/ISelection";
 import { onUnmounted, onMounted } from "@vue/runtime-core";
-import {IChoseCategoryImages} from "~/composables/Interfaces/TestInterfaces/IChoseCategoryImages";
-import {useTestStore} from "~/store/shared/Test";
-import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
+import { useTestStore } from "~/store/shared/Test";
+import { ITestSetting } from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['choseImage']);
 const props = defineProps({
@@ -16,15 +15,36 @@ const props = defineProps({
 });
 
 const baseUrl = useRuntimeConfig().public.imageApiUrl;
-const images = computed(() => useTestStore().getChoseImages);
-const categories =  computed((): ITestSetting[] => Object.values(useTestStore().getChoseImages).reduce((current, item: any) => {
-  let img = <ITestSetting> item.find(img => img);
-  current.push(img);
+
+const images = computed(() => {
+  const categoryImages = useTestStore().getChoseImages.filter((image: any) => {
+    if (!data.selectedCategoryId) {
+      return image;
+    }
+
+    if (data.selectedCategoryId === image?.id) {
+      return image;
+    }
+  });
+
+  return categoryImages.reduce((current, image) => {
+    !current[image.name] && (current[image.name] = []);
+    current[image.name].push(image);
+    return current;
+  }, {});
+});
+
+const categories =  computed((): ITestSetting[] => useTestStore().getChoseImages.reduce((current, item) => {
+  const isIssetCategory = current.filter((img: any) => img.id === item?.id);
+  if (!isIssetCategory.length) {
+    current.push(item);
+  }
   return current;
 }, []));
 const data = reactive({
   imageSizeSelectedId: <number> 1,
   categories: <object> {},
+  selectedCategoryId: <number|null> null,
 });
 
 const sizes = <ISelection[]> [
@@ -76,6 +96,7 @@ const choseImage = (path: string) => {
               :name="'categories'"
               :list="categories"
               placeholder="Chose a category"
+              v-model="data.selectedCategoryId"
           />
 
           <client-only>
