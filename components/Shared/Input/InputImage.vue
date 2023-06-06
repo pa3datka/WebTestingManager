@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import CropperModal from "~/components/Shared/Modal/CropperModal.vue";
 
+const emit = defineEmits(['update:modelValue']);
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: ''
+  }
+});
 const data = reactive({
   image: <string> '',
   closeCropper: false,
@@ -28,7 +35,7 @@ const closeCropper = (val: boolean): void => {
 const emitImage = (image: string) => {
   data.closeCropper = true;
   data.image = image;
- // emit('update:modelValue', image);
+  emit('update:modelValue', image);
 };
 </script>
 

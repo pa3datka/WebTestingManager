@@ -33,6 +33,8 @@ import { computed } from "@vue/reactivity";
 import {ITestSettings} from "~/composables/Interfaces/TestInterfaces/ITestSettings";
 import { useTest } from "~/composables/test/useTest";
 import { useTestStore} from "~/store/shared/Test";
+import {ITestQuestion} from "~/composables/Interfaces/TestInterfaces/ITestQuestion";
+import {IQuestionAnswer} from "~/composables/Interfaces/TestInterfaces/IQuestionAnswer";
 
 const difficultyTypes = computed(() => useTestStore().getDifficultyTypes);
 const displayAnswerTypes = computed(() => useTestStore().getDisplayAnswerTypes);
@@ -55,6 +57,21 @@ const data = reactive({
   settings: <ITestSettings> {
     shuffle_answers: false
   },
+  questsBtn: [
+    { active: true, id: 1, activeValue: 'quest' },
+  ],
+  questions: <ITestQuestion[]> [
+    {
+      id: 1,
+      type_id: 1,
+      answers: [
+        {
+          id: 1,
+          is_correct: false,
+        }
+      ]
+    },
+  ],
 
   typeAnswer: <number> 1,
   quest: <string> '',
@@ -62,9 +79,7 @@ const data = reactive({
   answer: <string> '',
 
   activeQuest: 1,
-  questsBtn: [
-    { active: true, id: 1, activeValue: 'quest' },
-  ],
+
 });
 
 watchEffect(() => {
@@ -74,12 +89,11 @@ watchEffect(() => {
 });
 
 const addQuest = () => {
-  let lastItemId = <number> data.questsBtn.length - 1;
-  const newQuest = { id: data.questsBtn[lastItemId].id + 1, value: String((data.questsBtn[lastItemId].id + 1)), activeValue: 'quest', active: true };
   data.questsBtn.map((quest, index) => {
     data.questsBtn[index].active = false;
   });
-  data.questsBtn.push( newQuest );
+  data.questsBtn.push(getBtn());
+  data.questions.push(getNewQuest())
 }
 const activeButton = (val: any) => {
   data.questsBtn.map((quest, index) => {
@@ -89,14 +103,53 @@ const activeButton = (val: any) => {
     }
   });
 };
+
+const activeQuestId = computed(() => {
+  let activeId = 0;
+  data.questsBtn.forEach((el) => el.active && (activeId = el.id));
+  return activeId;
+});
 const deleteQuest = () => {
   data.questsBtn.map((quest, index) => {
     if (quest.active) {
       data.questsBtn.splice(index, 1);
+      data.questions.splice(index, 1);
     }
   });
   data.questsBtn[data.questsBtn.length -1].active = true;
-}
+};
+
+const getBtn = () => {
+  let btn = { active: true, id: 1, activeValue: 'quest' };
+  const lastBtn = data.questsBtn[data.questsBtn.length -1];
+  btn.id = (lastBtn.id + 1);
+  return btn;
+};
+
+const getNewQuest = (): ITestQuestion =>  {
+  const lastTest = <ITestQuestion> data.questions[data.questions.length -1];
+  return <ITestQuestion> {
+    id: (lastTest.id + 1),
+    type_id: lastTest.type_id,
+    answers: [
+        {
+          id: 1,
+          is_correct: false,
+        }
+    ]
+  };
+};
+
+const addAnswer = (questId: number, answerId: number) => {
+const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
+const lastAnswer = <IQuestionAnswer> quest.answers[quest.answers.length -1];
+quest.answers.push({ id: (lastAnswer.id + 1), is_correct: false });
+};
+
+const deleteAnswer = (questId: number, answerIndex: number) => {
+const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
+quest.answers.splice(answerIndex, 1);
+};
 </script>
 
 <template>
@@ -215,48 +268,54 @@ const deleteQuest = () => {
             </ButtonCycleLabelSvg>
           </div>
         </div>
+          <div>
 
-        <div class="quest-container">
-          <div class="answer-types-container">
+          </div>
+          <div class="quest-container" v-for="quest in data.questions" :key="quest.id" v-show="quest.id === activeQuestId">
+            <div class="answer-types-container">
               <div class="answer-types-title">Question Format</div>
 
               <div class="desktop-answer-types">
-                <ListTypeQuest v-model="data.typeAnswer" :list="questTypes" :selected-id="data.typeAnswer"/>
+                <ListTypeQuest v-model="quest.type_id" :list="questTypes" :selected-id="quest.type_id"/>
               </div>
 
               <div class="mobile-type-container">
-                <SelectionTypeQuest v-model="data.typeAnswer" :list="questTypes" :selected-id="data.typeAnswer"/>
+                <SelectionTypeQuest v-model="quest.type_id" :list="questTypes" :selected-id="quest.type_id"/>
               </div>
             </div>
 
-<!--          <div class="collapse-container quest-builder pb-sm-32 pb-lg-48">-->
-<!--            <div class="quest-builder__quest">-->
-<!--              <div class="title pb-sm-24">Quest</div>-->
-<!--              <InputImage class="mt-sm-24"/>-->
-<!--              <Textarea class="mt-sm-14" v-model="data.quest" :name="'quest'" :placeholder="'Enter quest'" />-->
-<!--              <InputNumber class="mt-sm-14" v-model="data.questPints" name="quest-point" placeholder="Enter count points"/>-->
+            <div class="collapse-container quest-builder pb-sm-32 pb-lg-48">
+              <div class="quest-builder__quest">
+                <div class="title pb-sm-24">Quest</div>
+                <InputImage class="mt-sm-24" v-model="quest.image"/>
+                <Textarea class="mt-sm-14" v-model="quest.question" :name="`quest${quest.id}`" :placeholder="'Enter quest'" />
+                <InputNumber class="mt-sm-14" v-show="data.settings.evaluation_type_id === 1" v-model="quest.countPoints" name="quest-point" placeholder="Enter count points"/>
 
-<!--              <div class="title pt-sm-24 pb-sm-24">Answers</div>-->
-<!--              <div class="quest-option">-->
-<!--                <AuthInput v-model="data.answer" name="answer" placeholder="Option"/>-->
+                <div class="title pt-sm-24 pb-sm-24">Answers</div>
 
-<!--                <div class="btn-group">-->
-<!--                  <CheckBoxTextOrSvg class="" v-model="data.checkbox" :id="'asnwer'" name="answer-check"/>-->
+                <div class="quest-option" v-for="(answer, index) in quest.answers" :key="answer.id" :class="{'pt-sm-10': index > 0}">
+                  <AuthInput v-model="answer.answer_text" name="answer" placeholder="Option"/>
+                  <div class="btn-group">
+                    <CheckBoxTextOrSvg v-model="answer.is_correct" :id="`asnwer${answer.id}`" name="answer-check"/>
+                    <div class="btn-add-delete">
+                      <ButtonMin class="hover button-active-success" @click="addAnswer(quest.id, answer.id)" text="+" />
+                      <ButtonMin class="hover button-active-warning" v-if="quest.answers.length > 1" @click="deleteAnswer(quest.id, index)" text="-" />
+                    </div>
+                  </div>
+                </div>
 
-<!--                  <div class="btn-add-delete">-->
-<!--                    <ButtonMin class="hover button-active-success" text="+" />-->
-<!--                    <ButtonMin class="hover button-active-warning" text="-" />-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="title pt-sm-24">Explanation</div>-->
-<!--              <InputTextEditor class="mt-sm-20" />-->
-<!--            </div>-->
-<!--          </div>-->
-        </div>
+                <div class="title pt-sm-24">Explanation</div>
+                <InputTextEditor v-model="quest.explanation" class="mt-sm-20" />
+              </div>
+            </div>
+          </div>
+
       </template>
 
     </Collapse>
+<!--    {{ data.questions }}-->
+<!--    <br/>-->
+<!--    {{ data.questsBtn }}-->
   </div>
 </template>
 

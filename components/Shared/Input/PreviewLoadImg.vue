@@ -63,7 +63,7 @@ const closeModalChose = () => {
 
         <div class="thumbnail-img__not-empty" v-if="props.modelValue">
           <img :src="modelValue">
-          <div class="clear-image cursor" @click="clearImage"></div>
+          <div class="clear-image hover" @click="clearImage"></div>
         </div>
       </div>
       <div class="load-btn-group pt-sm-15 pt-lg-30">
