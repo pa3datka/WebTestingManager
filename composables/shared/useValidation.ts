@@ -37,7 +37,7 @@ export const useValidation = () => {
         let flag = true;
         let message = ''
         // @ts-ignore
-        el.rules && el.rules.forEach((rule) => {
+        el && el.rules && el.rules.forEach((rule) => {
 
             let result = rule(el.value);
             if (result !== true) {

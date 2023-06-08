@@ -100,8 +100,15 @@
         }
       }
 
-      .text-input {
+      .textarea-input {
         height: rem-calc(163);
+      }
+
+      .textarea-input {
+        textarea {
+          height: rem-calc(163);
+        }
+        height: auto;
       }
     }
   }
@@ -126,6 +133,7 @@
 
           .quest-option {
             display: flex;
+            align-items: flex-start;
             .auth-input {
               width: 100%;
               input {

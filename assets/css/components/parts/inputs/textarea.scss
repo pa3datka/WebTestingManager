@@ -1,4 +1,4 @@
-.text-input {
+.textarea-input {
   width: 100%;
 
   textarea {
@@ -22,14 +22,14 @@
   }
 }
 
-.input-error textarea,
-.input-error textarea:focus,
-.input-error textarea:focus-visible {
+.textarea-error textarea,
+.textarea-error textarea:focus,
+.textarea-error textarea:focus-visible {
   border: rem-calc(1) solid $color-bittersweet;
   color: $color-bittersweet;
 }
 
-.input-error span {
+.textarea-error span {
   display: inline-block;
   padding-top: rem-calc(4);
   font-size: $font12;

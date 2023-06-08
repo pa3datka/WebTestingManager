@@ -35,6 +35,9 @@ import { useTest } from "~/composables/test/useTest";
 import { useTestStore} from "~/store/shared/Test";
 import {ITestQuestion} from "~/composables/Interfaces/TestInterfaces/ITestQuestion";
 import {IQuestionAnswer} from "~/composables/Interfaces/TestInterfaces/IQuestionAnswer";
+import { useValidation } from "~/composables/shared/useValidation";
+
+const { validate, rules } = useValidation();
 
 const difficultyTypes = computed(() => useTestStore().getDifficultyTypes);
 const displayAnswerTypes = computed(() => useTestStore().getDisplayAnswerTypes);
@@ -44,7 +47,7 @@ const questTypes = computed(() => useTestStore().getQuestTypes);
 
 const { updateTestConfigs } = useTestStore();
 
-
+const refsFields = <Ref> ref({});
 definePageMeta({
   name: "add-test",
   layout: 'dashboard',
@@ -58,16 +61,19 @@ const data = reactive({
     shuffle_answers: false
   },
   questsBtn: [
-    { active: true, id: 1, activeValue: 'quest' },
+    { active: true, id: 1, activeValue: 'quest', is_errors: false },
   ],
   questions: <ITestQuestion[]> [
     {
       id: 1,
       type_id: 1,
+      is_errors: false,
+      check_is_correct: true,
       answers: [
         {
           id: 1,
           is_correct: false,
+          is_errors: false,
         }
       ]
     },
@@ -89,6 +95,10 @@ watchEffect(() => {
 });
 
 const addQuest = () => {
+  const validate = validateQuest();
+  if (!validate) {
+    return;
+  }
   data.questsBtn.map((quest, index) => {
     data.questsBtn[index].active = false;
   });
@@ -110,7 +120,7 @@ const activeQuestId = computed(() => {
   return activeId;
 });
 const deleteQuest = () => {
-  data.questsBtn.map((quest, index) => {
+  data.questsBtn.forEach((quest, index) => {
     if (quest.active) {
       data.questsBtn.splice(index, 1);
       data.questions.splice(index, 1);
@@ -120,7 +130,7 @@ const deleteQuest = () => {
 };
 
 const getBtn = () => {
-  let btn = { active: true, id: 1, activeValue: 'quest' };
+  let btn = { active: true, id: 1, activeValue: 'quest', is_errors: false };
   const lastBtn = data.questsBtn[data.questsBtn.length -1];
   btn.id = (lastBtn.id + 1);
   return btn;
@@ -131,25 +141,74 @@ const getNewQuest = (): ITestQuestion =>  {
   return <ITestQuestion> {
     id: (lastTest.id + 1),
     type_id: lastTest.type_id,
+    check_is_correct: true,
     answers: [
         {
           id: 1,
           is_correct: false,
+          is_errors: false,
         }
     ]
   };
 };
 
 const addAnswer = (questId: number, answerId: number) => {
-const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
-const lastAnswer = <IQuestionAnswer> quest.answers[quest.answers.length -1];
-quest.answers.push({ id: (lastAnswer.id + 1), is_correct: false });
+  const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
+  const lastAnswer = <IQuestionAnswer> quest.answers[quest.answers.length -1];
+  quest.answers.push({ id: (lastAnswer.id + 1), is_correct: false, is_errors: false });
 };
 
-const deleteAnswer = (questId: number, answerIndex: number) => {
-const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
-quest.answers.splice(answerIndex, 1);
+const deleteAnswer = (questId: number, answerIndex: number, inputName: string, elemName: string) => {
+  const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
+  quest.answers.splice(answerIndex, 1);
+  const elem = <Element> document.querySelector(`#${elemName}`);
+  elem.remove();
+  refsFields.value[inputName].delete();
+
+  //delete refsFields.value[inputName];
+ console.log(refsFields.value)
+
+
 };
+
+const validateQuest = () => {
+  let isValidate = true;
+  data.questions.map((quest, index) => {
+    if (quest.type_id === 1) {
+      if (!quest.question || !quest.countPoints) {
+        data.questsBtn[index].is_errors = true;
+        quest.is_errors = true;
+        isValidate = false;
+      }
+      const checkBox = checkIsAnswer(quest);
+      const isCountAnswers = checkCountAnswers(quest);
+      isValidate = (isValidate && checkBox && isCountAnswers);
+      isValidate && (data.questsBtn[index].is_errors = false);
+    }
+  });
+
+  const valid = validate(refsFields);
+  return (isValidate && valid);
+}
+
+const checkIsAnswer = (quest: ITestQuestion): boolean => {
+  let isCheck = false;
+  quest.answers.forEach(answer => answer.is_correct && (isCheck = true));
+  !isCheck && (quest.check_is_correct = false);
+  isCheck && (quest.check_is_correct = true);
+
+  return isCheck;
+}
+
+const checkCountAnswers = (quest: ITestQuestion) => {
+  let isCheck = quest.answers.length > 1;
+  let isSuccessLenchAnswers = (quest.answers.length > 1);
+  const answer = <IQuestionAnswer> quest.answers.find(answer => answer);
+  !isSuccessLenchAnswers && (answer.error_text = 'there must be more than one option');
+  isSuccessLenchAnswers && (answer.error_text = '');
+
+  return isCheck;
+}
 </script>
 
 <template>
@@ -253,6 +312,7 @@ quest.answers.splice(answerIndex, 1);
                 :value="String(key + 1)"
                 :active-value="btn.activeValue"
                 :id="btn.id"
+                :class="{'quest-errors': btn.is_errors, 'success-new-answer': !btn.active && !btn.is_errors }"
             />
             <ButtonNumberQuest
                 :is-active="false"
@@ -288,18 +348,47 @@ quest.answers.splice(answerIndex, 1);
               <div class="quest-builder__quest">
                 <div class="title pb-sm-24">Quest</div>
                 <InputImage class="mt-sm-24" v-model="quest.image"/>
-                <Textarea class="mt-sm-14" v-model="quest.question" :name="`quest${quest.id}`" :placeholder="'Enter quest'" />
-                <InputNumber class="mt-sm-14" v-show="data.settings.evaluation_type_id === 1" v-model="quest.countPoints" name="quest-point" placeholder="Enter count points"/>
+                <Textarea
+                    class="mt-sm-14"
+                    :ref="el => refsFields[el?.name] = el"
+                    :rules="[rules.require]"
+                    v-model="quest.question"
+                    :name="`quest${quest.id}`"
+                    :placeholder="'Enter quest'"
+                />
+                <InputNumber
+                    class="mt-sm-14"
+                    :name="`quest-point-${quest.id}`"
+                    v-show="data.settings.evaluation_type_id === 1"
+                    :ref="el => refsFields[el?.name] = el"
+                    :rules="[rules.require]"
+                    v-model="quest.countPoints"
+                    :id="`${quest.id}`"
+                    placeholder="Enter count points"
+                />
 
                 <div class="title pt-sm-24 pb-sm-24">Answers</div>
 
-                <div class="quest-option" v-for="(answer, index) in quest.answers" :key="answer.id" :class="{'pt-sm-10': index > 0}">
-                  <AuthInput v-model="answer.answer_text" name="answer" placeholder="Option"/>
+                <div class="quest-option" v-for="(answer, index) in quest.answers" :key="answer.id" :class="{'pt-sm-10': index > 0}" :id="`quest-option${answer.id}`">
+                  <AuthInput
+                      v-model="answer.answer_text"
+                      :name="`answer-${answer.id}`"
+                      placeholder="Option"
+                      :ref="el => refsFields[el?.name] = el"
+                      :rules="[rules.require]"
+                      :error="answer.error_text"
+                      :errorValue="answer.error_text"
+                  />
                   <div class="btn-group">
-                    <CheckBoxTextOrSvg v-model="answer.is_correct" :id="`asnwer${answer.id}`" name="answer-check"/>
+                    <CheckBoxTextOrSvg
+                        v-model="answer.is_correct"
+                        :id="`asnwer-${quest.id}-${answer.id}`"
+                        @click="checkIsAnswer(quest)"
+                        name="answer-check"
+                        :class="{ 'input-checkbox-error': !quest.check_is_correct }"/>
                     <div class="btn-add-delete">
-                      <ButtonMin class="hover button-active-success" @click="addAnswer(quest.id, answer.id)" text="+" />
-                      <ButtonMin class="hover button-active-warning" v-if="quest.answers.length > 1" @click="deleteAnswer(quest.id, index)" text="-" />
+                      <ButtonMin class="hover button-active-success" @click="addAnswer(quest.id, answer.id) && checkCountAnswers(quest)" text="+" />
+                      <ButtonMin class="hover button-active-warning" v-if="quest.answers.length > 1" @click="deleteAnswer(quest.id, index, `answer-${answer.id}`, `quest-option${answer.id}`)" text="-" />
                     </div>
                   </div>
                 </div>
@@ -313,9 +402,7 @@ quest.answers.splice(answerIndex, 1);
       </template>
 
     </Collapse>
-<!--    {{ data.questions }}-->
-<!--    <br/>-->
-<!--    {{ data.questsBtn }}-->
+    {{data.questions}}
   </div>
 </template>
 

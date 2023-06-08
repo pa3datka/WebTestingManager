@@ -42,6 +42,7 @@ const active = (): void => {
 @import "@/assets/css/variables.scss";
 
 .button-square {
+  position: relative;
   height: rem-calc(32);
   width: rem-calc(32);
   min-width: rem-calc(32);
@@ -94,6 +95,10 @@ const active = (): void => {
   }
 }
 
+.success-new-answer {
+  border-color: $color-mantis;
+}
+
 
 @media (min-width: rem-calc(768)) {
   
@@ -132,5 +137,15 @@ const active = (): void => {
     }
   }
 }
-
+.quest-errors {
+  border-color: $color-amaranth;
+  color: $color-amaranth;
+  &:before {
+    position: absolute;
+    content: '!';
+    color: $color-amaranth;
+    top: 5px;
+    right: 5px;
+  }
+}
 </style>

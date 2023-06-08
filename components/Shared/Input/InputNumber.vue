@@ -29,6 +29,10 @@ export default {
     error: {
       type: String,
       default: ''
+    },
+    id: {
+      type: String,
+      default: ''
     }
   },
 
@@ -61,7 +65,7 @@ export default {
 
 <template>
   <div class="number-input" :class="[{ 'input-error': getErrorMessage }, classes]">
-    <input v-model="value" type="number" :id="`id-${name}`" :name="name" :placeholder="placeholder" >
+    <input v-model="value" type="number" :id="`${id}-${name}`" :name="`${id}-${name}`" :placeholder="placeholder" >
     <span>{{ getErrorMessage }}</span>
   </div>
 </template>

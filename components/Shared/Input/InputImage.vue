@@ -6,6 +6,14 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: ''
+  },
+  name: {
+    type: String,
+    default: ''
+  },
+  id: {
+    type: String,
+    default: ''
   }
 });
 const data = reactive({
@@ -43,7 +51,7 @@ const emitImage = (image: string) => {
 <div class="input-image">
   <div class="empty-image" v-if="!data.image">
     <div class="empty-image-placeholder">Upload image min size 456x456</div>
-    <input @change="getImage" type="file" >
+    <input @change="getImage" type="file" :id="props.id" :name="props.name + props.id" >
   </div>
 
   <div class="thumbnail" v-if="data.image">
