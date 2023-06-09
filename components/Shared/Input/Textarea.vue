@@ -56,7 +56,7 @@ export default {
 
 <template>
   <div class="textarea-input" :class="[{ 'textarea-error': getErrorMessage }, classes]">
-    <textarea v-model="value" class="scroll" :id="`id-${name}`" :name="name" :placeholder="placeholder" />
+    <textarea v-model="value" class="scroll" :id="`id-${name}`" :name="name" :placeholder="placeholder" type="text"/>
     <span>{{ getErrorMessage }}</span>
   </div>
 </template>

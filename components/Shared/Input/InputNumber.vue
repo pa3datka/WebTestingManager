@@ -10,10 +10,6 @@ export default {
       type: String,
       default: 'default-name'
     },
-    type: {
-      type: String,
-      default: 'text'
-    },
     placeholder: {
       type: String,
       default: ''

@@ -21,6 +21,7 @@ const props = defineProps({
   color: #8F8E9C;
   font-size: 15px;
   font-weight: 500;
+  transition: background-color .6s;
 }
 
 @media (min-width: 768px) {

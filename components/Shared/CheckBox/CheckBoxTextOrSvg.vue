@@ -44,7 +44,7 @@ export default {
 
 <template>
   <div class="checkbox-correct-answer" :class="{ 'input-checkbox-error': getErrorMessage }">
-    <input class="v-h " type="checkbox" :id="id" :name="name" @click="value = !value" :checked="value">
+    <input class="v-h" type="checkbox" :id="id" :name="name" @click="value = !value" :checked="value">
     <label class="hover" :for="id">
       <slot name="label"></slot>
     </label>

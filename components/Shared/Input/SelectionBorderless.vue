@@ -38,7 +38,7 @@ onMounted(() => {
   const select = document.querySelector('#id-' + props.name);
   const eventFunction = (e: Event): void => {
     if (select) {
-      const menu = select.querySelector('.election-borderless__list')
+      const menu = select.querySelector('.selection-borderless__list')
       if (menu && menu.classList.contains('show-options')) {
         !e.composedPath().includes(<EventTarget> select)
         && show();
@@ -72,7 +72,7 @@ const show = (): void => {
     <div class="selection-borderless__selected"  @click="show">
       <div>{{ data.selected.name }}</div>
     </div>
-    <menu class="election-borderless__list" :class="{'show-options': data.isShowOptions}">
+    <menu class="selection-borderless__list" :class="{'show-options': data.isShowOptions}">
       <li v-for="item in props.list" :key="item.id"  @click="toggleItem(item.id)">
         {{ item.name }}
       </li>
@@ -109,11 +109,11 @@ const show = (): void => {
     }
   }
 
-  .election-borderless__list {
+  .selection-borderless__list {
     display: none;
     position: absolute;
     z-index: 2;
-    width: auto;
+    width: max-content;
     padding-top: rem-calc(8);
     padding-bottom: rem-calc(8);
     background: #FFFFFF;
@@ -144,7 +144,7 @@ const show = (): void => {
       font-size: $font15;
     }
 
-    .election-borderless__list {
+    .selection-borderless__list {
     }
 
   }

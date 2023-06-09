@@ -7,6 +7,10 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: null
+  },
+  classes: {
+    type: String,
+    default: ''
   }
 });
 
@@ -50,7 +54,7 @@ const closeModalChose = () => {
 </script>
 
 <template>
-  <div class="upload-img-container">
+  <div class="upload-img-container" :class="props.classes">
     <div class="upload-wrapper">
       <div class="thumbnail-img">
         <div class="thumbnail-img__empty hover" v-if="!props.modelValue">

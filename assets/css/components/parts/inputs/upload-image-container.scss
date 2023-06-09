@@ -115,6 +115,7 @@
           background-color: $color-button-blue;
           cursor: pointer;
         }
+
         &:active::before {
           background-color: $color-button-blue;
           color: $color-white;
@@ -147,12 +148,14 @@
             }
           }
 
-          input {}
+          input {
+          }
         }
       }
 
       .load-btn-group {
         width: rem-calc(160);
+
         .custom-file-input-btn {
           width: rem-calc(160);
 
@@ -186,9 +189,18 @@
             }
           }
 
-          input {}
+          input {
+          }
         }
       }
+    }
+  }
+}
+
+.input-image-thumbnail-error {
+  .upload-wrapper {
+    .thumbnail-img {
+      border-color: $color-amaranth;
     }
   }
 }

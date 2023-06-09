@@ -29,15 +29,17 @@ import { ITypeSelection } from "~/composables/Interfaces/ComponentIntefaces/ITyp
 import { ISelectionBorderless } from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
 
 import { useCategoriesStore } from "~/store/shared/CategoriesStore";
-import { computed } from "@vue/reactivity";
+import {computed, ref} from "@vue/reactivity";
 import {ITestSettings} from "~/composables/Interfaces/TestInterfaces/ITestSettings";
 import { useTest } from "~/composables/test/useTest";
 import { useTestStore} from "~/store/shared/Test";
 import {ITestQuestion} from "~/composables/Interfaces/TestInterfaces/ITestQuestion";
 import {IQuestionAnswer} from "~/composables/Interfaces/TestInterfaces/IQuestionAnswer";
 import { useValidation } from "~/composables/shared/useValidation";
+import ButtonCycle from "~/components/Shared/Button/ButtonCycleSvg.vue";
+import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 
-const { validate, rules } = useValidation();
+const { validate, rules, validateInput } = useValidation();
 
 const difficultyTypes = computed(() => useTestStore().getDifficultyTypes);
 const displayAnswerTypes = computed(() => useTestStore().getDisplayAnswerTypes);
@@ -78,11 +80,8 @@ const data = reactive({
       ]
     },
   ],
-
-  typeAnswer: <number> 1,
-  quest: <string> '',
-  questPints: <number> 0,
-  answer: <string> '',
+  isTestImage: true,
+  isCategoryIdError: true,
 
   activeQuest: 1,
 
@@ -91,12 +90,17 @@ const data = reactive({
 watchEffect(() => {
  if (toRefs(data.settings)) {
    updateTestConfigs(data.settings);
+   data.settings.categoryId && (data.isCategoryIdError = true);
+   data.settings.image && (data.isTestImage = true);
  }
+
+  if (toRefs(data.questions)) {
+    console.log('update questions')
+  }
 });
 
 const addQuest = () => {
-  const validate = validateQuest();
-  if (!validate) {
+  if (!validateQuestions()) {
     return;
   }
   data.questsBtn.map((quest, index) => {
@@ -152,70 +156,146 @@ const getNewQuest = (): ITestQuestion =>  {
   };
 };
 
-const addAnswer = (questId: number, answerId: number) => {
-  const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
+const addAnswer = (question: ITestQuestion, answerId: number) => {
+  const quest = <ITestQuestion> data.questions.find(quest => quest.id === question.id);
   const lastAnswer = <IQuestionAnswer> quest.answers[quest.answers.length -1];
   quest.answers.push({ id: (lastAnswer.id + 1), is_correct: false, is_errors: false });
+  isCountAnswers(question);
 };
 
-const deleteAnswer = (questId: number, answerIndex: number, inputName: string, elemName: string) => {
+const deleteAnswer = (questId: number, answerIndex: number, inputName: string, elemName: string): void => {
   const quest = <ITestQuestion> data.questions.find(quest => quest.id === questId);
   quest.answers.splice(answerIndex, 1);
   const elem = <Element> document.querySelector(`#${elemName}`);
   elem.remove();
-  refsFields.value[inputName].delete();
+};
 
-  //delete refsFields.value[inputName];
- console.log(refsFields.value)
+const validateQuestions = (): boolean => {
+  let isValid = true;
+  data.questions.map(quest => {
+    let result = validateQuest(quest);
+    !result && (isValid = false);
+  });
+
+  return isValid;
+};
+
+const validateQuest = (quest: ITestQuestion): boolean => {
+  const successAnswer = <boolean> isSuccessAnswer(quest);
+  const answerFields = <boolean> isAnswerFields(quest);
+  const countAnswers = <boolean> isCountAnswers(quest);
+  const questFields = <boolean> isQuestFields(quest);
+
+  console.log('countAnswer', countAnswers);
+  console.log('successAnswer', successAnswer);
+  console.log('answerFields', answerFields);
+  console.log('questFields', questFields);
+
+  quest.is_errors = !(countAnswers && successAnswer && answerFields && questFields);
+  const btn = data.questsBtn.find(btn => btn.id === quest.id);
+  btn &&(btn.is_errors = quest.is_errors);
+
+  return (countAnswers && successAnswer && answerFields && questFields);
+}
+
+const isCountAnswers = (quest: ITestQuestion): boolean => {
+  const isCount = <boolean> (quest.answers.length > 1);
+  !isCount && (refsFields.value[`answer-${quest.id}-${quest.answers[quest.answers.length -1].id}`].errorMessage += ', minimum number of answers 2');
+  isCount && quest.answers.forEach(answer => {
+    const refAnswer = refsFields.value[`answer-${quest.id}-${answer.id}`];
+    refAnswer && refAnswer.errorMessage.replace(', minimum number of answers 2', '');
+  });
+
+  return isCount;
+};
+
+const isSuccessAnswer = (quest: ITestQuestion): boolean => {
+  let isSuccess = false;
+  quest.answers.forEach(answer => {
+    answer.is_correct && (isSuccess = true);
+  });
+
+  !isSuccess && (quest.check_is_correct = false);
+  isSuccess && (quest.check_is_correct = true);
+
+  return isSuccess;
+};
+
+const isAnswerFields = (quest: ITestQuestion): boolean => {
+  let isValid = true;
+  quest.answers.forEach(answer => {
+    const result = validateInput(refsFields.value[`answer-${quest.id}-${answer.id}`]);
+    !result && (isValid = false);
+  });
+
+  return isValid;
+};
+
+const isQuestFields = (quest: ITestQuestion): boolean => {
+  let arrFields = [];
+  let isValid = true;
+  if (quest.type_id === 1) {
+    arrFields.push(refsFields.value[`question-${quest.id}`]);
+    arrFields.push(refsFields.value[`question-points-${quest.id}`]);
+  }
+
+  arrFields.forEach(field => {
+    !validateInput(field) && (isValid = false);
+  });
+
+  return isValid;
+};
+
+const validateTestOptions = (): boolean => {
+  let isValid = true;
+  if (!data.settings.image) {
+    data.isTestImage = false;
+    isValid = false;
+  }
+  !validateInput(refsFields.value['test-title']) && (isValid = false);
+  !validateInput(refsFields.value['test-description']) && (isValid = false);
+
+  if (!data.settings.categoryId) {
+    data.isCategoryIdError = false;
+    isValid = false;
+  }
+
+  return isValid;
+};
+
+const saveTest = () => {
+  if (!validateTestOptions() || !validateQuestions()) {
+    console.log('fail');
+    return;
+  }
+  console.log('save');
 
 
 };
 
-const validateQuest = () => {
-  let isValidate = true;
-  data.questions.map((quest, index) => {
-    if (quest.type_id === 1) {
-      if (!quest.question || !quest.countPoints) {
-        data.questsBtn[index].is_errors = true;
-        quest.is_errors = true;
-        isValidate = false;
-      }
-      const checkBox = checkIsAnswer(quest);
-      const isCountAnswers = checkCountAnswers(quest);
-      isValidate = (isValidate && checkBox && isCountAnswers);
-      isValidate && (data.questsBtn[index].is_errors = false);
-    }
-  });
 
-  const valid = validate(refsFields);
-  return (isValidate && valid);
-}
-
-const checkIsAnswer = (quest: ITestQuestion): boolean => {
-  let isCheck = false;
-  quest.answers.forEach(answer => answer.is_correct && (isCheck = true));
-  !isCheck && (quest.check_is_correct = false);
-  isCheck && (quest.check_is_correct = true);
-
-  return isCheck;
-}
-
-const checkCountAnswers = (quest: ITestQuestion) => {
-  let isCheck = quest.answers.length > 1;
-  let isSuccessLenchAnswers = (quest.answers.length > 1);
-  const answer = <IQuestionAnswer> quest.answers.find(answer => answer);
-  !isSuccessLenchAnswers && (answer.error_text = 'there must be more than one option');
-  isSuccessLenchAnswers && (answer.error_text = '');
-
-  return isCheck;
-}
 </script>
 
 <template>
   <div class="container page-add-test">
     <div class="page-title">
-      <div class="page-title__text">Тест 18.08.2022 – черновик</div>
-      <ButtonSaveGroup />
+      <div class="page-title__text">Тест 18.08.2022 – черновик {{ data.isTestImage}}</div>
+      <ButtonSaveGroup>
+        <template v-slot:btn-one>
+          <ButtonCycle class="button-active-info cotton-ball-bg" text="View">
+            <template v-slot:svg>
+              <SvgTemplate name="password"/>
+            </template>
+          </ButtonCycle>
+        </template>
+        <template v-slot:btn-two >
+          <ButtonCycle class="button-active-info cotton-ball-bg" @click="saveTest" text="Save">
+            <template v-slot:svg>
+              <SvgTemplate name="export"/>
+            </template>
+          </ButtonCycle>
+        </template>
+      </ButtonSaveGroup>
     </div>
     <Collapse :label-svg="'label-setting'">
       <template v-slot:Title>
@@ -224,10 +304,11 @@ const checkCountAnswers = (quest: ITestQuestion) => {
       <template v-slot:content>
         <div class="content-collapse collapse-container d-grid grid-columns-1-sm grid-columns-2-1-lg column-gap-lg-20 row-gap-sm-24">
           <div class="d-flex column-gap-sm-24 column-gap-lg-32 flex-wrap-sm flex-no-wrap-md justify-content-center-ms row-gap-sm-24">
-            <PreviewLoadImg v-model="data.settings.image"/>
+            <PreviewLoadImg :classes="!data.isTestImage ? 'input-image-thumbnail-error' : ''" v-model="data.settings.image"/>
 
             <div class="W-100 max-width-lg-455" >
               <Selection
+                  :class="!data.isCategoryIdError ? 'custom-select-error' : ''"
                   :svg-is-label="true"
                   :name="'category-test'"
                   :list="categories"
@@ -238,13 +319,17 @@ const checkCountAnswers = (quest: ITestQuestion) => {
               <AuthInput
                   class="mt-sm-14 mt-lg-16"
                   placeholder="Enter plees test name"
-                  name="testname"
+                  name="test-title"
+                  :ref="el => refsFields['test-title'] = el"
+                  :rules="[rules.require, rules.maxStringLength100]"
                   v-model="data.settings.title"
               />
 
               <Textarea
                   class="mt-sm-14 mt-lg-16 h-ms-120 h-md-166 h-lg-194"
                   v-model="data.settings.description"
+                  :ref="el => refsFields['test-description'] = el"
+                  :rules="[rules.require, rules.maxStringLength1000]"
                   placeholder="Описание теста"
               />
             </div>
@@ -351,17 +436,17 @@ const checkCountAnswers = (quest: ITestQuestion) => {
                 <Textarea
                     class="mt-sm-14"
                     :ref="el => refsFields[el?.name] = el"
-                    :rules="[rules.require]"
+                    :rules="[rules.require, rules.maxStringLength1000]"
                     v-model="quest.question"
-                    :name="`quest${quest.id}`"
+                    :name="`question-${quest.id}`"
                     :placeholder="'Enter quest'"
                 />
                 <InputNumber
                     class="mt-sm-14"
-                    :name="`quest-point-${quest.id}`"
+                    :name="`question-points-${quest.id}`"
                     v-show="data.settings.evaluation_type_id === 1"
                     :ref="el => refsFields[el?.name] = el"
-                    :rules="[rules.require]"
+                    :rules="[rules.require, rules.maxNumber10000]"
                     v-model="quest.countPoints"
                     :id="`${quest.id}`"
                     placeholder="Enter count points"
@@ -372,10 +457,10 @@ const checkCountAnswers = (quest: ITestQuestion) => {
                 <div class="quest-option" v-for="(answer, index) in quest.answers" :key="answer.id" :class="{'pt-sm-10': index > 0}" :id="`quest-option${answer.id}`">
                   <AuthInput
                       v-model="answer.answer_text"
-                      :name="`answer-${answer.id}`"
+                      :name="`answer-${quest.id}-${answer.id}`"
                       placeholder="Option"
                       :ref="el => refsFields[el?.name] = el"
-                      :rules="[rules.require]"
+                      :rules="[rules.require, rules.maxStringLength250]"
                       :error="answer.error_text"
                       :errorValue="answer.error_text"
                   />
@@ -383,12 +468,12 @@ const checkCountAnswers = (quest: ITestQuestion) => {
                     <CheckBoxTextOrSvg
                         v-model="answer.is_correct"
                         :id="`asnwer-${quest.id}-${answer.id}`"
-                        @click="checkIsAnswer(quest)"
                         name="answer-check"
+                        @click="isSuccessAnswer(quest)"
                         :class="{ 'input-checkbox-error': !quest.check_is_correct }"/>
                     <div class="btn-add-delete">
-                      <ButtonMin class="hover button-active-success" @click="addAnswer(quest.id, answer.id) && checkCountAnswers(quest)" text="+" />
-                      <ButtonMin class="hover button-active-warning" v-if="quest.answers.length > 1" @click="deleteAnswer(quest.id, index, `answer-${answer.id}`, `quest-option${answer.id}`)" text="-" />
+                      <ButtonMin class="hover button-active-success button-hover-success" @click="addAnswer(quest, answer.id)" text="+" v-show="(quest.answers.length - 1) === index" />
+                      <ButtonMin class="hover button-active-warning button-hover-warning" v-if="quest.answers.length > 1" @click="deleteAnswer(quest.id, index, `answer-${answer.id}`, `quest-option${answer.id}`)" text="-" />
                     </div>
                   </div>
                 </div>
@@ -402,7 +487,6 @@ const checkCountAnswers = (quest: ITestQuestion) => {
       </template>
 
     </Collapse>
-    {{data.questions}}
   </div>
 </template>
 

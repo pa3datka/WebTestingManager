@@ -10,6 +10,7 @@
     font-size: $font13;
     color: $color-castlerock;
     line-height: 150%;
+    width: max-content;
   }
 
   .input {
@@ -20,11 +21,21 @@
   border-bottom: none!important;
 }
 
+@media (min-width: rem-calc(768)) {
+  .label-border-less {
+    .label {
+      width: max-content;
+    }
+
+  }
+}
+
 @media (min-width: rem-calc(992)) {
   .label-border-less {
 
     .label {
       font-size: $font15;
+      width: auto;
     }
 
   }
