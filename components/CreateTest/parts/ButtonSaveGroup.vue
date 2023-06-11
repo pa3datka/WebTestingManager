@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import ButtonCycle from "~/components/Shared/Button/ButtonCycleSvg.vue";
-import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
-
-</script>
-
 <template>
 <div class="btn-save-group">
   <div>

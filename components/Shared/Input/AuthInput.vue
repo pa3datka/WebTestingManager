@@ -1,14 +1,3 @@
-<template>
-  <div class="auth-input" :class="[{ 'input-error': getErrorMessage }, classes]">
-    <input v-model="value" :type="type" :id="`id-${name}`" :name="name" :placeholder="placeholder">
-    <div v-if="classes === 'password-field'" @click="type = type === 'password' ? 'text' : 'password'"
-         class="btn-pass-block">
-      <div :class="[type === 'password' ? 'btn-show' : 'btn-hide']"></div>
-    </div>
-    <span>{{ getErrorMessage }}</span>
-  </div>
-</template>
-
 <script>
 export default {
   name: "InputText",
@@ -74,15 +63,17 @@ export default {
         this.$emit('errorValue', value);
       }
     }
-  },
-
-  methods: {
-    delete() {
-      this.$el.parentNode.removeChild(this.$el);
-    }
-  },
-  beforeDestroy () {
-    this.$el.parentNode.removeChild(this.$el)
   }
 }
 </script>
+
+<template>
+  <div class="auth-input" :class="[{ 'input-error': getErrorMessage }, classes]">
+    <input v-model="value" :type="type" :id="`id-${name}`" :name="name" :placeholder="placeholder">
+    <div v-if="classes === 'password-field'" @click="type = type === 'password' ? 'text' : 'password'"
+         class="btn-pass-block">
+      <div :class="[type === 'password' ? 'btn-show' : 'btn-hide']"></div>
+    </div>
+    <span>{{ getErrorMessage }}</span>
+  </div>
+</template>

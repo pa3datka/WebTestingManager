@@ -1,5 +1,5 @@
 interface Refs {
-    value:any
+    value: any
 }
 
 export const useValidation = () => {

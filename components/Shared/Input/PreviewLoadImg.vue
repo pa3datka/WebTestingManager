@@ -84,8 +84,6 @@ const closeModalChose = () => {
     />
   </div>
 
-
-
   <ChoseImageModal v-if="data.closeChose" v-on:chose-image="choseImage">
     <template v-slot:close>
       <div class="chose-modal-header__close hover" @click="closeModalChose"></div>

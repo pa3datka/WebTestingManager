@@ -1,0 +1,68 @@
+.checkbox-correct-answer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: rem-calc(14);
+}
+
+
+.input-checkbox-error label:before {
+  border: rem-calc(1) solid $color-bittersweet!important;
+}
+
+.checkbox-correct-answer label {
+  display: flex;
+  align-items: center;
+  column-gap: rem-calc(14);
+  font-size: $font13;
+  font-weight: $font-weight4;
+  color: $color-grey-suit;
+}
+
+.checkbox-correct-answer label:before {
+  content: 'Correct answer';
+  text-align: center;
+  min-height: rem-calc(28);
+  min-width: rem-calc(132);
+  background-color: $color-white;
+  border: rem-calc(1) solid $color-iris-ice;
+  border-radius: rem-calc(4);
+  font-size: $font11;
+  color: $color-grey-suit;
+  line-height: 2.5;
+}
+.checkbox-correct-answer input:checked ~ label:before {
+  background-color: $color-mantis!important;
+  color: $color-white;
+}
+
+@media (min-width: rem-calc(768)) {
+  .checkbox-correct-answer label {
+    column-gap: 0;
+  }
+
+  .checkbox-correct-answer label:before {
+    content: '';
+    min-height: rem-calc(40);
+    min-width: rem-calc(40);
+    background-image: url("/assets/img/svg/check-none.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: rem-calc((20, 20));
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  .checkbox-correct-answer input:checked ~ label:before {
+    background-image: url("/assets/img/svg/check-ok.svg");
+    background-color: $color-white!important;
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .checkbox-correct-answer label:before {
+    content: '';
+    min-height: rem-calc(48);
+    min-width: rem-calc(48);
+  }
+}

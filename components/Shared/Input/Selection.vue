@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
-import { onMounted, PropType } from "@vue/runtime-core";
-import { computed } from "@vue/reactivity";
-import { ITestSetting } from "~/composables/Interfaces/TestInterfaces/ITestSetting";
+import {onMounted, PropType} from "@vue/runtime-core";
+import {computed} from "@vue/reactivity";
+import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -37,12 +37,12 @@ const props = defineProps({
   }
 });
 
-const selectedRef = <Ref> ref(null);
+const selectedRef = <Ref>ref(null);
 const data = reactive({
-  isLabel: <boolean> true,
-  selected: <ITestSetting> {},
-  beforeColorClass: <string> '',
-  searchString: <string> '',
+  isLabel: <boolean>true,
+  selected: <ITestSetting>{},
+  beforeColorClass: <string>'',
+  searchString: <string>'',
 });
 
 const searchList = computed((): ITestSetting[] => {
@@ -53,12 +53,14 @@ const searchList = computed((): ITestSetting[] => {
   return props.list.filter((item: any): ITestSetting[] => item.name.toLowerCase().includes(data.searchString.toLowerCase()));
 });
 
-const selected = computed(() => { return <ITestSetting> data.selected});
+const selected = computed(() => {
+  return <ITestSetting>data.selected
+});
 
 
 const selectItem = (itemId: number): void => {
   data.beforeColorClass = data.selected?.color + '-bg';
-  data.selected = <ITestSetting> props.list?.find((item: any) => Number(item.id) === Number(itemId));
+  data.selected = <ITestSetting>props.list?.find((item: any) => Number(item.id) === Number(itemId));
   selectedRef.value.classList.remove('select-focus');
 
   selectedRef.value.querySelector('input').classList.add('d-none');
@@ -70,15 +72,15 @@ const selectItem = (itemId: number): void => {
 
 onMounted(() => {
   if (props.selected) {
-    data.selected = <ITestSetting> props.selected;
+    data.selected = <ITestSetting>props.selected;
     emit('update:modelValue', data.selected.id);
   }
 
-  const select = <Element> document.querySelector('#select-id-'+ props.name);
-  const selected = <Element> select.querySelector('.input-wrapper');
+  const select = <Element>document.querySelector('#select-id-' + props.name);
+  const selected = <Element>select.querySelector('.input-wrapper');
   const eventFunction = (e: Event): void => {
     if (select.classList.contains('select-focus')) {
-      !e.composedPath().includes(<EventTarget> select)
+      !e.composedPath().includes(<EventTarget>select)
       && select.classList.remove('select-focus')
     }
   };
@@ -109,7 +111,8 @@ onMounted(() => {
             :name="data.selected?.svg ? data.selected?.svg : 'select_list'"
             v-if="props.svgIsLabel"
             :class="(data.selected?.color ? `${data.selected?.color}-stroke` : 'grey-stroke')"/>
-        <input  class="hover" type="text" v-model="data.searchString" :placeholder="(selected?.name ?? props.placeholder)">
+        <input class="hover" type="text" v-model="data.searchString"
+               :placeholder="(selected?.name ?? props.placeholder)">
         <div class="selected-value d-none">
           {{ selected.name }}
         </div>
@@ -125,7 +128,8 @@ onMounted(() => {
             <SvgTemplate v-if="props.svgIsLabel && item?.svg" :name="item?.svg" :class="`${item.color}-bg`"/>
             <div>{{ item.name }}</div>
           </div>
-          <div class="selected-value-item" :class="{'selected-value-item-active': item && data.selected.id === item?.id}"></div>
+          <div class="selected-value-item"
+               :class="{'selected-value-item-active': item && data.selected.id === item?.id}"></div>
         </li>
       </menu>
 

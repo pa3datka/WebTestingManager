@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {ISelectionBorderless} from "~/composables/Interfaces/ComponentIntefaces/ISelectionBorderless";
 import {PropType} from "@vue/runtime-core";
 import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 
@@ -80,74 +79,3 @@ const show = (): void => {
   </div>
 </template>
 
-<style lang="scss">
-@import "@/assets/css/variables.scss";
-.selection-borderless {
-  position: relative;
-  height: 100%;
-  width: 100%;
-
-
-  .selection-borderless__selected {
-    color: #262342;
-    font-size: $font13;
-    display: flex;
-    align-items: center;
-    column-gap: rem-calc(24);
-    text-transform: capitalize;
-    padding-left: 20px;
-
-    &:after {
-      content: '';
-      background-image: url("/assets/img/svg/polygon-up.svg");
-      background-position: center center;
-      background-repeat: no-repeat;
-      height: rem-calc(5);
-      width: rem-calc(7);
-      transform: rotate(180deg);
-      opacity: .6;
-    }
-  }
-
-  .selection-borderless__list {
-    display: none;
-    position: absolute;
-    z-index: 2;
-    width: max-content;
-    padding-top: rem-calc(8);
-    padding-bottom: rem-calc(8);
-    background: #FFFFFF;
-    box-shadow: 1px 1px 16px rgba(44, 100, 220, 0.13);
-    border-radius: 4px;
-
-     li {
-       text-transform: capitalize;
-       padding: rem-calc((8, 20, 8, 20));
-
-       &:hover {
-         cursor: pointer;
-         background: $color-gray-emerald-bg;
-       }
-     }
-  }
-
-  .show-options {
-    display: block!important;
-  }
-
-}
-
-@media (min-width: rem-calc(992)) {
-  .selection-borderless {
-
-    .selection-borderless__selected {
-      font-size: $font15;
-    }
-
-    .selection-borderless__list {
-    }
-
-  }
-}
-
-</style>

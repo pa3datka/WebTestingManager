@@ -96,5 +96,5 @@ const submit = () => {
 @import "@/assets/css/variables.scss";
 @import "@/assets/css/components/parts/forms/auth-form";
 @import "@/assets/css/components/parts/buttons/auth-btn.scss";
-@import "@/assets/css/components/parts/inputs/auth-input";
+@import "~/assets/css/components/parts/inputs/universal-input";
 </style>
