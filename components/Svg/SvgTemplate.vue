@@ -20,6 +20,7 @@ import GeographySvg from "~/components/Svg/parts/Categories/GeographySvg.vue";
 import HistorySvg from "~/components/Svg/parts/Categories/HistorySvg.vue";
 import LanguageSvg from "~/components/Svg/parts/Categories/LanguageSvg.vue";
 import AstronomySvg from "~/components/Svg/parts/Categories/AstronomySvg.vue";
+import MyTestsSvg from "~/components/Svg/parts/MyTestsSvg.vue";
 
 const props = defineProps({
   name: {
@@ -47,6 +48,7 @@ const svg = <ISvgObject>{
   'export': ExportSvg,
   'password': Password,
   'check': CheckSvg,
+  'my-tests': MyTestsSvg,
 
   // categories
   'mathematics': MathematicsSvg,

@@ -35,9 +35,11 @@ import {computed, ref} from "@vue/reactivity";
 import {useTest} from "~/composables/test/useTest";
 import {useTestStore} from "~/store/shared/Test";
 import {useValidation} from "~/composables/shared/useValidation";
+import {useRouter} from "nuxt/app";
 
 const {rules, validateInput} = useValidation();
 const { createTest } = useTestStore();
+const router = useRouter();
 
 const difficultyTypes = computed(() => useTestStore().getDifficultyTypes);
 const displayAnswerTypes = computed(() => useTestStore().getDisplayAnswerTypes);
@@ -72,7 +74,7 @@ const data = reactive({
   isCategoryIdError: true,
 
   activeQuest: 1,
-
+  isLoad: false
 });
 
 const getAnswerName = (questId: number, answerId: number): string => `answer-${questId}-${answerId}`;
@@ -243,16 +245,21 @@ const validateTestOptions = (): boolean => {
 };
 
 const saveTest = async () => {
+  data.isLoad = true;
   if (!validateTestOptions() || !validateQuestions()) {
+    data.isLoad = false;
     return;
   }
   const result = await createTest(data.settings, data.questions);
   if (result.status) {
     console.log(result.id)
+    data.isLoad = false;
+    router.push({ name: 'my-tests' });
     return;
   }
 
   if (!result.status) {
+    data.isLoad = false;
     console.log(result.error)
   }
 };
@@ -271,7 +278,13 @@ const saveTest = async () => {
           </ButtonCycle>
         </template>
         <template v-slot:btn-two>
-          <ButtonCycle class="button-active-info cotton-ball-bg" @click="saveTest" text="Save">
+          <ButtonCycle
+              class="button-active-info cotton-ball-bg"
+              :class="{'button--loading primary-bg': data.isLoad}"
+              @click="saveTest" text="Save"
+              :disabled="data.isLoad"
+
+          >
             <template v-slot:svg>
               <SvgTemplate name="export"/>
             </template>
@@ -467,7 +480,7 @@ const saveTest = async () => {
               <InputImage class="mt-sm-24" v-model="quest.image"/>
               <Textarea
                   class="mt-sm-14"
-                  :ref="el => refsFields[el?.name] = el"
+                  :ref="(el: any) => refsFields[el?.name] = el"
                   :rules="[rules.require, rules.maxStringLength1000]"
                   v-model="quest.question"
                   :name="`question-${quest.id}`"
@@ -477,7 +490,7 @@ const saveTest = async () => {
                   class="mt-sm-14"
                   :name="`question-points-${quest.id}`"
                   v-show="data.settings.evaluation_type_id === 1"
-                  :ref="el => refsFields[el?.name] = el"
+                  :ref="(el: any) => refsFields[el?.name] = el"
                   :rules="[rules.require, rules.maxNumber10000]"
                   v-model="quest.countPoints"
                   :id="`${quest.id}`"
@@ -497,7 +510,7 @@ const saveTest = async () => {
                     v-model="answer.answer_text"
                     :name="getAnswerName(quest.id, answer.id)"
                     placeholder="Option"
-                    :ref="el => refsFields[el?.name] = el"
+                    :ref="(el: any) => refsFields[el?.name] = el"
                     :rules="[rules.require, rules.maxStringLength250]"
                     :error="answer.error_text"
                     :errorValue="answer.error_text"
@@ -561,6 +574,7 @@ const saveTest = async () => {
 @import '~/assets/css/components/parts/selections/selection-border-less';
 @import '~/assets/css/components/parts/selections/selection-type-quest';
 @import '@/assets/css/components/parts/lists/list-type-quest';
+@import '@/assets/css/components/parts/animations';
 
 //page style
 @import "@/assets/css/components/pages/add-test-page";
