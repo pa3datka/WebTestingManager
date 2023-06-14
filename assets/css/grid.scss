@@ -1,0 +1,19 @@
+.d-grid {
+  display: grid;
+}
+
+.grid-columns-1-sm {
+  grid-template-columns: 1fr;
+}
+
+//COLUMNS
+@media (min-width: rem-calc(768)) {
+
+}
+
+@media (min-width: rem-calc(992)) {
+  .grid-columns-2-1-lg {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+//END Columns

@@ -24,6 +24,7 @@ interface LinkMenu {
 };
 
 const links = <LinkMenu[]> [
+    { link: '/profile', name: 'Home', auth: true, callback: hide.hideDrawerForcibly, count: false },
     { link: '/', name: 'Message', auth: true, callback: hide.hideDrawerForcibly, count: true },
     { link: '/', name: 'Notifications', auth: true, callback: hide.hideDrawerForcibly, count: false },
     { link: '/', name: 'Settings', auth: true, callback: hide.hideDrawerForcibly },

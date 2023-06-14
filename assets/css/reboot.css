@@ -120,9 +120,16 @@ input:-webkit-autofill {
 }
 
 input,
-textarea {
+textarea,
+textarea:focus,
+textarea:focus-visible {
     border-radius: 0;
+    border: none;
+    outline: none;
+    -moz-appearance: none;
 }
+
+
 input::-moz-placeholder, textarea::-moz-placeholder {
     opacity: 1;
 }
@@ -185,6 +192,7 @@ button,
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    font-family: Rubik, sans-serif;
 }
 
 h1, h2, h3, h4, h5 {

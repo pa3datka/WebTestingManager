@@ -1,0 +1,116 @@
+.selection-type-quest {
+  position: relative;
+  width: 100%;
+  height: rem-calc(56);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: rem-calc(1) solid $color-iris-ice;
+  background-color: $color-white;
+  border-radius: rem-calc(4);
+  padding: rem-calc((0, 16));
+
+  &:after {
+    content: '';
+    width: rem-calc(6);
+    height: rem-calc(4);
+    background-image: url("/assets/img/svg/polygon-up.svg");
+    transform: rotate(180deg);
+    opacity: .7;
+  }
+
+  .selected {
+    .value {
+      color: $color-button-blue;
+      font-weight: $font-weight5;
+      font-size: $font13;
+    }
+
+    .description {
+      padding-top: rem-calc(3);
+      color: $color-grey-suit;
+      font-size: $font11;
+    }
+  }
+
+  .options {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    top: rem-calc(54);
+    left: 0;
+    background-color: $color-white;
+    padding: 16px;
+    border: 1px solid $color-iris-ice;
+    border-radius: rem-calc(4);
+
+    .option {
+      padding: rem-calc((5, 0));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .marker-cycle {
+        width: rem-calc(21);
+        height: rem-calc(21);
+        border: rem-calc(1) solid $color-quartz;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        .marker-cycle {
+          border: rem-calc(1) solid $color-button-blue;
+        }
+        .option_value {
+          .option_value,
+          .option_description {
+            color: $color-button-blue !important;
+          }
+        }
+      }
+
+      .option_value {
+        .option_value {
+          color: $color-black-market;
+          font-weight: $font-weight5;
+          font-size: $font13;
+        }
+
+        .option_description {
+          padding-top: rem-calc(3);
+          color: $color-grey-suit;
+          font-size: $font11;
+        }
+      }
+
+    }
+
+    .active-option {
+      .marker-cycle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-color: $color-button-blue;
+
+        &:before {
+          content: '';
+          height: rem-calc(10);
+          width: rem-calc(10);
+          border-radius: 50%;
+          background-color: $color-button-blue;
+        }
+      }
+
+      .option_value {
+        .option_value, .option_description {
+          color: $color-button-blue;
+        }
+      }
+    }
+  }
+
+  .show-options {
+    display: block;
+  }
+}

@@ -21,6 +21,7 @@
     "@nuxt/types": "^2.16.3",
     "@pinia/nuxt": "^0.4.10",
     "pinia": "^2.0.36",
+    "vue-advanced-cropper": "^2.8.8",
     "vue-recaptcha-v3": "^2.0.1"
   },
   "overrides": {

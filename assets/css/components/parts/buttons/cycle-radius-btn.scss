@@ -1,0 +1,13 @@
+.btn-cycle {
+  height: rem-calc(32);
+  border-radius: rem-calc(40);
+  border: rem-calc(1) solid $color-hosta-flower;
+  color: $color-black-market;
+  font-size: $font13;
+  background-color: $color-white-solid;
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-button-blue;
+  }
+}

@@ -17,7 +17,7 @@ const props = defineProps({
 
 <template>
 <header>
-    <div class="container d-flex justify-space-between align-items-center" style="height: 100%;">
+    <div class="container-header d-flex justify-space-between align-items-center" style="height: 100%;">
         <div class="left-header d-flex align-items-center">
             <logo-component />
             <laptop-menu />

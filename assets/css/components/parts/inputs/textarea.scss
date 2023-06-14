@@ -1,0 +1,50 @@
+.textarea-input {
+  width: 100%;
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    padding: rem-calc(20);
+    font-size: $font15;
+    color: $color-black-market;
+    border: rem-calc(1) solid $color-iris-ice;
+    border-radius: rem-calc(4);
+    overflow: auto;
+
+    &::placeholder {
+      font-size: $font15;
+      color: $color-castlerock;
+    }
+  }
+
+  span {
+    display: none;
+  }
+}
+
+.textarea-error textarea,
+.textarea-error textarea:focus,
+.textarea-error textarea:focus-visible {
+  border: rem-calc(1) solid $color-bittersweet;
+  color: $color-bittersweet;
+}
+
+.textarea-error span {
+  display: inline-block;
+  padding-top: rem-calc(4);
+  font-size: $font12;
+  color: $color-bittersweet;
+
+  animation-duration: .4s;
+  animation-name: showError;
+}
+
+@keyframes showError {
+  from {
+    margin-left: 10%;
+  }
+
+  to {
+    margin-left: 0;
+  }
+}

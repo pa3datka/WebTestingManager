@@ -36,6 +36,24 @@ class HttpRequest {
         return this.apiFetch(url, this.fetchOptions);
     }
 
+    async upload(url: string, image: string, source: string) {
+        let options = {...this.fetchOptions};
+        // @ts-ignore
+        delete options.headers["Accept"];
+        // @ts-ignore
+        delete options.headers["Content-Type"];
+        options.baseURL = useRuntimeConfig().public.imageApiUrl;
+        options.method = 'POST';
+
+        let form = new FormData;
+        form.append('image', image);
+        form.append('source', source);
+        // @ts-ignore
+        options.body = form;
+        // @ts-ignore
+        return this.apiFetch(url, options);
+    }
+
     private setOptions(method: string, body?: object): void {
         this.fetchOptions.method = method;
         method === 'GET' && (this.fetchOptions.body = null)

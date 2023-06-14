@@ -1,0 +1,63 @@
+.input-image {
+  position: relative;
+
+  .empty-image {
+    height: rem-calc(40);
+    width: 100%;
+    border: rem-calc(1) solid $color-iris-ice;
+    border-radius: rem-calc(4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: rem-calc(20);
+    padding-right: rem-calc(12);
+    font-size: $font15;
+    color: $color-castlerock;
+
+    &:after {
+      content: '';
+      height: rem-calc(20);
+      width: rem-calc(20);
+      background-image: url("/assets/img/svg/upload-image.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+
+    }
+
+    input {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: 0;
+    }
+
+  }
+
+  .thumbnail {
+    position: relative;
+    height: rem-calc(165);
+    width: rem-calc(165);
+
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: rem-calc(4);
+    }
+
+    .clear {
+      position: absolute;
+      top: rem-calc(10);
+      right: rem-calc(10);
+      border-radius: 50%;
+      height: rem-calc(24);
+      width: rem-calc(24);
+      background-color: $color-white;
+      z-index: 2;
+      background-image: url("@/assets/img/svg/close.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }
+}

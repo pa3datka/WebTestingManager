@@ -26,7 +26,7 @@ $rem-base: 16 !default;
   @return $remValues;
 }
 
-$color-white-1: #FFFFFF;
+
 $color-white-2: #F8F8FC;
 $color-white-3: #F1F2F6;
 
@@ -86,12 +86,37 @@ $color-text-blue: #2C64DC;
 $color-text-white: #FFFFFF;
 $color-red: #F86B6B;
 
+
+//COLORS
+$color-black-market: #262342;
+$color-white: #FFFFFF;
+$color-white-solid : #F8F8FC;
+$color-cotton-ball: #F3F4FD;
+$color-hosta-flower:  #DDDEE7;
+$color-ghost-1: #C9C8D3;
+$color-iris-ice: #E4E5F1;
+$color-grey-suit: #8F8E9C;
+$color-button-blue: #2C64DC;
+$color-summer-sky :#2DA2EC;
+$color-castlerock: #626167;
+$color-quartz: #E0DFEB;
+$color-amaranth: #DE3C4B;
+$color-bittersweet: #F86B6B;
+$color-lavender: #EDEEF8;
+$color-ghost: #C4C3CD;
+$color-mantis: #7AC74F;
+//END COLORS
+
 //FONT SIZE
+$font11: rem-calc(11);
 $font12: rem-calc(12);
 $font13: rem-calc(13);
 $font14: rem-calc(14);
 $font15: rem-calc(15);
+$font17: rem-calc(17);
 $font18: rem-calc(18);
+$font19: rem-calc(19);
+$font20: rem-calc(20);
 
 //FONT WEIGHT
 $font-weight5: 500;

@@ -1,0 +1,51 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: rem-calc(38);
+  height: rem-calc(24);
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      border: rem-calc(2) solid $color-button-blue;
+    }
+
+    &:checked + .slider:before {
+      -webkit-transform: translateX(rem-calc(26));
+      -ms-transform: translateX(rem-calc(26));
+      background-color: $color-button-blue;
+      transform: translateX(rem-calc(14));
+      border: rem-calc(2) solid $color-button-blue;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: rem-calc(34);
+    border: rem-calc(2) solid $color-ghost;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: rem-calc(16);
+      width: rem-calc(16);
+      left: rem-calc(2);
+      bottom: rem-calc(2);
+      background-color: $color-ghost;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+}

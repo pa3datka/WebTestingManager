@@ -1,0 +1,76 @@
+.number-input {
+  position: relative;
+}
+.number-input input {
+  height: rem-calc(40);
+  width: 100%;
+  border: rem-calc(1) solid $color-iris-ice;
+  border-radius: rem-calc(4);
+  font-size: rem-calc(15);
+  padding: rem-calc((0, 16));
+  color: $color-castlerock;
+}
+
+
+.number-input input:focus,
+.number-input input:focus-visible {
+  outline: none !important;
+  border-color: $color-ghost-1;
+}
+
+input[type="number"] {
+  background-image: url("/assets/img/svg/number-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: 98% center;
+  padding-right: rem-calc(16);
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  border-width: 0;
+  margin: 0;
+  height: rem-calc(40);
+  width: rem-calc(24);
+  cursor: pointer;
+}
+
+.input-error input,
+.input-error input:focus,
+.input-error input:focus-visible {
+  border: rem-calc(1) solid $color-bittersweet;
+  color: $color-bittersweet;
+}
+.number-input span {
+  display: none;
+}
+
+.input-error span {
+  display: inline-block;
+  padding-top: rem-calc(4);
+  font-size: $font12;
+  color: $color-bittersweet;
+
+  animation-duration: .4s;
+  animation-name: showError;
+}
+
+@keyframes showError {
+  from {
+    margin-left: 10%;
+  }
+
+  to {
+    margin-left: 0;
+  }
+}
+@media (min-width: rem-calc(768)) {
+
+}
+
+@media (min-width: rem-calc(992)) {
+  .number-input input {
+    height: rem-calc(48);
+  }
+}

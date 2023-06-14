@@ -1,0 +1,31 @@
+.button-cycle-svg {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: rem-calc(8);
+  height: rem-calc(40);
+  padding: rem-calc((0, 32));
+  border: rem-calc(1) solid $color-iris-ice;
+  border-radius: rem-calc(14);
+  transition: background-color 0.2s ease;
+  font-size: $font13;
+  color: $color-grey-suit;
+
+  svg {
+    width: rem-calc(16);
+    height: rem-calc(16);
+    stroke: $color-grey-suit;
+  }
+}
+
+@media (min-width: rem-calc(768)) {
+  .button-cycle-svg {}
+}
+
+@media (min-width: rem-calc(992)) {
+  .button-cycle-svg {
+    font-size: $font15;
+  }
+}

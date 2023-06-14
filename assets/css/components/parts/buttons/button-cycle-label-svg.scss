@@ -1,0 +1,82 @@
+.button-cycle-label-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: rem-calc(9);
+  height: rem-calc(48);
+  padding-right: rem-calc(32);
+  padding-left: rem-calc(32);
+  background-color: $color-white;
+  border-radius: rem-calc(50);
+  border: rem-calc(2) solid $color-iris-ice;
+  color: $color-castlerock;
+  .label-svg {
+    svg {
+      stroke: $color-castlerock;
+    }
+  }
+
+  .value {
+    width: max-content;
+  }
+}
+.hover-info {
+  &:hover {
+    background-color: $color-button-blue;
+    border: none;
+    cursor: pointer;
+    .label-svg {
+      svg {
+        height: rem-calc(16);
+        width: rem-calc(16);
+        stroke: $color-white;
+      }
+    }
+
+    .value {
+      color: $color-white;
+    }
+  }
+}
+
+.hover-error {
+  &:hover {
+    background-color: $color-amaranth;
+    border: none;
+    cursor: pointer;
+    .label-svg {
+      svg {
+        height: rem-calc(16);
+        width: rem-calc(16);
+        stroke: $color-white;
+      }
+    }
+
+    .value {
+      color: $color-white;
+    }
+  }
+}
+
+.button-cycle-label-svg-min {
+  @media (max-width: rem-calc(992)) {
+    width: rem-calc(32);
+    height: rem-calc(32);
+    padding: 0;
+    border-radius: rem-calc(4);
+    border: rem-calc(2) solid $color-iris-ice;
+    color: $color-castlerock;
+    .label-svg {
+      height: rem-calc(17);
+      svg {
+        height: rem-calc(16);
+        width: rem-calc(16);
+        stroke: $color-castlerock;
+      }
+    }
+
+    .value {
+      display: none;
+    }
+  }
+}

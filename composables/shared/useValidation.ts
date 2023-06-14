@@ -1,5 +1,5 @@
 interface Refs {
-    value:any
+    value: any
 }
 
 export const useValidation = () => {
@@ -10,7 +10,11 @@ export const useValidation = () => {
         min2: (v: string): boolean|string => v.length >= 2 || 'The minimum field length is 2 characters',
         max50: (v: string): boolean|string => v.length < 50 || 'max.len.50',
         passConfirm: (val1: string, val2: string): boolean|string => val1 === val2 || 'no confirm password',
-        isTrue: (val: boolean): boolean|string => val || 'not chosen'
+        isTrue: (val: boolean): boolean|string => val || 'not chosen',
+        maxNumber10000: (val: number): boolean|string => val <= 10000 || 'max number 10.000',
+        maxStringLength1000: (val: string): boolean|string => val.length <= 1000 || 'max text length 1000',
+        maxStringLength250: (val: string): boolean|string => val.length <= 250 || 'max text length 250',
+        maxStringLength100: (val: string): boolean|string => val.length <= 100 || 'max text length 100',
     }
 
 
@@ -37,9 +41,9 @@ export const useValidation = () => {
         let flag = true;
         let message = ''
         // @ts-ignore
-        el.rules && el.rules.forEach((rule) => {
-
-            let result = rule(el.value);
+        el && el.rules && el.rules.forEach((rule) => {
+            const value = el.type === 'text' || !el?.type ? (el.value ?? '') : el.value;
+            let result = rule(value);
             if (result !== true) {
                 message += message.length ? ', ' + result : result;
                 el.errorMessage = message;
@@ -55,5 +59,9 @@ export const useValidation = () => {
         return result === true;
     }
 
-    return { validate, rules }
+    const validateInput = (el: any) => {
+        return validField(el);
+    }
+
+    return { validate, rules, validateInput }
 }

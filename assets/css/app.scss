@@ -1,6 +1,7 @@
 @import "variables";
 @import "reboot.css";
 @import "flex";
+@import "grid";
 @import "containers";
 @import "color";
 
@@ -18,21 +19,6 @@ body {
 
 }
 
-.container {
-  max-width: rem-calc(1920);
-  margin: 0 auto;
-  padding: rem-calc((0, 20));
-}
-
-//DISPLAY
-.d-none {
-  display: none;
-}
-
-.d-none-md {
-}
-
-//END DISPLAY
 
 .tm-main,
 .tm-main-dashboard {
@@ -51,9 +37,6 @@ body {
 }
 
 @media (min-width: rem-calc(768)) {
-  .container {
-    padding: rem-calc((0, 30));
-  }
   .tm-main,
   .tm-main-dashboard {
     //padding-top: rem-calc(65);
@@ -64,10 +47,33 @@ body {
   }
 }
 
-@media (min-width: rem-calc(992)) {
-  .container {
-    padding: rem-calc((0, 40));
+//SCROLL
+.scroll {
+  &::-webkit-scrollbar {
+    width: 5px;
   }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #F1F2F6;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #C4C3CD;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #C9C8D3;
+  }
+}
+//END SCROLL
+
+@media (min-width: rem-calc(992)) {
   .tm-main,
   .tm-main-dashboard {
     //padding-top: rem-calc(96);
@@ -179,5 +185,68 @@ body {
 
 .lang-head-img-es {
   background-image: url("@/assets/img/svg/lang/es.svg");
+}
+
+.button-active-info {
+  &:active {
+    background-color: #2C64DC;
+    color: #FFFFFF;
+    svg {
+      stroke: #FFFFFF;
+    }
+  }
+}
+
+.button-active-success {
+  &:active {
+    background-color: $color-mantis;
+    color: #FFFFFF;
+    svg {
+      stroke: #FFFFFF;
+    }
+  }
+}
+
+.button-hover-success {
+  &:hover {
+    background-color: $color-mantis;
+    color: #FFFFFF;
+    svg {
+      stroke: #FFFFFF;
+    }
+  }
+}
+
+.button-active-warning {
+  &:active {
+    background-color: $color-amaranth;
+    color: #FFFFFF;
+    svg {
+      stroke: #FFFFFF;
+    }
+  }
+}
+
+.button-hover-warning {
+  &:hover {
+    background-color: $color-amaranth;
+    color: #FFFFFF;
+    svg {
+      stroke: #FFFFFF;
+    }
+  }
+}
+
+.v-h {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
 }
 

@@ -1,0 +1,105 @@
+.text-editor-container {
+  width: 100%;
+  border: rem-calc(1) solid $color-iris-ice;
+  border-radius: rem-calc(4);
+
+  .content {
+    &:focus-visible {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none;
+    }
+
+    height: rem-calc(121);
+    width: 100%;
+    padding: rem-calc(16);
+    color: $color-castlerock;
+    word-break: break-all;
+    overflow: auto;
+  }
+  .content-options {
+    padding: rem-calc(10);
+    height: rem-calc(44);
+    display: flex;
+    column-gap: rem-calc(20);
+    justify-content: center;
+    border-top: rem-calc(1) solid $color-iris-ice;
+
+    .button-option,
+    .input-text-color {
+      height: rem-calc(24);
+      width: rem-calc(24);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: rem-calc((14, 14));
+      background-color: $color-iris-ice;
+      border-radius: rem-calc(4);
+    }
+
+    .btn-bold {
+      background-image: url("/assets/img/svg/bold-editor.svg");
+    }
+
+    .btn-cursive {
+      background-image: url("/assets/img/svg/cursive-editor.svg");
+    }
+
+    .btn-underline {
+      background-image: url("/assets/img/svg/underline-editor.svg");
+    }
+
+    .btn-link {
+      background-image: url("/assets/img/svg/link-editor.svg");
+    }
+
+    .btn-color {
+      background-image: url("/assets/img/svg/text-color-editor.svg");
+
+      &[type="color"]::-webkit-color-swatch-wrapper {
+        padding: rem-calc((16, 3, 3, 3));
+      }
+      &[type="color"]::-webkit-color-swatch {
+        border: none;
+      }
+    }
+
+    .btn-editor-active {
+      background-color: $color-ghost;
+    }
+  }
+}
+
+@media (min-width: rem-calc(768)) {
+  .text-editor-container {
+    display: flex;
+
+    .content {
+      height: rem-calc(192);
+    }
+
+    .content-options {
+      border-top: none;
+      border-left: rem-calc(1) solid $color-iris-ice;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: rem-calc(10);
+      padding: rem-calc(16);
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .text-editor-container {
+    .content {
+      height: rem-calc(221);
+    }
+
+    .content-options {
+      border-top: none;
+      row-gap: rem-calc(14);
+      padding: rem-calc((22, 12));
+    }
+  }
+}
