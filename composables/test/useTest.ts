@@ -1,5 +1,6 @@
 import { useTestStore } from "~/store/shared/Test";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
+import {useResponseError} from "~/composables/shared/useResponseError";
 
 export const useTest = () => {
     const { $httpRequest } = useNuxtApp();
@@ -19,9 +20,9 @@ export const useTest = () => {
         try {
             // @ts-ignore
             const res = await $httpRequest.post('test/create', test);
-            console.log(res)
-        } catch (e) {
-            console.error(e);
+            return { status: true, id: res.test_id };
+        } catch (e: any) {
+            return { status: false, error: useResponseError().getResponseErrors(e)};
         }
     }
 

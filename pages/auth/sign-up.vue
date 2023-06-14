@@ -154,5 +154,5 @@ onMounted(async () => {
 @import "@/assets/css/components/parts/forms/auth-form";
 @import "@/assets/css/components/parts/buttons/auth-btn.scss";
 @import "@/assets/css/components/parts/inputs/auth-checkbox";
-@import "~/assets/css/components/parts/inputs/universal-input";
+@import "@/assets/css/components/parts/inputs/input-universal";
 </style>

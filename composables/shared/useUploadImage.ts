@@ -12,7 +12,11 @@ export const useUploadImage = () => {
     const uploadTestImages = async (images: IUploadTestImage[]) => {
         let result = await Promise.all(
             images.map(async image => {
-                return image.file = await uploadImage(image.file, image.source)
+                try {
+                    return image.file = await uploadImage(image.file, image.source);
+                } catch (e) {
+                    return image.file = '/error-save-image';
+                }
             })
         );
 

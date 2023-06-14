@@ -37,7 +37,7 @@ import {useTestStore} from "~/store/shared/Test";
 import {useValidation} from "~/composables/shared/useValidation";
 
 const {rules, validateInput} = useValidation();
-const {updateTestConfigs, createTest} = useTestStore();
+const { createTest } = useTestStore();
 
 const difficultyTypes = computed(() => useTestStore().getDifficultyTypes);
 const displayAnswerTypes = computed(() => useTestStore().getDisplayAnswerTypes);
@@ -81,7 +81,6 @@ const getAnswerName = (questId: number, answerId: number): string => `answer-${q
 
 watchEffect(() => {
   if (toRefs(data.settings)) {
-    updateTestConfigs(data.settings);
     data.settings.categoryId && (data.isCategoryIdError = true);
     data.settings.image && (data.isTestImage = true);
   }
@@ -247,7 +246,15 @@ const saveTest = async () => {
   if (!validateTestOptions() || !validateQuestions()) {
     return;
   }
-  await createTest(data.settings, data.questions);
+  const result = await createTest(data.settings, data.questions);
+  if (result.status) {
+    console.log(result.id)
+    return;
+  }
+
+  if (!result.status) {
+    console.log(result.error)
+  }
 };
 </script>
 

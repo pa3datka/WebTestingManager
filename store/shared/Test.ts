@@ -46,10 +46,6 @@ export const useTestStore = defineStore('test', {
             this.choseImages = <[]> settings.chose_images
         },
 
-        updateTestConfigs(configs: ITestSettings): void {
-            this.newTestConfiguration = <ITestSettings> configs;
-        },
-
         async createTest(configs: ITestSettings, questions: ITestQuestion[]) {
 
            let arrImages = [];
@@ -61,9 +57,7 @@ export const useTestStore = defineStore('test', {
                });
            });
 
-
            const images = <IUploadTestImage[]> await useUploadImage().uploadTestImages(arrImages);
-
            images.forEach((image: IUploadTestImage)  => {
                if (image.source === 'test') {
                    configs.image = image.file;
@@ -92,10 +86,10 @@ export const useTestStore = defineStore('test', {
 
            const { createTest } = useTest();
 
-           await createTest(test);
+           return await createTest(test);
         },
 
-        prepareTest(settings: ITestSettings, questions: ITestQuestion[]){
+        prepareTest(settings: ITestSettings, questions: ITestQuestion[]): ITest {
             let test = <ITest> {};
 
             test.title = settings.title;
@@ -104,8 +98,8 @@ export const useTestStore = defineStore('test', {
             test.category_id = settings.categoryId;
             test.difficulty_id = settings.difficultyId;
             test.attempts = (settings?.attempts ?? null);
-            test.display_answer_type_id = settings.display_answer_type_id;
-            test.evaluation_type_id = settings.evaluation_type_id;
+            test.display_answer_id = settings.display_answer_type_id;
+            test.evaluation_id = settings.evaluation_type_id;
             test.cheating_prevention = (settings?.cheating_prevention ?? null);
             test.time = (settings?.time ?? null);
             test.shuffle_answers = settings.shuffle_answers;
