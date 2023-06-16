@@ -21,6 +21,10 @@ import HistorySvg from "~/components/Svg/parts/Categories/HistorySvg.vue";
 import LanguageSvg from "~/components/Svg/parts/Categories/LanguageSvg.vue";
 import AstronomySvg from "~/components/Svg/parts/Categories/AstronomySvg.vue";
 import MyTestsSvg from "~/components/Svg/parts/MyTestsSvg.vue";
+import SearchFieldSvg from "~/components/Svg/parts/SearchFieldSvg.vue";
+import FilterSvg from "~/components/Svg/parts/FilterSvg.vue";
+import MenuOptionsSvg from "~/components/Svg/parts/MenuOptionsSvg.vue";
+import VectorSvg from "~/components/Svg/parts/VectorSvg.vue";
 
 const props = defineProps({
   name: {
@@ -49,6 +53,10 @@ const svg = <ISvgObject>{
   'password': Password,
   'check': CheckSvg,
   'my-tests': MyTestsSvg,
+  'search-field': SearchFieldSvg,
+  'filter': FilterSvg,
+  'menu-options': MenuOptionsSvg,
+  'vector': VectorSvg,
 
   // categories
   'mathematics': MathematicsSvg,

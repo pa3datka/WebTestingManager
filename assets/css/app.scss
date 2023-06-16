@@ -190,9 +190,9 @@ body {
 .button-active-info {
   &:active {
     background-color: #2C64DC;
-    color: #FFFFFF;
+    color: #FFFFFF!important;
     svg {
-      stroke: #FFFFFF;
+      stroke: #FFFFFF!important;
     }
   }
 }

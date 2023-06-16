@@ -10,6 +10,6 @@ const props = defineProps({
 <template>
   <button class="button-cycle-svg hover" type="button">
     <slot name="svg"></slot>
-    <div class="text">{{ props.text }}</div>
+    <div class="text" v-show="props.text?.length">{{ props.text }}</div>
   </button>
 </template>
