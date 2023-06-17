@@ -11,6 +11,8 @@
   border: rem-calc(2) solid $color-iris-ice;
   color: $color-castlerock;
   .label-svg {
+    height: rem-calc(20);
+    width: rem-calc(20);
     svg {
       stroke: $color-castlerock;
     }

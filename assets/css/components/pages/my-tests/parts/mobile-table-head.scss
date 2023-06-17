@@ -1,0 +1,16 @@
+.mobile-head {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  .line {
+    font-size: rem-calc(24);
+    color: $color-hosta-flower;
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .mobile-head {
+    display: none;
+  }
+}

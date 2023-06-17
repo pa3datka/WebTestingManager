@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import SearchMyTestInput from "~/components/MyTests/SearchMyTestInput.vue";
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 </script>
@@ -28,80 +27,3 @@ import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 
   </div>
 </template>
-
-<style lang="scss">
-@import "@/assets/css/variables.scss";
-
-.desktop-head {
-  display: none;
-  height: 100%;
-  align-items: center;
-  grid-template-columns: minmax(rem-calc(155), rem-calc(310)) minmax(rem-calc(411), rem-calc(822)) minmax(rem-calc(54), rem-calc(108));
-
-  .desktop-search {
-    height: rem-calc(48);
-    display: flex;
-    align-items: center;
-    border-right: rem-calc(1) solid $color-hosta-flower;
-  }
-
-  .desktop-filter {
-    padding-left: 5%;
-    padding-right: 5%;
-    height: rem-calc(48);
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 1fr 2fr;
-    column-gap: 10px;
-
-    .filter-stat {
-      display: grid;
-      justify-content: center;
-      grid-template-columns: 1fr 1fr 1fr;
-      column-gap: 10%;
-    }
-
-    .filter-type {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      column-gap: 15%;
-    }
-  }
-
-  .desktop-setting {
-    height: rem-calc(48);
-    border-left: rem-calc(1) solid $color-hosta-flower;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    button {
-      background: none;
-      border: none;
-
-      &:active {
-        svg {
-          stroke: $color-black-market;
-        }
-      }
-
-      &:hover {
-        svg {
-          stroke: $color-black-market;
-        }
-      }
-
-      svg {
-        stroke: $color-grey-suit;
-      }
-    }
-  }
-}
-
-@media (min-width: rem-calc(992)) {
-  .desktop-head {
-    display: grid;
-  }
-}
-</style>

@@ -1,0 +1,114 @@
+.border-rate,
+.level-rate {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: rem-calc(10);
+  justify-content: center;
+  padding-bottom: rem-calc(25);
+  padding-top: rem-calc(10);
+}
+
+.border-rate-title,
+.level-rate-title {
+  text-align: center;
+  font-size: $font12!important;
+  color: $color-grey-suit;
+}
+
+.cycle-value {
+  width: rem-calc(56);
+  height: rem-calc(40);
+  display: flex;
+  justify-content: center;
+  border-radius: rem-calc(14);
+}
+
+.border-rate {
+
+  .cycle-value {
+    align-items: center;
+    font-size: $font13;
+    color: $color-black-market;
+    //background: linear-gradient(white, white) padding-box,
+    //linear-gradient(26deg, red 0 21%, #E4E5F0 21% 100%) border-box 3px;
+    //border: 2px solid transparent;
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .border-rate {
+    .border-rate-title {
+      display: none;
+    }
+
+    .cycle-value {
+      width: rem-calc(61);
+      height: rem-calc(48);
+      font-size: $font15;
+    }
+  }
+}
+
+.level-rate {
+
+  .cycle-value {
+    align-items: flex-end;
+    column-gap: rem-calc(3);
+    border: rem-calc(2) solid $color-lavender;
+    padding-bottom: rem-calc(8);
+
+    .one, .two, .three, .four, .five {
+      background-color: $color-lavender;
+      border-radius: rem-calc(6);
+      width: rem-calc(3);
+    }
+
+    .one {height: rem-calc(5);}
+    .two {height: rem-calc(8);}
+    .three {height: rem-calc(12);}
+    .four {height: rem-calc(16);}
+    .five {height: rem-calc(20);}
+  }
+
+  .level-rate-1 {
+    .one {background-color: $color-mantis;}
+  }
+
+  .level-rate-2 {
+    .one, .two{
+      background-color: $color-mantis;
+    }
+  }
+
+  .level-rate-3 {
+    .one, .two, .three {
+      background-color: $color-salmon;
+    }
+  }
+
+  .level-rate-4 {
+    .one, .two, .three, .four {
+      background-color: $color-salmon;
+    }
+  }
+
+  .level-rate-5 {
+    .one, .two, .three, .four, .five {
+      background-color: $color-bittersweet;
+    }
+  }
+}
+
+@media (min-width: rem-calc(992)) {
+  .level-rate {
+    .level-rate-title {
+      display: none;
+    }
+
+    .cycle-value {
+      width: rem-calc(61);
+      height: rem-calc(48);
+      padding-bottom: rem-calc(10);
+    }
+  }
+}

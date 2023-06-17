@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import FilterMyTest from "~/components/MyTests/FilterMyTest.vue";
 import ButtonCycleSvg from "~/components/Shared/Button/ButtonCycleSvg.vue";
 import SearchMyTestInput from "~/components/MyTests/SearchMyTestInput.vue";
@@ -54,23 +53,3 @@ const showFilter = () => {
 
   </div>
 </template>
-
-<style lang="scss">
-@import "@/assets/css/variables.scss";
-.mobile-head {
-  height: 100%;
-  display: flex;
-  align-items: center;
-
-  .line {
-    font-size: rem-calc(24);
-    color: $color-hosta-flower;
-  }
-}
-
-@media (min-width: rem-calc(992)) {
-  .mobile-head {
-    display: none;
-  }
-}
-</style>

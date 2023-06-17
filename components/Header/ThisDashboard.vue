@@ -38,7 +38,7 @@ onMounted(() => {
             <li class="d-flex align-items-center hover">
                 <nuxt-link class="d-flex align-items-center" to="/profile/my-tests">
                     <div class="svg-link">
-                        <svg-template name="add-test"/>
+                        <svg-template name="my-tests"/>
                     </div>
                     <span>My tests</span>
                 </nuxt-link>
@@ -47,7 +47,7 @@ onMounted(() => {
           <li class="d-flex align-items-center hover">
             <nuxt-link class="d-flex align-items-center" to="/profile/add-test">
               <div class="svg-link">
-                <svg-template name="my-tests"/>
+                <svg-template name="add-test"/>
               </div>
               <span>Add test</span>
             </nuxt-link>

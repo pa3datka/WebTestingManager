@@ -1,136 +1,105 @@
 <script setup lang="ts">
 
+import BorderRate from "~/components/Shared/Indicator/BorderRate.vue";
+import LevelRate from "~/components/Shared/Indicator/LevelRate.vue";
+import ButtonSvg from "~/components/Shared/Button/ButtonSvg.vue";
+import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
+
 const data = reactive({
-  show: true
+  show: true,
 });
+
+const dotsString = (length: number, text: string): string => {
+  return text.length > length ? text.slice(0, (length - 3)) + '...' : text;
+}
 const showItem = () => {
   data.show = !data.show;
 };
 </script>
 
 <template>
-  <div class="table-item m-table-item" :class="{'m-table-item-show': data.show}">
-    <div class="item-title item-title-show" @click="showItem">
+  <div>
+    <div class="table-item m-table-item" :class="{'m-table-item-show': data.show}">
+      <div class="item-title item-title-show" @click="showItem">
 
-      <div class="item-title-content">
-        <img src="/image-test-category.jpg" height="48" width="48" alt="">
-        <div class="title">{{'Тест на знание истории Древного Рима asssssssssss'}}</div>
+        <div class="item-title-content">
+          <img src="/image-test-category.jpg" height="48" width="48" alt="">
+          <div class="content-title">{{dotsString(45, 'Тест на знание истории Древного Рима asssssssssss')}}</div>
+        </div>
+
+        <SvgTemplate class="vector-rotate" name="vector" />
+
       </div>
 
-      <SvgTemplate class="vector-rotate" name="vector" />
+      <div class="item-content item-content-show">
+        <div class="statistic">
+          <BorderRate rate="7/10" :percent="70" title="AVG"/>
+          <BorderRate rate="176"  title="Passed"/>
+          <LevelRate title="Level"/>
+        </div>
+        <div class="info">
+          <div class="info-category">
+            <div class="preview">
+              <SvgTemplate name="history" />
+            </div>
+            <div class="text">History</div>
+          </div>
+          <div class="info-status">
+            <img src="@/assets/img/svg/lock-private.svg" height="24" width="24" alt="Lock">
+            <div>Private</div>
+          </div>
+        </div>
+        <div class="actions">
+          <ButtonSvg height="24px" width="24px">
+            <template v-slot:svg>
+              <SvgTemplate class="btn-delete" name="delete"/>
+            </template>
+          </ButtonSvg>
 
+          <ButtonSvg height="24px" width="24px">
+            <template v-slot:svg>
+              <SvgTemplate class="btn-edit" name="edit"/>
+            </template>
+          </ButtonSvg>
+
+          <ButtonSvg height="24px" width="24px">
+            <template v-slot:svg>
+              <SvgTemplate class="btn-info" name="info-cycle"/>
+            </template>
+          </ButtonSvg>
+        </div>
+      </div>
     </div>
 
-    <div class="item-content item-content-show">
+    <div class="table-item d-table-item">
+      <div class="preview">
+        <img src="/image-test-category.jpg" height="64" width="64" alt="">
+        <div class="preview-title">{{dotsString(45, 'Тест на знание истории Древного Рима asssssssssss')}}</div>
+      </div>
       <div class="statistic">
-
+        <div class="statistic-items">
+          <BorderRate rate="7/10" :percent="70" title="AVG"/>
+          <BorderRate rate="176"  title="Passed"/>
+          <LevelRate title="Level"/>
+        </div>
+        <div class="statistic-types">
+          <div class="info-category">
+            <div class="preview-category">
+              <SvgTemplate name="history" />
+            </div>
+            <div class="category-text">PDD</div>
+          </div>
+          <div class="info-type">
+            <img src="@/assets/img/svg/lock-private.svg" height="28" width="28" alt="Lock">
+          </div>
+        </div>
       </div>
-      <div class="info"></div>
-      <div class="actions"></div>
+      <div class="settings">
+        <button type="button" class="hover">
+          <SvgTemplate name="menu-options"/>
+        </button>
+      </div>
     </div>
-  </div>
-
-  <div class="table-item d-table-item">
-
   </div>
 
 </template>
-
-<style lang="scss">
-@import "@/assets/css/variables.scss";
-
-.table-item {
-  background-color: $color-white;
-}
-
-.m-table-item {
-  max-height: rem-calc(325);
-  border-radius: rem-calc(14);
-  .item-title {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: rem-calc((14, 20, 14, 14));
-    border-radius: rem-calc(14);
-
-    .item-title-content {
-      display: flex;
-      align-items: center;
-      column-gap: rem-calc(16);
-
-      img {
-        border-radius: rem-calc(12);
-      }
-
-      .title {
-        font-size: $font13;
-        color: $color-black-market;
-      }
-    }
-    svg {
-      stroke: $color-grey-suit;
-      transition: transform .2s ease-in-out;
-    }
-  }
-
-  .item-content {
-    overflow: hidden;
-    height: rem-calc(0);
-    background-color: $color-white;
-    border-bottom-right-radius: rem-calc(14);
-    border-bottom-left-radius: rem-calc(14);
-    transition: height .2s ease-in-out;
-
-    .statistic {
-      height: rem-calc(101);
-    }
-
-    .info {
-      height: rem-calc(64);
-      border-bottom: rem-calc(1) solid $color-solitude;
-      border-top: rem-calc(1) solid $color-solitude;
-    }
-
-    .actions {
-      height: rem-calc(68);
-    }
-  }
-}
-
-.m-table-item-show {
-  .item-title-show {
-    box-shadow:rem-calc((0, 5, 8)) rgba(55, 97, 186, 0.1);
-    .vector-rotate {
-      transform: rotate(180deg);
-    }
-  }
-  .item-content-show {
-    margin-top: rem-calc(14);
-    height: rem-calc(235);
-  }
-}
-
-.d-table-item {
-  display: none;
-}
-
-@media (min-width: rem-calc(768)) {
-
-}
-
-@media (min-width: rem-calc(992)) {
-  .table-item {
-    height: rem-calc(112);
-  }
-
-  .m-table-item {
-    display: none;
-  }
-
-  .d-table-item {
-    display: block;
-  }
-}
-
-</style>

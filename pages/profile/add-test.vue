@@ -561,18 +561,18 @@ const saveTest = async () => {
 @import '@/assets/css/components/parts/label-for-input-border-less';
 @import 'vue-advanced-cropper/dist/style.css';
 @import 'vue-advanced-cropper/dist/theme.compact.css';
-@import "~/assets/css/components/parts/inputs/upload-image-container";
-@import '~/assets/css/components/parts/inputs/input-border-less';
+@import "@/assets/css/components/parts/inputs/upload-image-container";
+@import '@/assets/css/components/parts/inputs/input-border-less';
 @import "@/assets/css/components/parts/inputs/select-svg-label";
 @import "@/assets/css/components/parts/inputs/textarea";
-@import '~/assets/css/components/parts/inputs/input-universal';
+@import '@/assets/css/components/parts/inputs/input-universal';
 @import '@/assets/css/components/parts/inputs/switch';
 @import '@/assets/css/components/parts/inputs/input-image';
 @import '@/assets/css/components/parts/inputs/input-number';
 @import "@/assets/css/components/parts/inputs/input-text-editor";
 @import '@/assets/css/components/parts/checkbox/checkbox-text-or-svg';
-@import '~/assets/css/components/parts/selections/selection-border-less';
-@import '~/assets/css/components/parts/selections/selection-type-quest';
+@import '@/assets/css/components/parts/selections/selection-border-less';
+@import '@/assets/css/components/parts/selections/selection-type-quest';
 @import '@/assets/css/components/parts/lists/list-type-quest';
 @import '@/assets/css/components/parts/animations';
 
