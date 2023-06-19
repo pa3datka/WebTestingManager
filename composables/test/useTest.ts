@@ -24,7 +24,13 @@ export const useTest = () => {
         } catch (e: any) {
             return { status: false, error: useResponseError().getResponseErrors(e)};
         }
-    }
+    };
 
-    return { fetchTestSettings, createTest };
+    const fetchTestsBySearchString = async (search: string) => {
+        // @ts-ignore
+        const res = await $httpRequest.post('test/search', { search: search });
+        return res;
+    };
+
+    return { fetchTestSettings, createTest, fetchTestsBySearchString };
 }
