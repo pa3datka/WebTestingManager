@@ -6,18 +6,20 @@ import ThisDashboardMobile from "~/components/Header/ThisDashboardMobile.vue";
 </script>
 
 <template>
-    <div class="dashboard">
+    <client-only>
+      <div class="dashboard">
         <div class="tm-main-dashboard">
-            <main-header />
-            <Drawer />
+          <main-header />
+          <Drawer />
 
-            <NuxtPage />
+          <NuxtPage />
         </div>
         <div class="dashboard-container">
-            <Dashboard />
+          <Dashboard />
         </div>
 
         <ThisDashboardMobile />
         <div class="open-background"></div>
-    </div>
+      </div>
+    </client-only>
 </template>

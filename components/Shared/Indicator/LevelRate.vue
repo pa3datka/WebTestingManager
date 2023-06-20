@@ -18,7 +18,7 @@ const props = defineProps({
     <div class="level-rate-title" v-if="props.title?.length">
       {{ props.title }}
     </div>
-    <div class="cycle-value level-rate-5">
+    <div :class="`cycle-value level-rate-${props.rate}`">
           <div class="one"></div>
           <div class="two"></div>
           <div class="three"></div>

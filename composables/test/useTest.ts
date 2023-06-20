@@ -28,9 +28,19 @@ export const useTest = () => {
 
     const fetchTestsBySearchString = async (search: string) => {
         // @ts-ignore
-        const res = await $httpRequest.post('test/search', { search: search });
-        return res;
+        return await $httpRequest.post('test/search', { search: search });
     };
 
-    return { fetchTestSettings, createTest, fetchTestsBySearchString };
+    const fetchMyTests = async (page: number|null) => {
+        const numberPage = page ?`?page=${page}` : '';
+        try {
+            // @ts-ignore
+            const res = await $httpRequest.get(`test/list${numberPage}`);
+            return { list: res.data, paginate: res.paginate };
+        } catch (e) {
+            return {}
+        }
+    };
+
+    return { fetchTestSettings, createTest, fetchTestsBySearchString, fetchMyTests };
 }

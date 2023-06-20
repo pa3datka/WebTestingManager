@@ -12,12 +12,43 @@ definePageMeta({
 });
 
 import {useRouter} from "nuxt/app";
+import {computed} from "@vue/reactivity";
+import {ITests} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
+import {useTest} from "~/composables/test/useTest";
+import {IPaginate} from "~/composables/Interfaces/IPaginate";
+import PaginateButtons from "~/components/Shared/Paginate/PaginateButtons.vue";
+import {useRoute} from "nuxt/app";
 
+const route = useRoute();
+const {fetchMyTests} = useTest();
 const router = useRouter();
+const data = reactive({
+  myTests: <ITests[]|[]> [],
+  paginate: <IPaginate|null> {}
+});
+
+const myTests = computed(() => data.myTests);
+const getMyTests = async (page = null) => {
+  const result = await fetchMyTests(page);
+  data.myTests = <ITests[]|[]> result?.list ?? [];
+  data.paginate = <IPaginate> result.paginate;
+};
+
+onMounted(async () => {
+  await getMyTests();
+});
 
 const getPageName = (pageName: string) => {
   router.push({ name: pageName });
 }
+
+const getTestsPage = (val: number|null) => {
+  console.log('val', val)
+};
+
+watch(() => route.query.page, async () => {
+  await getMyTests(route.query.page);
+});
 </script>
 
 <template>
@@ -46,14 +77,12 @@ const getPageName = (pageName: string) => {
         <DesktopTableHead />
       </div>
 
-      <div class="table-content">
-        <TableItem class="pt-sm-14 pt-lg-20"/>
-        <TableItem class="pt-sm-14 pt-lg-20"/>
-        <TableItem class="pt-sm-14 pt-lg-20"/>
-        <TableItem class="pt-sm-14 pt-lg-20"/>
-        <TableItem class="pt-sm-14 pt-lg-20"/>
-        <TableItem class="pt-sm-14 pt-lg-20"/>
-        <TableItem class="pt-sm-14 pt-lg-20"/>
+      <div class="table-content" v-if="myTests.length">
+        <TableItem class="pt-sm-14 pt-lg-20" v-for="test in myTests" :testItem="test" :key="test.id"/>
+      </div>
+
+      <div class="table-footer pt-sm-15 pt-lg-30" v-if="data.paginate">
+        <PaginateButtons v-on:showPage="getMyTests" :paginate="data.paginate"/>
       </div>
 
     </div>
@@ -75,5 +104,6 @@ const getPageName = (pageName: string) => {
 
 //shared
 @import "@/assets/css/components/parts/buttons/button-cycle-svg";
+@import "@/assets/css/components/parts/buttons/button-min";
 
 </style>
