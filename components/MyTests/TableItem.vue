@@ -81,7 +81,7 @@ const showItem = () => {
 
     <div class="table-item d-table-item">
       <div class="preview">
-        <img :src="`${data.imageBaseUrl}storage/${props.testItem.img_path}`" height="64" width="64" alt="">
+        <img :src="`${data.imageBaseUrl}${props.testItem.img_path}`" height="64" width="64" alt="">
         <div class="preview-title">{{dotsString(45, props.testItem.title)}}</div>
       </div>
       <div class="statistic">

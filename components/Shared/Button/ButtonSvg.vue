@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {PropType} from "@vue/runtime-core";
-import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
 
 type ButtonType = "button" | "reset" | "submit";
 const props = defineProps({
