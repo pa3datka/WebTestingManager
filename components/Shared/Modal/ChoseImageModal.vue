@@ -124,7 +124,7 @@ const choseImage = (path: string) => {
               <div
                   class="category-list_item hover"
                   v-for="(image, imageKey) in categoryImages" :key="imageKey"
-                  @click="choseImage(`${data.baseUrl}${image.path}`)"
+                  @click="choseImage(`${image.path}`)"
               >
                 <img :src="`${image.path}`">
               </div>
