@@ -5,6 +5,7 @@ import { ISelection } from "~/composables/Interfaces/ComponentIntefaces/ISelecti
 import { onUnmounted, onMounted } from "@vue/runtime-core";
 import { useTestStore } from "~/store/shared/Test";
 import { ITestSetting } from "~/composables/Interfaces/TestInterfaces/ITestSetting";
+import {IChoseImage} from "~/composables/Interfaces/TestInterfaces/IChoseImage";
 
 const emit = defineEmits(['choseImage']);
 const props = defineProps({
@@ -14,10 +15,8 @@ const props = defineProps({
   }
 });
 
-const baseUrl = useRuntimeConfig().public.imageApiUrl;
-
 const images = computed(() => {
-  const categoryImages = useTestStore().getChoseImages.filter((image: any) => {
+  const categoryImages = <IChoseImage[]> useTestStore().getChoseImages.filter((image: any) => {
     if (!data.selectedCategoryId) {
       return image;
     }
@@ -26,9 +25,11 @@ const images = computed(() => {
       return image;
     }
   });
-
-  return categoryImages.reduce((current, image) => {
-    !current[image.name] && (current[image.name] = []);
+  interface IN  {
+    [identifier: string]: IChoseImage[];
+  }
+  return  categoryImages.reduce((current: IN, image) => {
+    !current[image.name] && (current[image.name] = <IChoseImage[]> []);
     current[image.name].push(image);
     return current;
   }, {});
@@ -40,11 +41,12 @@ const categories =  computed((): ITestSetting[] => useTestStore().getChoseImages
     current.push(item);
   }
   return current;
-}, []));
+}, <ITestSetting[]> []));
 const data = reactive({
   imageSizeSelectedId: <number> 1,
   categories: <object> {},
-  selectedCategoryId: <number|null> null,
+  selectedCategoryId: <number> 0,
+  baseUrl: <string> useRuntimeConfig().public.imageApiUrl
 });
 
 const sizes = <ISelection[]> [
@@ -97,6 +99,7 @@ const choseImage = (path: string) => {
               :list="categories"
               placeholder="Chose a category"
               v-model="data.selectedCategoryId"
+              :id="'id-modal-chose-category'"
           />
 
           <client-only>
@@ -106,6 +109,7 @@ const choseImage = (path: string) => {
                 :is-label="true"
                 v-model="imageSizeId"
                 :selected="sizes[imageSizeId]"
+                :id="'id-select-size'"
             />
           </client-only>
         </div>
@@ -120,9 +124,9 @@ const choseImage = (path: string) => {
               <div
                   class="category-list_item hover"
                   v-for="(image, imageKey) in categoryImages" :key="imageKey"
-                  @click="choseImage(baseUrl + image.path)"
+                  @click="choseImage(`${data.baseUrl}${image.path}`)"
               >
-                <img :src="baseUrl + image.path">
+                <img :src="`${data.baseUrl}${image.path}`">
               </div>
             </div>
           </div>

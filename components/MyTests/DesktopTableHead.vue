@@ -6,7 +6,7 @@ import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 <template>
   <div class="desktop-head">
     <div class="desktop-search">
-      <SearchMyTestInput/>
+      <SearchMyTestInput id="desktop-search" />
     </div>
     <div class="desktop-filter">
       <div class="filter-stat">

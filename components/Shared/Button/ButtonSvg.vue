@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import {PropType} from "@vue/runtime-core";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
+
+type ButtonType = "button" | "reset" | "submit";
 const props = defineProps({
   type: {
-    type: String,
+    type: String as PropType<ButtonType>,
     default: 'button'
   },
   height: {
@@ -16,7 +20,7 @@ const props = defineProps({
 </script>
 
 <template>
-<button class="button-svg hover" :style="{'height': props.height, 'width': props.width }" :type="props.type">
+<button class="button-svg hover" :style="{'height': props.height, 'width': props.width }" :type="`${props.type}`">
   <slot name="svg"></slot>
 </button>
 </template>

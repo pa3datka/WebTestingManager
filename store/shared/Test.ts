@@ -4,12 +4,15 @@ import {IResponseSettings} from "~/composables/Interfaces/TestInterfaces/IRespon
 import {ITestSettings} from "~/composables/Interfaces/TestInterfaces/ITestSettings";
 import {ITestQuestion} from "~/composables/Interfaces/TestInterfaces/ITestQuestion";
 import { useUploadImage } from "~/composables/shared/useUploadImage";
-import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 import {IQuestion} from "~/composables/Interfaces/TestInterfaces/IQuestion";
 import {IQuestionAnswer} from "~/composables/Interfaces/TestInterfaces/IQuestionAnswer";
 import {IAnswer} from "~/composables/Interfaces/TestInterfaces/IAnswer";
 import {IUploadTestImage} from "~/composables/Interfaces/TestInterfaces/IUploadTestImage";
 import { useTest } from "~/composables/test/useTest";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
+import {IPaginate} from "~/composables/Interfaces/IPaginate";
+import {ITestCreate} from "~/composables/Interfaces/TestInterfaces/ITestCreate";
+import {IChoseImage} from "~/composables/Interfaces/TestInterfaces/IChoseImage";
 
 
 export const useTestStore = defineStore('test', {
@@ -21,9 +24,11 @@ export const useTestStore = defineStore('test', {
             evaluationTypes: <ITestSetting[]> [],
             questTypes: <ITestSetting[]> [],
             categories: <ITestSetting[]> [],
-            choseImages: <[]> [],
+            choseImages: <IChoseImage[]> [],
 
-            newTestConfiguration: <ITestSettings> {}
+            newTestConfiguration: <ITestSettings> {},
+            myTests: <ITest[]|[]> [],
+            paginate: <IPaginate|null> null,
         }
     },
 
@@ -33,7 +38,9 @@ export const useTestStore = defineStore('test', {
         getEvaluationTypes: (state):ITestSetting[] => state.evaluationTypes,
         getQuestTypes: (state):ITestSetting[] => state.questTypes,
         getCategories: (state):ITestSetting[] => state.categories,
-        getChoseImages: (state) => state.choseImages,
+        getChoseImages: (state):IChoseImage[] => state.choseImages,
+        getMyTests: (state): ITest[]|[] => state.myTests,
+        getPaginate: (state): IPaginate|null => state.paginate,
     },
 
     actions:{
@@ -44,6 +51,13 @@ export const useTestStore = defineStore('test', {
             this.questTypes = <ITestSetting[]> settings.quest_types;
             this.categories = <ITestSetting[]> settings.categories;
             this.choseImages = <[]> settings.chose_images
+        },
+
+        setTests(list: ITest[], paginate: IPaginate|null): void {
+            paginate && (this.paginate = paginate);
+            paginate && (this.paginate = null);
+
+            list && (this.myTests = list);
         },
 
         async createTest(configs: ITestSettings, questions: ITestQuestion[]) {
@@ -89,8 +103,8 @@ export const useTestStore = defineStore('test', {
            return await createTest(test);
         },
 
-        prepareTest(settings: ITestSettings, questions: ITestQuestion[]): ITest {
-            let test = <ITest> {};
+        prepareTest(settings: ITestSettings, questions: ITestQuestion[]): ITestCreate {
+            let test = <ITestCreate> {};
 
             test.title = settings.title;
             test.description = settings.description;
@@ -140,6 +154,5 @@ export const useTestStore = defineStore('test', {
 
             return arrAnswers;
         }
-
     },
 });

@@ -12,7 +12,6 @@ const data = reactive({
 });
 
 const search = (searchString: string) => {
-  console.log(searchString);
   data.mobileHeadBtns.search = !data.mobileHeadBtns.search;
 }
 
@@ -23,7 +22,7 @@ const showFilter = () => {
 
 <template>
   <div class="mobile-head">
-    <SearchMyTestInput v-if="data.mobileHeadBtns.search" v-on:searchString="search"/>
+    <SearchMyTestInput v-if="data.mobileHeadBtns.search" id="mobile-search" v-on:searchString="search"/>
 
     <button-cycle-svg
         class="white-bg border-none"

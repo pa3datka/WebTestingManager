@@ -5,15 +5,16 @@ import LevelRate from "~/components/Shared/Indicator/LevelRate.vue";
 import ButtonSvg from "~/components/Shared/Button/ButtonSvg.vue";
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import {PropType} from "@vue/runtime-core";
-import {ITests} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
 
 const props = defineProps({
   testItem: {
-    type: Object as PropType<ITests>,
+    type: Object as PropType<ITest>,
   }
 });
 const data = reactive({
   show: true,
+  imageBaseUrl: useRuntimeConfig().public.imageApiUrl
 });
 
 const dotsString = (length: number, text: string): string => {
@@ -80,7 +81,7 @@ const showItem = () => {
 
     <div class="table-item d-table-item">
       <div class="preview">
-        <img src="/image-test-category.jpg" height="64" width="64" alt="">
+        <img :src="`${data.imageBaseUrl}storage/${props.testItem.img_path}`" height="64" width="64" alt="">
         <div class="preview-title">{{dotsString(45, props.testItem.title)}}</div>
       </div>
       <div class="statistic">
@@ -97,7 +98,8 @@ const showItem = () => {
             <div class="category-text">{{ props.testItem.category.name }}</div>
           </div>
           <div class="info-type">
-            <img :src="`@/assets/img/svg/lock-${props.testItem.status}.svg`" height="28" width="28" alt="Lock">
+            <div :class="`lock-${props.testItem.status}`"></div>
+<!--            <img :src="`@/assets/img/svg/lock-${props.testItem.status}.svg`" height="28" width="28" alt="Lock">-->
           </div>
         </div>
       </div>

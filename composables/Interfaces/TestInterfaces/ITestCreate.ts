@@ -1,7 +1,6 @@
-import {IQuestionAnswer} from "~/composables/Interfaces/TestInterfaces/IQuestionAnswer";
 import {IQuestion} from "~/composables/Interfaces/TestInterfaces/IQuestion";
 
-export interface ITest {
+export interface ITestCreate {
     id?: number;
     title: string;
     description: string;

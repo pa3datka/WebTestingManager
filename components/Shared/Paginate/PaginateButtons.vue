@@ -9,7 +9,7 @@ const route = useRoute();
 const emit = defineEmits(['showPage']);
 const props = defineProps({
   paginate: {
-    type: Object as PropType<IPaginate>,
+    type: Object as PropType<IPaginate|null>,
   }
 });
 

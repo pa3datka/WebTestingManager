@@ -1,7 +1,7 @@
 import {IDifficulty} from "~/composables/Interfaces/TestInterfaces/Response/IDifficulty";
 import {ICategory} from "~/composables/Interfaces/TestInterfaces/Response/ICategory";
 
-export interface ITests {
+export interface ITest {
     id: number;
     title: string,
     slug: string,

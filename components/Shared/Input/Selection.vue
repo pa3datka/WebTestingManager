@@ -34,6 +34,10 @@ const props = defineProps({
   selected: {
     type: Object as PropType<ITestSetting>,
     default: {}
+  },
+  id: {
+    type: String,
+    default: 'id-chose-category'
   }
 });
 
@@ -111,7 +115,7 @@ onMounted(() => {
             :name="data.selected?.svg ? data.selected?.svg : 'select_list'"
             v-if="props.svgIsLabel"
             :class="(data.selected?.color ? `${data.selected?.color}-stroke` : 'grey-stroke')"/>
-        <input class="hover" type="text" v-model="data.searchString"
+        <input class="hover" type="text" :id="props.id" v-model="data.searchString"
                :placeholder="(selected?.name ?? props.placeholder)">
         <div class="selected-value d-none">
           {{ selected.name }}
