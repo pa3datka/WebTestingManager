@@ -21,7 +21,7 @@ const data = reactive({
 });
 
 const getImageProps = computed(() => {
-  if (props.modelValue?.indexOf('.webp')) {
+  if (1 < props.modelValue?.indexOf('.webp')) {
     return useRuntimeConfig().public.imageApiUrl + props.modelValue;
   }
 
