@@ -34,10 +34,12 @@ onMounted(() => {
 
 <template>
   <div class="auth">
-    <div class="guest-group d-flex-md align-items-center" v-if="!isAuth">
-      <div class="sign-in hover" @click="router.push('/auth/sign-in')">SIGN IN</div>
-      <div class="sign-up hover" @click="router.push('/auth/sign-up')">SIGN UP</div>
-    </div>
+    <client-only>
+      <div class="guest-group d-flex-md align-items-center" v-if="!isAuth">
+        <div class="sign-in hover" @click="router.push('/auth/sign-in')">SIGN IN</div>
+        <div class="sign-up hover" @click="router.push('/auth/sign-up')">SIGN UP</div>
+      </div>
+    </client-only>
 
     <div class="user-group d-flex align-items-center" v-if="isAuth">
       <div class="notify d-flex align-items-center">

@@ -186,6 +186,22 @@
 //END MARGIN
 
 //PADDING
+.pl-10 {
+  padding-left: rem-calc(10);
+}
+
+.pr-10 {
+  padding-right: rem-calc(10);
+}
+
+.pl-24 {
+  padding-left: rem-calc(24);
+}
+
+.pr-24 {
+  padding-right: rem-calc(24);
+}
+
 
 .pt-sm-0 {
   padding-top: 0;
@@ -635,3 +651,9 @@
 }
 
 //DISPLAY
+
+//BORDER
+.border-none {
+  border: none!important;
+}
+//END BORDER

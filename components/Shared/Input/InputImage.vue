@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CropperModal from "~/components/Shared/Modal/CropperModal.vue";
+import {reactive} from "@vue/reactivity";
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -48,19 +49,19 @@ const emitImage = (image: string) => {
 </script>
 
 <template>
-<div class="input-image">
-  <div class="empty-image" v-if="!data.image">
-    <div class="empty-image-placeholder">Upload image min size 456x456</div>
-    <input @change="getImage" type="file" :id="props.id" :name="props.name + props.id" >
+<div>
+  <div class="input-image">
+    <div class="empty-image" v-if="!data.image">
+      <div class="empty-image-placeholder">Upload image min size 456x456</div>
+      <input @change="getImage" type="file" :id="props.id" :name="props.name + props.id" >
+    </div>
+
+    <div class="thumbnail" v-if="data.image">
+      <img :src="data.image">
+      <div class="clear hover" @click="clear"></div>
+    </div>
+
   </div>
-
-  <div class="thumbnail" v-if="data.image">
-    <img :src="data.image">
-    <div class="clear hover" @click="clear"></div>
-  </div>
-
-
-</div>
   <CropperModal
       v-if="data.closeCropper"
       :image="data.image"
@@ -68,4 +69,5 @@ const emitImage = (image: string) => {
       v-on:crop-image="emitImage"
       :aspect-ratio="1/1"
   />
+</div>
 </template>

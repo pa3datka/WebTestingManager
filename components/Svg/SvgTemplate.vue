@@ -13,6 +13,12 @@ import DeleteSvg from "~/components/Svg/parts/DeleteSvg.vue";
 import ExportSvg from "~/components/Svg/parts/ExportSvg.vue";
 import Password from "~/components/Svg/parts/PasswordSvg.vue"
 import CheckSvg from "~/components/Svg/parts/CheckSvg.vue";
+import MyTestsSvg from "~/components/Svg/parts/MyTestsSvg.vue";
+import SearchFieldSvg from "~/components/Svg/parts/SearchFieldSvg.vue";
+import FilterSvg from "~/components/Svg/parts/FilterSvg.vue";
+import MenuOptionsSvg from "~/components/Svg/parts/MenuOptionsSvg.vue";
+import VectorSvg from "~/components/Svg/parts/VectorSvg.vue";
+import InfoCycleSvg from "~/components/Svg/parts/InfoCycleSvg.vue";
 
 //categories
 import MathematicsSvg from "~/components/Svg/parts/Categories/MathematicsSvg.vue";
@@ -20,7 +26,8 @@ import GeographySvg from "~/components/Svg/parts/Categories/GeographySvg.vue";
 import HistorySvg from "~/components/Svg/parts/Categories/HistorySvg.vue";
 import LanguageSvg from "~/components/Svg/parts/Categories/LanguageSvg.vue";
 import AstronomySvg from "~/components/Svg/parts/Categories/AstronomySvg.vue";
-import MyTestsSvg from "~/components/Svg/parts/MyTestsSvg.vue";
+import EditSvg from "~/components/Svg/parts/EditSvg.vue";
+
 
 const props = defineProps({
   name: {
@@ -49,6 +56,12 @@ const svg = <ISvgObject>{
   'password': Password,
   'check': CheckSvg,
   'my-tests': MyTestsSvg,
+  'search-field': SearchFieldSvg,
+  'filter': FilterSvg,
+  'menu-options': MenuOptionsSvg,
+  'vector': VectorSvg,
+  'info-cycle': InfoCycleSvg,
+  'edit': EditSvg,
 
   // categories
   'mathematics': MathematicsSvg,

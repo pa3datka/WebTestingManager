@@ -20,6 +20,12 @@
   }
 }
 
+.min-btn {
+  padding-left: rem-calc(10);
+  padding-right: rem-calc(10);
+  width: rem-calc(40);
+}
+
 @media (min-width: rem-calc(768)) {
   .button-cycle-svg {}
 }

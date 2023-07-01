@@ -14,6 +14,7 @@ import { useValidation } from "~/composables/shared/useValidation";
 import { useReCaptchaToken } from "~/composables/shared/useReCaptchToken";
 import { useAuth } from "~/composables/auth/useAuth";
 import { useRouter } from "nuxt/app";
+import {Ref} from "vue";
 
 const {validate, rules} = useValidation();
 const { login } = useAuth();

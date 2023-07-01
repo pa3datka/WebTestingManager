@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CropperModal from "~/components/Shared/Modal/CropperModal.vue";
 import ChoseImageModal from "~/components/Shared/Modal/ChoseImageModal.vue";
+import {computed} from "@vue/reactivity";
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -17,6 +18,14 @@ const props = defineProps({
 const data = reactive({
   closeCropper: false,
   closeChose: false
+});
+
+const getImageProps = computed(() => {
+  if (1 < props.modelValue?.indexOf('.webp')) {
+    return useRuntimeConfig().public.imageApiUrl + props.modelValue;
+  }
+
+  return props.modelValue;
 });
 
 const getImage = async (e: any) => {
@@ -66,7 +75,7 @@ const closeModalChose = () => {
         </div>
 
         <div class="thumbnail-img__not-empty" v-if="props.modelValue">
-          <img :src="modelValue">
+          <img :src="getImageProps">
           <div class="clear-image hover" @click="clearImage"></div>
         </div>
       </div>

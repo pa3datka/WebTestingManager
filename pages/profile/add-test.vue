@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {Ref, toRefs, watchEffect} from "vue";
+
 definePageMeta({
   name: "add-test",
   layout: 'dashboard',
@@ -31,7 +33,7 @@ import InputImage from "~/components/Shared/Input/InputImage.vue";
 import ButtonCycle from "~/components/Shared/Button/ButtonCycleSvg.vue";
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 
-import {computed, ref} from "@vue/reactivity";
+import {computed, reactive, ref} from "@vue/reactivity";
 import {useTest} from "~/composables/test/useTest";
 import {useTestStore} from "~/store/shared/Test";
 import {useValidation} from "~/composables/shared/useValidation";
@@ -61,6 +63,7 @@ const data = reactive({
       type_id: 1,
       is_errors: false,
       check_is_correct: true,
+      image: '',
       answers: [
         {
           id: 1,
@@ -217,7 +220,7 @@ const isQuestFields = (quest: ITestQuestion): boolean => {
   let isValid = true;
   if (1 === quest.type_id) {
     arrFields.push(refsFields.value[`question-${quest.id}`]);
-    arrFields.push(refsFields.value[`question-points-${quest.id}`]);
+    1 === data.settings.evaluation_type_id && arrFields.push(refsFields.value[`question-points-${quest.id}`]);
   }
 
   arrFields.forEach(field => {
@@ -318,7 +321,7 @@ const saveTest = async () => {
 
               <AuthInput
                   class="mt-sm-14 mt-lg-16"
-                  placeholder="Enter plees test name"
+                  placeholder="Enter test name"
                   name="test-title"
                   :ref="el => refsFields['test-title'] = el"
                   :rules="[rules.require, rules.maxStringLength100]"
@@ -372,7 +375,7 @@ const saveTest = async () => {
               <template v-slot:input>
                 <InputBorderless
                     v-model="data.settings.time"
-                    name="attempts"
+                    name="Travel-time"
                     placeholder="Unlimited"
                     numberType="integer"
                     type="number"
@@ -489,7 +492,7 @@ const saveTest = async () => {
               <InputNumber
                   class="mt-sm-14"
                   :name="`question-points-${quest.id}`"
-                  v-show="data.settings.evaluation_type_id === 1"
+                  v-if="data.settings.evaluation_type_id === 1"
                   :ref="(el: any) => refsFields[el?.name] = el"
                   :rules="[rules.require, rules.maxNumber10000]"
                   v-model="quest.countPoints"
@@ -561,18 +564,18 @@ const saveTest = async () => {
 @import '@/assets/css/components/parts/label-for-input-border-less';
 @import 'vue-advanced-cropper/dist/style.css';
 @import 'vue-advanced-cropper/dist/theme.compact.css';
-@import "~/assets/css/components/parts/inputs/upload-image-container";
-@import '~/assets/css/components/parts/inputs/input-border-less';
+@import "@/assets/css/components/parts/inputs/upload-image-container";
+@import '@/assets/css/components/parts/inputs/input-border-less';
 @import "@/assets/css/components/parts/inputs/select-svg-label";
 @import "@/assets/css/components/parts/inputs/textarea";
-@import '~/assets/css/components/parts/inputs/input-universal';
+@import '@/assets/css/components/parts/inputs/input-universal';
 @import '@/assets/css/components/parts/inputs/switch';
 @import '@/assets/css/components/parts/inputs/input-image';
 @import '@/assets/css/components/parts/inputs/input-number';
 @import "@/assets/css/components/parts/inputs/input-text-editor";
 @import '@/assets/css/components/parts/checkbox/checkbox-text-or-svg';
-@import '~/assets/css/components/parts/selections/selection-border-less';
-@import '~/assets/css/components/parts/selections/selection-type-quest';
+@import '@/assets/css/components/parts/selections/selection-border-less';
+@import '@/assets/css/components/parts/selections/selection-type-quest';
 @import '@/assets/css/components/parts/lists/list-type-quest';
 @import '@/assets/css/components/parts/animations';
 

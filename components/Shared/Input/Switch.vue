@@ -3,6 +3,10 @@ const props = defineProps({
   modelValue: {
     type: Boolean,
     default: false
+  },
+  id: {
+    type: String,
+    default: 'id-switch'
   }
 });
 
@@ -19,7 +23,7 @@ const value = computed({
 
 <template>
   <label class="switch">
-    <input type="checkbox" v-model="value" />
+    <input type="checkbox" :id="props.id" v-model="value" />
     <span class="slider"></span>
   </label>
 </template>

@@ -1,0 +1,297 @@
+.table-item {
+  background-color: $color-white;
+  border-radius: rem-calc(14);
+
+  &:hover {
+    box-shadow: rem-calc((0, 0, 18)) rgba(0, 0, 0, 0.09);
+  }
+}
+
+.m-table-item {
+  max-height: rem-calc(325);
+  border-radius: rem-calc(14);
+  .item-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem-calc((14, 20, 14, 14));
+    border-radius: rem-calc(14);
+
+    .item-title-content {
+      display: flex;
+      align-items: center;
+      column-gap: rem-calc(16);
+
+      img {
+        border-radius: rem-calc(12);
+      }
+
+      .content-title {
+        font-size: $font13;
+        color: $color-black-market;
+      }
+    }
+    svg {
+      stroke: $color-grey-suit;
+      transition: transform .2s ease-in-out;
+    }
+  }
+
+  .item-content {
+    overflow: hidden;
+    height: rem-calc(0);
+    background-color: $color-white;
+    border-bottom-right-radius: rem-calc(14);
+    border-bottom-left-radius: rem-calc(14);
+    transition: height .2s ease-in-out;
+
+    .statistic {
+      height: rem-calc(101);
+      display: flex;
+      column-gap: rem-calc(32);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info {
+      height: rem-calc(64);
+      border-bottom: rem-calc(1) solid $color-solitude;
+      border-top: rem-calc(1) solid $color-solitude;
+      font-size: $font13;
+      color: $color-black-market;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .info-category {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: rem-calc(8);
+        border-right: rem-calc(1) solid $color-solitude;
+
+        .preview {
+          height: rem-calc(24);
+          width: rem-calc(24);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background-color: #262342;
+          svg {
+            stroke: $color-white;
+          }
+        }
+        .text {}
+      }
+
+      .info-status {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: rem-calc(8);
+      }
+    }
+
+    .actions {
+      height: rem-calc(68);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: rem-calc(36);
+
+      .btn-delete {
+        transform: scale(1, 1);
+        stroke: $color-amaranth;
+      }
+
+      .btn-edit {
+        transform: scale(1, 1);
+        stroke: $color-blue-marguerite;
+      }
+
+      .btn-info {
+        stroke: $color-summer-sky;
+      }
+    }
+  }
+}
+
+.m-table-item-show {
+  .item-title-show {
+    box-shadow:rem-calc((0, 5, 8)) rgba(55, 97, 186, 0.1);
+    .vector-rotate {
+      transform: rotate(180deg);
+    }
+  }
+  .item-content-show {
+    margin-top: rem-calc(14);
+    height: rem-calc(235);
+  }
+}
+
+.d-table-item {
+  height: 100%;
+  display: none;
+  //padding: rem-calc((24, 0, 24, 24));
+  align-items: center;
+  grid-template-columns: minmax(rem-calc(155), rem-calc(310)) minmax(rem-calc(411), rem-calc(822)) minmax(rem-calc(54), rem-calc(108));
+
+
+  .preview {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: rem-calc(20);
+    max-height: rem-calc(112);
+    overflow: hidden;
+    padding-left: rem-calc(24);
+    img {
+      border-radius: rem-calc(16);
+    }
+    .preview-title {
+      font-size: $font15;
+      overflow: hidden;
+    }
+  }
+
+  .statistic {
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 2fr;
+    column-gap: rem-calc(10);
+
+
+    .statistic-items {
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 10%;
+
+      .level-rate,
+      .border-rate {
+        padding: 0;
+      }
+    }
+
+    .statistic-types {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 15%;
+
+      .info-category {
+        display: flex;
+        align-items: center;
+        column-gap: rem-calc(12);
+
+        .preview-category {
+          height: rem-calc(32);
+          width: rem-calc(32);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50px;
+          svg {
+            stroke: $color-white;
+          }
+        }
+      }
+      .info-type {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .lock-private,
+        .lock-public {
+          height: rem-calc(28);
+          width: rem-calc(28);
+        }
+
+        .lock-private {
+          background-image: url("@/assets/img/svg/lock-private.svg");
+        }
+
+        .lock-public {
+          background-image: url("@/assets/img/svg/lock-public.svg");
+        }
+      }
+    }
+  }
+
+  .settings {
+    height: rem-calc(48);
+    border-left: rem-calc(1) solid $color-hosta-flower;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      background: none;
+      border: none;
+
+      &:active {
+        svg {
+          stroke: $color-black-market;
+        }
+      }
+
+      &:hover {
+        svg {
+          stroke: $color-black-market;
+        }
+      }
+
+      svg {
+        stroke: $color-grey-suit;
+      }
+    }
+  }
+}
+
+@media (min-width: rem-calc(768)) {
+
+}
+
+@media (min-width: rem-calc(992)) {
+  .table-item {
+    height: rem-calc(112);
+  }
+
+  .m-table-item {
+    display: none;
+  }
+
+  .d-table-item {
+    display: grid;
+
+    .category-text {
+      width: 50px;
+    }
+  }
+}
+
+@media (min-width: rem-calc(1240)) {
+  .table-item {
+    height: rem-calc(112);
+  }
+
+  .m-table-item {
+    display: none;
+  }
+
+  .d-table-item {
+    .category-text {
+      width: 100px;
+    }
+  }
+}

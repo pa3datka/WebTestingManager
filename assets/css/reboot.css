@@ -120,6 +120,11 @@ input:-webkit-autofill {
 }
 
 input,
+textarea {
+    font-family: Rubik, sans-serif;
+}
+
+input,
 textarea,
 textarea:focus,
 textarea:focus-visible {
