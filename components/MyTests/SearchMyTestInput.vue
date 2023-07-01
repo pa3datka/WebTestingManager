@@ -73,7 +73,7 @@ const showItem = (item: ITest) => {
         <div class="loading button--loading"></div>
       </div>
       <li class="hover" v-for="(item) in data.testsSearching" :key="item.id" @click="showItem(item)">
-        <img :src="`https://devapi.testing-manager.local/storage/${item.img_path}`" alt="">
+        <img :src="item.img_path" alt="">
         <div class="search-item-title">{{dotsString(72, item.title)}}</div>
       </li>
     </menu>
