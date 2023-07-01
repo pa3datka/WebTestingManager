@@ -126,7 +126,7 @@ const choseImage = (path: string) => {
                   v-for="(image, imageKey) in categoryImages" :key="imageKey"
                   @click="choseImage(`${image.path}`)"
               >
-                <img :src="`${image.path}`">
+                <img :src="`${data.baseUrl}${image.path}`">
               </div>
             </div>
           </div>
