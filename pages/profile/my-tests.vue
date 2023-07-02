@@ -13,12 +13,12 @@ definePageMeta({
 
 import {useRouter} from "nuxt/app";
 import {computed} from "@vue/reactivity";
-import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
 import {useTest} from "~/composables/test/useTest";
 import {IPaginate} from "~/composables/Interfaces/IPaginate";
 import PaginateButtons from "~/components/Shared/Paginate/PaginateButtons.vue";
 import {useRoute} from "nuxt/app";
 import {useTestStore} from "~/store/shared/Test";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 
 const route = useRoute();
 const {fetchMyTests} = useTest();

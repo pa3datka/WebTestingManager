@@ -6,7 +6,11 @@ import ButtonSvg from "~/components/Shared/Button/ButtonSvg.vue";
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import {PropType} from "@vue/runtime-core";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
+import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
+import {useRouter} from "nuxt/app";
 
+const router = useRouter();
+const {hideMenu} = hideOnClickMenu();
 const props = defineProps({
   testItem: {
     type: Object as PropType<ITest>,
@@ -14,7 +18,14 @@ const props = defineProps({
 });
 const data = reactive({
   show: true,
-  imageBaseUrl: useRuntimeConfig().public.imageApiUrl
+  imageBaseUrl: useRuntimeConfig().public.imageApiUrl,
+  itemMenu: false,
+});
+
+onMounted(() => {
+  if (props.testItem?.id) {
+    hideMenu(`item-settings-${props.testItem.id}`, `item-menu-${props.testItem.id}`, 'show-item-menu', showMenu);
+  }
 });
 
 const dotsString = (length: number, text: string): string => {
@@ -22,6 +33,17 @@ const dotsString = (length: number, text: string): string => {
 }
 const showItem = () => {
   data.show = !data.show;
+};
+
+const showMenu = () => {
+  console.log('hide')
+  data.itemMenu = !data.itemMenu;
+};
+
+const goTo = async (name: string, param: string) => {
+  console.log(name, param);
+  await router.push({name: name, params: {id: param}});
+  return;
 };
 </script>
 
@@ -99,14 +121,23 @@ const showItem = () => {
           </div>
           <div class="info-type">
             <div :class="`lock-${props.testItem.status}`"></div>
-<!--            <img :src="`@/assets/img/svg/lock-${props.testItem.status}.svg`" height="28" width="28" alt="Lock">-->
           </div>
         </div>
       </div>
-      <div class="settings">
-        <button type="button" class="hover">
+      <div class="settings" :class="`item-settings-${props.testItem.id}`">
+        <button type="button" class="hover" @click="showMenu">
           <SvgTemplate name="menu-options"/>
         </button>
+
+        <div class="item-menu" :class="{'show-item-menu': data.itemMenu}, `item-menu-${props.testItem.id}`">
+          <menu class="item-menu-list">
+            <li class="hover">Поделиться</li>
+            <li class="hover">Сгенерировать ссылку</li>
+            <li class="hover">Просмотреть</li>
+            <li class="hover" @click="goTo(`edit-test`, `${props.testItem.id}`)">Редактировать</li>
+            <li class="hover">Удалить</li>
+          </menu>
+        </div>
       </div>
     </div>
   </div>

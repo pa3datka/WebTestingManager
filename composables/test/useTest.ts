@@ -1,6 +1,6 @@
 import { useTestStore } from "~/store/shared/Test";
-import {ITestCreate} from "~/composables/Interfaces/TestInterfaces/ITestCreate";
 import {useResponseError} from "~/composables/shared/useResponseError";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 
 export const useTest = () => {
     const { $httpRequest } = useNuxtApp();
@@ -16,7 +16,7 @@ export const useTest = () => {
         }
     };
 
-    const createTest = async (test: ITestCreate) => {
+    const createTest = async (test: ITest) => {
         try {
             // @ts-ignore
             const res = await $httpRequest.post('test/create', test);
@@ -47,5 +47,14 @@ export const useTest = () => {
         }
     };
 
-    return { fetchTestSettings, createTest, fetchTestsBySearchString, fetchMyTests };
+    const fetchEditTest = async (id: string) => {
+        try {
+            const res = await $httpRequest.get(`test/edit/${id}`);
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    return { fetchTestSettings, createTest, fetchTestsBySearchString, fetchMyTests, fetchEditTest };
 }

@@ -229,6 +229,7 @@
   }
 
   .settings {
+    position: relative;
     height: rem-calc(48);
     border-left: rem-calc(1) solid $color-hosta-flower;
     display: flex;
@@ -254,6 +255,41 @@
       svg {
         stroke: $color-grey-suit;
       }
+    }
+
+    .item-menu {
+      position: absolute;
+      top: rem-calc(40);
+      right: rem-calc(50);
+      height: 0;
+      background-color: $color-white;
+      box-shadow: rem-calc((4, 8, 16, 0)) rgba(44, 100, 220, 0.12);
+      z-index: 2;
+      overflow: hidden;
+      transition: all .2s ease-in-out;
+
+      menu {
+        padding: rem-calc((24, 24, 32, 24));
+
+        li:nth-child(n+2) {
+          padding-top: rem-calc(18);
+        }
+        li {
+          color: $color-black-market;
+          font-size: $font15;
+          text-wrap: nowrap;
+
+          &:hover {
+            color: $color-blue;
+          }
+        }
+      }
+
+    }
+
+    .show-item-menu {
+      height: rem-calc(222);
+      display: block;
     }
   }
 }
