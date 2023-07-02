@@ -13,4 +13,5 @@ export interface IQuestionTest {
 
     check_is_correct?: boolean;
     is_errors?: boolean;
+    new?: boolean;
 }

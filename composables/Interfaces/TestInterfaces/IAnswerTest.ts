@@ -7,4 +7,5 @@ export interface IAnswerTest {
     question_id?: number;
 
     error_text?: string|undefined;
+    new?: boolean;
 }

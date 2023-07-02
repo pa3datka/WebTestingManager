@@ -3,6 +3,7 @@ import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import {onMounted, PropType} from "@vue/runtime-core";
 import {computed} from "@vue/reactivity";
 import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
+import {Ref} from "vue";
 
 const emit = defineEmits(['update:modelValue']);
 
