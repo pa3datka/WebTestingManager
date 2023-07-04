@@ -33,7 +33,6 @@ import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 import {PropType} from "@vue/runtime-core";
 
 const {rules, validateInput} = useValidation();
-const { createTest } = useTestStore();
 const router = useRouter();
 
 const difficultyTypes = computed(() => useTestStore().getDifficultyTypes);
@@ -70,11 +69,13 @@ const data = reactive({
       is_errors: false,
       check_is_correct: true,
       img_path: '',
+      new: true,
       answers: [
         {
           id: 1,
           is_correct: false,
           is_errors: false,
+          new: true,
         }
       ]
     },
@@ -149,15 +150,15 @@ const deleteQuest = () => {
 const getBtn = () => {
   let btn = {active: true, id: 1, activeValue: 'question', is_errors: false};
   const lastBtn = data.questsBtn[data.questsBtn.length - 1];
-  btn.id = (lastBtn.id + 1);
+  btn.id = ((lastBtn?.id ?? 0) + 1);
   return btn;
 };
 
 const getNewQuest = (): IQuestionTest => {
   const lastTest = <IQuestionTest>data.questions[data.questions.length - 1];
   return <IQuestionTest>{
-    id: (lastTest.id + 1),
-    type_id: lastTest.type_id,
+    id: ((lastTest?.id ?? 0) + 1),
+    type_id: (lastTest?.type_id ?? 1),
     check_is_correct: true,
     new: true,
     answers: [{ id: 1, is_correct: false, is_errors: false, new: true }]
@@ -283,7 +284,7 @@ const saveTest = async () => {
     data.isLoad = false;
     return;
   }
-  emit('save', {settings: data.settings, questions: data.questions})
+  emit('save', {settings: {...data.settings}, questions: [...data.questions]})
 
 };
 </script>

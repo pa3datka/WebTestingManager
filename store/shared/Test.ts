@@ -2,12 +2,8 @@ import {defineStore} from "pinia";
 import {ITestSetting} from "~/composables/Interfaces/TestInterfaces/ITestSetting";
 import {IResponseSettings} from "~/composables/Interfaces/TestInterfaces/IResponseSettings";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
-import { useUploadImage } from "~/composables/shared/useUploadImage";
-import {IUploadTestImage} from "~/composables/Interfaces/TestInterfaces/IUploadTestImage";
-import { useTest } from "~/composables/test/useTest";
 import {IPaginate} from "~/composables/Interfaces/IPaginate";
 import {IChoseImage} from "~/composables/Interfaces/TestInterfaces/IChoseImage";
-import {IQuestionTest} from "~/composables/Interfaces/TestInterfaces/IQuestionTest";
 
 
 export const useTestStore = defineStore('test', {
@@ -28,12 +24,12 @@ export const useTestStore = defineStore('test', {
     },
 
     getters:{
-        getDifficultyTypes: (state):ITestSetting[] => state.difficultyTypes,
-        getDisplayAnswerTypes: (state):ITestSetting[] => state.displayAnswerTypes,
-        getEvaluationTypes: (state):ITestSetting[] => state.evaluationTypes,
-        getQuestTypes: (state):ITestSetting[] => state.questTypes,
-        getCategories: (state):ITestSetting[] => state.categories,
-        getChoseImages: (state):IChoseImage[] => state.choseImages,
+        getDifficultyTypes: (state): ITestSetting[]|[] => state.difficultyTypes,
+        getDisplayAnswerTypes: (state): ITestSetting[]|[] => state.displayAnswerTypes,
+        getEvaluationTypes: (state): ITestSetting[]|[] => state.evaluationTypes,
+        getQuestTypes: (state): ITestSetting[]|[] => state.questTypes,
+        getCategories: (state): ITestSetting[]|[] => state.categories,
+        getChoseImages: (state): IChoseImage[]|[] => state.choseImages,
         getMyTests: (state): ITest[]|[] => state.myTests,
         getPaginate: (state): IPaginate|null => state.paginate,
     },
@@ -53,6 +49,11 @@ export const useTestStore = defineStore('test', {
             !paginate && (this.paginate = null);
 
             list && (this.myTests = list);
+            console.log(this.myTests)
         },
+
+        deleteTestByIdInMyTests(id: number): void {
+            this.myTests = <ITest[]|[]> this.myTests.filter((test: ITest) => test.id !== id);
+        }
     },
 });

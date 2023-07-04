@@ -5,15 +5,15 @@ import {IEvaluationTest} from "~/composables/Interfaces/TestInterfaces/IEvaluati
 import {IQuestionTest} from "~/composables/Interfaces/TestInterfaces/IQuestionTest";
 
 export interface ITest {
-    id?: number;
+    id: number;
     title: string;
-    slug: string;
-    description: string;
+    slug?: string;
+    description?: string;
     img_path: string;
-    shuffle_answers: boolean;
-    attempts: number|null;
-    time: number|null;
-    cheating_prevention: number|null;
+    shuffle_answers?: boolean;
+    attempts?: number|null;
+    time?: number|null;
+    cheating_prevention?: number|null;
     count_question?: number;
     lang?: string;
     status?: string;

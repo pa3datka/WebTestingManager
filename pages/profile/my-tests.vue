@@ -78,7 +78,7 @@ watch(() => route.query.page, async () => {
         <TableItem class="pt-sm-14 pt-lg-20" v-for="test in myTests" :testItem="test" :key="test.id"/>
       </div>
 
-      <div class="table-footer pt-sm-15 pt-lg-30" v-if="paginate">
+      <div class="table-footer pt-sm-15 pt-lg-30" v-if="paginate && paginate.last_page > 1">
         <PaginateButtons v-on:showPage="getMyTests" :paginate="paginate"/>
       </div>
 

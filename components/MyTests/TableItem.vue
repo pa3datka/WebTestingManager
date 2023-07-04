@@ -5,10 +5,12 @@ import LevelRate from "~/components/Shared/Indicator/LevelRate.vue";
 import ButtonSvg from "~/components/Shared/Button/ButtonSvg.vue";
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import {PropType} from "@vue/runtime-core";
-import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
 import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
 import {useRouter} from "nuxt/app";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
+import {useTest} from "~/composables/test/useTest";
 
+const {deleteTest} = useTest();
 const router = useRouter();
 const {hideMenu} = hideOnClickMenu();
 const props = defineProps({
@@ -36,14 +38,19 @@ const showItem = () => {
 };
 
 const showMenu = () => {
-  console.log('hide')
   data.itemMenu = !data.itemMenu;
 };
 
 const goTo = async (name: string, param: string) => {
-  console.log(name, param);
   await router.push({name: name, params: {id: param}});
   return;
+};
+
+const deleteItem = async (testId: number) => {
+  let res = await deleteTest(testId);
+  if (res === true) {
+
+  }
 };
 </script>
 
@@ -110,10 +117,10 @@ const goTo = async (name: string, param: string) => {
         <div class="statistic-items">
           <BorderRate :rate="String(props.testItem.average_score)" :percent="props.testItem?.average_score" title="AVG"/>
           <BorderRate :rate="String(props.testItem.passed)"  title="Passed"/>
-          <LevelRate :rate="String(props.testItem.difficulty.id)" title="Level"/>
+          <LevelRate v-if="props.testItem.difficulty" :rate="String(props.testItem.difficulty.id)" title="Level"/>
         </div>
         <div class="statistic-types">
-          <div class="info-category">
+          <div class="info-category" v-if="props.testItem.category">
             <div class="preview-category" :class="`${props.testItem.category.color}-bg`">
               <SvgTemplate :name="props.testItem.category.svg" />
             </div>
@@ -135,7 +142,7 @@ const goTo = async (name: string, param: string) => {
             <li class="hover">Сгенерировать ссылку</li>
             <li class="hover">Просмотреть</li>
             <li class="hover" @click="goTo(`edit-test`, `${props.testItem.id}`)">Редактировать</li>
-            <li class="hover">Удалить</li>
+            <li class="hover" @click="deleteItem(props.testItem.id)">Удалить</li>
           </menu>
         </div>
       </div>

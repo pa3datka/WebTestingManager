@@ -112,7 +112,26 @@ export const useTest = () => {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    return { fetchTestSettings, createTest, fetchTestsBySearchString, fetchMyTests, fetchEditTest, prepareTest, updateTest };
+    const deleteTest = async (id: number) => {
+        try {
+            const res = await $httpRequest.get(`test/delete/${id}`);
+            res.status && useTestStore().deleteTestByIdInMyTests(id);
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+    };
+
+    return {
+        fetchTestSettings,
+        fetchTestsBySearchString,
+        fetchMyTests,
+        fetchEditTest,
+        prepareTest,
+        createTest,
+        updateTest,
+        deleteTest
+    };
 }
