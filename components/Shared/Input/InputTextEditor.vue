@@ -24,6 +24,7 @@ onMounted(() => {
       }
     });
   });
+  contentRef && (contentRef.value.innerHTML = props.modelValue);
 });
 
 const modifyText = (command: string, aShowDefaultUI: boolean, aValueArgument: string|undefined): void => {
@@ -41,7 +42,7 @@ const colorText = (val: any): void => {
 
 <template>
 <div class="text-editor-container">
-    <div class="content scroll" contenteditable="true" id="content-editor" :ref="(el: any) => contentRef = el" @input="getContent">{{props.modelValue}}</div>
+    <div class="content scroll" contenteditable="true" id="content-editor" :ref="(el: any) => contentRef = el" @input="getContent"></div>
   <div class="content-options">
     <div class="button-option btn-bold hover" id="bold"></div>
     <div class="button-option btn-cursive hover" id="italic"></div>
