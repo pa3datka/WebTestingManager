@@ -27,13 +27,13 @@ class HttpRequest {
     async get(url: string) {
         this.setOptions('GET');
         // @ts-ignore
-        return this.apiFetch(url, this.fetchOptions);
+        return await this.apiFetch(url, this.fetchOptions);
     }
 
     async post(url: string, data: object) {
         this.setOptions('POST', data);
         // @ts-ignore
-        return this.apiFetch(url, this.fetchOptions);
+        return await this.apiFetch(url, this.fetchOptions);
     }
 
     async upload(url: string, image: string, source: string) {

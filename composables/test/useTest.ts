@@ -4,6 +4,7 @@ import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 import {IQuestionTest} from "~/composables/Interfaces/TestInterfaces/IQuestionTest";
 import {IUploadTestImage} from "~/composables/Interfaces/TestInterfaces/IUploadTestImage";
 import {useUploadImage} from "~/composables/shared/useUploadImage";
+import {IStatusServerResponse} from "~/composables/Interfaces/IStatusServerResponse";
 
 export const useTest = () => {
     const { $httpRequest } = useNuxtApp();
@@ -114,13 +115,15 @@ export const useTest = () => {
         }
     };
 
-    const deleteTest = async (id: number) => {
+    const deleteTest = async (id: number): Promise<IStatusServerResponse> => {
         try {
-            const res = await $httpRequest.get(`test/delete/${id}`);
-            res.status && useTestStore().deleteTestByIdInMyTests(id);
+            const res = await $httpRequest.get(`test/delete/555`);
+            if (res.status) {
+                useTestStore().deleteTestByIdInMyTests(id);
+                return { status: true };
+            }
         } catch (e) {
-            console.log(e);
-            return false;
+            return { status: false, errors: ['Server Error']};
         }
     };
 

@@ -9,7 +9,11 @@ import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
 import {useRouter} from "nuxt/app";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 import {useTest} from "~/composables/test/useTest";
+import {useAlertStore} from "~/store/shared/Alert";
+import {ALERT_SUCCESS, ALERT_ERROR, ALERT_WARNING, ALERT_INFO} from "~/store/constants/alertConst";
+import {IStatusServerResponse} from "~/composables/Interfaces/IStatusServerResponse";
 
+const {setInfo} = useAlertStore();
 const {deleteTest} = useTest();
 const router = useRouter();
 const {hideMenu} = hideOnClickMenu();
@@ -47,10 +51,18 @@ const goTo = async (name: string, param: string) => {
 };
 
 const deleteItem = async (testId: number) => {
-  let res = await deleteTest(testId);
-  if (res === true) {
-
+  let res = <IStatusServerResponse> await deleteTest(testId);
+  if (res.status) {
+    setInfo({type: ALERT_SUCCESS, message: ["Test deleted success."]});
+    return;
   }
+
+  if (!res.status) {
+    setInfo({type: ALERT_SUCCESS, message: (res?.errors ?? [])});
+    return;
+  }
+
+
 };
 </script>
 
