@@ -42,7 +42,7 @@ const submit = () => {
         load.loading = true;
         passwordReset(form);
     } catch (err: any) {
-        console.log(err);
+        console.error(err);
     } finally {
         load.loading = false;
         load.message = "An email has been sent to you to change your password.";

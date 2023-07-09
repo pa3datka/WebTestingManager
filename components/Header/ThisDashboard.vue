@@ -2,7 +2,11 @@
 import Logo from "~/components/Header/parts/header/Logo.vue";
 
 import {localStore} from "~/composables/localStorage/LocalStore";
+import {useTestStore} from "~/store/shared/Test";
+import {useTest} from "~/composables/test/useTest";
+import {computed} from "@vue/reactivity";
 
+const {fetchCountTests} = useTest();
 const data = reactive({
     isShow: true
 });
@@ -13,15 +17,16 @@ const openDashboard = () => {
     data.isShow = !state;
 };
 
-onMounted(() => {
+onMounted(async () => {
     data.isShow = localStore().getDashboardMenuState();
+    await fetchCountTests();
 });
+
+const countMyTests = computed(() => useTestStore().getCountMyTests);
 </script>
 
 <template>
-    <div
-            :class="{'dashboard-min': !data.isShow}"
-            class="dashboard-wrapper">
+    <div :class="{'dashboard-min': !data.isShow}" class="dashboard-wrapper">
         <div class="top">
             <logo/>
         </div>
@@ -31,7 +36,7 @@ onMounted(() => {
                     <div class="svg-link">
                         <svg-template name="home"/>
                     </div>
-                    <span>Home</span>
+                    <span class="name-link">Home</span>
                 </nuxt-link>
             </li>
 
@@ -40,8 +45,12 @@ onMounted(() => {
                     <div class="svg-link">
                         <svg-template name="my-tests"/>
                     </div>
-                    <span>My tests</span>
+                    <span class="name-link">My tests</span>
+
                 </nuxt-link>
+                <div class="count-dashboard" v-show="countMyTests">
+                  <span>{{ countMyTests }}</span>
+                </div>
             </li>
 
           <li class="d-flex align-items-center hover">
@@ -49,7 +58,7 @@ onMounted(() => {
               <div class="svg-link">
                 <svg-template name="add-test"/>
               </div>
-              <span>Add test</span>
+              <span class="name-link">Add test</span>
             </nuxt-link>
           </li>
         </menu>

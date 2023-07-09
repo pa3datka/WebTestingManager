@@ -24,6 +24,7 @@ onMounted(() => {
       }
     });
   });
+  contentRef && (contentRef.value.innerHTML = props.modelValue);
 });
 
 const modifyText = (command: string, aShowDefaultUI: boolean, aValueArgument: string|undefined): void => {

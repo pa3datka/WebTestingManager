@@ -3,6 +3,7 @@ import MainHeader from "@/components/Header/ThisHeader.vue"
 import Drawer from "~/components/Header/ThisDrawer.vue";
 import Dashboard from "~/components/Header/ThisDashboard.vue";
 import ThisDashboardMobile from "~/components/Header/ThisDashboardMobile.vue";
+import Alert from "~/components/Shared/Alert/Alert.vue";
 </script>
 
 <template>
@@ -20,6 +21,7 @@ import ThisDashboardMobile from "~/components/Header/ThisDashboardMobile.vue";
 
         <ThisDashboardMobile />
         <div class="open-background"></div>
+        <Alert />
       </div>
     </client-only>
 </template>

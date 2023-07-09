@@ -1,7 +1,9 @@
 import { $Fetch, $fetch } from "ofetch";
-import { useAuthStore } from "~/store/auth/auth";
 import { useCustomCookies } from "~/composables/shared/useCustomCookies";
-
+import {useAlertStore} from "~/store/shared/Alert";
+import { useResponseError } from "~/composables/shared/useResponseError";
+import {ALERT_ERROR} from "~/store/constants/alertConst";
+import {navigateTo} from "nuxt/app";
 class HttpRequest {
 
     private readonly apiFetch: $Fetch;
@@ -27,13 +29,13 @@ class HttpRequest {
     async get(url: string) {
         this.setOptions('GET');
         // @ts-ignore
-        return this.apiFetch(url, this.fetchOptions);
+        return await this.apiFetch(url, this.fetchOptions);
     }
 
     async post(url: string, data: object) {
         this.setOptions('POST', data);
         // @ts-ignore
-        return this.apiFetch(url, this.fetchOptions);
+        return await this.apiFetch(url, this.fetchOptions);
     }
 
     async upload(url: string, image: string, source: string) {
@@ -59,12 +61,17 @@ class HttpRequest {
         method === 'GET' && (this.fetchOptions.body = null)
         // @ts-ignore
         method !== 'GET' && body && (this.fetchOptions.body = body);
-
     }
 
 }
 const crateApiFetch = $fetch.create({
-    //async onResponseError({ request, response, options }) {},
+    async onResponseError({ request, response, options }) {
+        (response.status === 500 || response.status === 422) && useAlertStore().setInfo({
+            type: ALERT_ERROR,
+            message: useResponseError().getErrors(response._data)
+        });
+        response.status === 404 && navigateTo('/error-404', {redirectCode: 301});
+    },
 
     //async onResponse({request, options, response}) {},
 
@@ -74,7 +81,6 @@ const crateApiFetch = $fetch.create({
         token && (options.headers.Authorization = <string> `Bearer ${token}`);
     }
 })
-
 
 export default defineNuxtPlugin(async (NuxtApp) => {
     // @ts-ignore

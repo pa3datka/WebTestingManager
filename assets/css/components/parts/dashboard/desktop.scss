@@ -29,6 +29,9 @@
 
     li {
       height: rem-calc(40);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       &:hover {
         a {
@@ -36,7 +39,7 @@
             stroke: $color-blue;
           }
 
-          span {
+          .name-link {
             color: $color-text-blue;
           }
         }
@@ -74,6 +77,23 @@
           padding-left: rem-calc(40);
           padding-right: rem-calc(10);
           stroke: $color-white;
+        }
+      }
+
+      .count-dashboard {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: $color-grey-suit;
+        border-radius: rem-calc(18);
+        border: rem-calc(1) solid $color-iris-ice;
+        font-size: $font12;
+        height: rem-calc(24);
+        width: rem-calc(38);
+        margin-right: rem-calc(24);
+
+        span {
+          display: inline-block;
         }
       }
     }
@@ -125,6 +145,14 @@
         }
       }
     }
+
+    menu {
+      li {
+        .count-dashboard {
+          display: flex;
+        }
+      }
+    }
   }
 }
 
@@ -165,7 +193,6 @@
       }
 
       a {
-
         .svg-link {
           stroke: $color-grey;
           background-color: $color-blue;
@@ -187,6 +214,10 @@
           padding-right: rem-calc(10);
           stroke: $color-blue;
         }
+      }
+
+      .count-dashboard {
+        display: none;
       }
     }
   }

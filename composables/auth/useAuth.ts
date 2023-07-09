@@ -94,7 +94,7 @@ export const useAuth = () => {
             // @ts-ignore
             $httpRequest.post('auth/password-reset', { ...form });
         } catch (e: any) {
-            console.log(e);
+            console.error(e);
         }
     }
 

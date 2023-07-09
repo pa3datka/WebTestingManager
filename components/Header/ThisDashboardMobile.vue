@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import {hideOnClickMenu} from "~/composables/shared/HideOnClickMenu";
+import {useTestStore} from "~/store/shared/Test";
+import {computed} from "@vue/reactivity";
 
 const hide = hideOnClickMenu();
 const data = reactive({
@@ -13,6 +15,8 @@ const closeDashboard = () => {
 onMounted(() => {
   hide.hideMobileDashboard('dashboard-mobile', 'open-dashboard', closeDashboard);
 });
+
+const countMyTests = computed(() => useTestStore().countMyTests);
 
 </script>
 
@@ -38,7 +42,6 @@ onMounted(() => {
               </div>
               <div class="text-item">
                 <div>Home</div>
-                <div class="count">12</div>
               </div>
             </nuxt-link>
           </li>
@@ -50,6 +53,7 @@ onMounted(() => {
               </div>
               <div class="text-item">
                 <div>My tests</div>
+                <div class="count" v-show="countMyTests">{{ countMyTests }}</div>
               </div>
             </nuxt-link>
           </li>
