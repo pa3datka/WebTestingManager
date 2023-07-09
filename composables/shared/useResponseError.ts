@@ -1,37 +1,20 @@
 export const useResponseError = () => {
 
-    const questName = RegExp(/^questions\.([0-9]).*?$/, 'g');
-    const getResponseErrors = (error: any) => {
-        let errors = <any> {};
-        if (error.data?.errors) {
-            Object.keys(error.data.errors).forEach(err => {
-                const errName = replaceErrorName(err);
-                !errors[errName] && (errors[errName] = []);
-
-                error.data.errors[err].forEach((message: string) => {
-                    errors[errName].push(message)
-
-                });
-            });
+    const getErrors = (data: any): string[]|[] => {
+        let messages = [];
+        if (!(data.errors ?? null)) {
+            return ['server.error']
         }
 
-        if (!error.data?.errors) {
-            errors = { error: error.data?.message };
-        }
+        typeof data.errors === 'object' && Object.values(data.errors).forEach(err => {
+            Array.isArray(err) && err.forEach((message: string) => messages.push(message));
+        });
 
-        return errors;
+        Array.isArray(data.errors) && data.errors.forEach((message: string) => messages.push(message));
+        typeof data.errors === 'string' && messages.push(data.errors);
+
+        return messages;
     };
 
-    const replaceErrorName = (name: string) => {
-        const reg = questName;
-        const resultQuestions = RegExp(/^questions\.([0-9]).*?$/, 'g').exec(`${name}`);
-        if (resultQuestions) {
-            return 'question ' + (Number(resultQuestions[1]) + 1);
-        }
-        console.log(name)
-        return name;
-
-    };
-
-    return { getResponseErrors };
+    return { getErrors };
 };

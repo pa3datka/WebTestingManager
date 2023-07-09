@@ -80,7 +80,7 @@
           align-items: center;
           justify-content: center;
           border-radius: 50%;
-          background-color: #262342;
+
           svg {
             stroke: $color-white;
           }
@@ -95,6 +95,7 @@
         align-items: center;
         justify-content: center;
         column-gap: rem-calc(8);
+        text-transform: capitalize;
       }
     }
 

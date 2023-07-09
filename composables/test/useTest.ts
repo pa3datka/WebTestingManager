@@ -1,10 +1,10 @@
 import { useTestStore } from "~/store/shared/Test";
-import {useResponseError} from "~/composables/shared/useResponseError";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 import {IQuestionTest} from "~/composables/Interfaces/TestInterfaces/IQuestionTest";
 import {IUploadTestImage} from "~/composables/Interfaces/TestInterfaces/IUploadTestImage";
 import {useUploadImage} from "~/composables/shared/useUploadImage";
 import {IStatusServerResponse} from "~/composables/Interfaces/IStatusServerResponse";
+import {IAnswerTest} from "~/composables/Interfaces/TestInterfaces/IAnswerTest";
 
 export const useTest = () => {
     const { $httpRequest } = useNuxtApp();
@@ -16,7 +16,7 @@ export const useTest = () => {
             useTestStore().setTestSettings(res)
 
         } catch (e) {
-
+            console.error(e);
         }
     };
 
@@ -24,18 +24,20 @@ export const useTest = () => {
         try {
             // @ts-ignore
             const res = await $httpRequest.post('test/create', test);
+            await fetchCountTests();
             return { status: true, id: res.test_id };
         } catch (e: any) {
-            return { status: false, error: useResponseError().getResponseErrors(e)};
+            console.error(e);
         }
     };
 
     const updateTest = async (test: ITest) => {
         try {
+            // @ts-ignore
             const res = await $httpRequest.post('test/update', test);
             return { status: true, id: res.test_id };
         } catch (e) {
-            return { status: false, error: useResponseError().getResponseErrors(e)};
+            console.error(e);
         }
     }
 
@@ -75,12 +77,21 @@ export const useTest = () => {
         });
 
         // reset new questions and answer ids
-        questions.map(quest => {
+        let resetQuestions = <IQuestionTest[]> [];
+        questions.forEach(quest => {
+            let resQuest = {...quest};
+            let resAnswers = <IAnswerTest[]> [];
+            resQuest.answers.forEach(answer => resAnswers.push({...answer}));
+            resQuest.answers = <IAnswerTest[]> resAnswers;
+            resetQuestions.push(resQuest);
+        });
+
+        resetQuestions.map(quest => {
             quest.new && (quest.id = 0);
             quest.answers.map(answer => answer.new && (answer.id = 0));
         });
 
-        settings.questions = questions;
+        settings.questions = <IQuestionTest[]> resetQuestions;
 
         return settings;
     }
@@ -90,7 +101,7 @@ export const useTest = () => {
             // @ts-ignore
             return await $httpRequest.post('test/search', { search: search });
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
 
     };
@@ -102,32 +113,46 @@ export const useTest = () => {
             const res = await $httpRequest.get(`test/list${numberPage}`);
             useTestStore().setTests(res.data, res.paginate);
         } catch (e) {
-            return {}
+            console.error(e);
         }
     };
 
     const fetchEditTest = async (id: string) => {
         try {
+            // @ts-ignore
             const res = await $httpRequest.get(`test/edit/${id}`);
             return res;
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
-    const deleteTest = async (id: number): Promise<IStatusServerResponse> => {
+    const deleteTest = async (id: number): Promise<IStatusServerResponse|void> => {
         try {
-            const res = await $httpRequest.get(`test/delete/555`);
+            // @ts-ignore
+            const res = await $httpRequest.get(`test/delete/${id}`);
             if (res.status) {
                 useTestStore().deleteTestByIdInMyTests(id);
+                await fetchCountTests();
                 return { status: true };
             }
         } catch (e) {
-            return { status: false, errors: ['Server Error']};
+            console.error(e);
+        }
+    };
+
+    const fetchCountTests = async () => {
+        try {
+            // @ts-ignore
+            const res = await $httpRequest.get('test/count');
+            useTestStore().setCountMyTests(res.count);
+        } catch (e) {
+            console.error(e);
         }
     };
 
     return {
+        fetchCountTests,
         fetchTestSettings,
         fetchTestsBySearchString,
         fetchMyTests,

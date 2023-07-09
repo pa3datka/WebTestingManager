@@ -4,7 +4,7 @@ import {useTest} from "~/composables/test/useTest";
 import {onMounted} from "@vue/runtime-core";
 import {reactive, ref} from "@vue/reactivity";
 import {useTestStore} from "~/store/shared/Test";
-import {ITest} from "~/composables/Interfaces/TestInterfaces/Response/ITest";
+import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 
 const {fetchTestsBySearchString} = useTest();
 const { dotsString } = useStringHelpers();

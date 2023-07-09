@@ -5,12 +5,6 @@ import ButtonCycleSvg from "~/components/Shared/Button/ButtonCycleSvg.vue";
 import SvgTemplate from "~/components/Svg/SvgTemplate.vue";
 import TableItem from "~/components/MyTests/TableItem.vue";
 
-definePageMeta({
-  name: "my-tests",
-  layout: 'dashboard',
-  middleware: ['is-auth']
-});
-
 import {useRouter} from "nuxt/app";
 import {computed} from "@vue/reactivity";
 import {useTest} from "~/composables/test/useTest";
@@ -19,6 +13,14 @@ import PaginateButtons from "~/components/Shared/Paginate/PaginateButtons.vue";
 import {useRoute} from "nuxt/app";
 import {useTestStore} from "~/store/shared/Test";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
+
+definePageMeta({
+  name: "my-tests",
+  layout: 'dashboard',
+  middleware: ['is-auth']
+});
+
+
 
 const route = useRoute();
 const {fetchMyTests} = useTest();
@@ -38,6 +40,7 @@ onMounted(async () => {
   await getMyTests();
 });
 
+const countMyTests = computed(() => useTestStore().getCountMyTests);
 
 const getPageName = (pageName: string) => {
   router.push({ name: pageName });
@@ -56,7 +59,7 @@ watch(() => route.query.page, async () => {
       <div class="btn-head" @click="getPageName('add-test')">
         <svg-template name="add-test"/>
       </div>
-      <div>My Tests ({{ 12 }})</div>
+      <div>My Tests ({{ countMyTests }})</div>
 
       <div class="btn-head-desktop">
         <ButtonCycleSvg class="cotton-ball-bg button-active-info" @click="getPageName('add-test')" text="Add test">

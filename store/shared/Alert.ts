@@ -24,7 +24,7 @@ export const useAlertStore = defineStore('alert', {
         },
 
         clearInfo(): void {
-            this.info = {};
+            this.info = <IAlert> {};
         }
     },
 });

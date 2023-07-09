@@ -1,28 +1,39 @@
 <script setup lang="ts">
 import {useAlertStore} from "~/store/shared/Alert";
-import {computed} from "@vue/reactivity";
+import {computed, reactive} from "@vue/reactivity";
+import {onUpdated} from "@vue/runtime-core";
+import {ALERT_SUCCESS} from "~/store/constants/alertConst";
+
 
 const {clearInfo} = useAlertStore();
 const data = reactive({
   show: true,
 });
 
-const info = computed(() => {
-  return (useAlertStore().getMessage?.message ?? null);
+const info = computed((): string[]|[] => {
+  return (useAlertStore().getMessage?.message ?? []);
 });
 
 const alertType = computed(() => {
   return (useAlertStore().getMessage?.type ?? '');
 });
 
+onUpdated(async () => {
+  if (alertType.value === ALERT_SUCCESS) {
+    await setTimeout(() => {
+      clearInfo();
+    }, 2000);
+  }
+});
+
 </script>
 
 <template>
-<div class="alert" :class="{'show-alert': info}, `alert-type-${alertType}`">
+<div class="alert" :class="[{'show-alert': (info.length > 0)}, `alert-type-${alertType}`]">
   <div class="icon">O</div>
   <div class="message">
-    <ul>
-      <li v-for="message in (info ?? [])" :key="message">{{message}}</li>
+    <ul style="list-style: inside;">
+      <li v-for="message in info" :key="message">{{message}}</li>
     </ul>
   </div>
   <div class="action hover" @click="clearInfo">X</div>
@@ -60,7 +71,7 @@ const alertType = computed(() => {
   border-left: rem-calc(4) solid $color-red-2;
   background-color: rgba(222, 60, 75, .7);
   .message {
-    color: $color-black-market;
+    color: $color-white;
   }
 }
 
@@ -68,7 +79,7 @@ const alertType = computed(() => {
   border-left: rem-calc(4) solid $color-salmon;
   background-color: rgba(248, 137, 107, .7);
   .message {
-    color: $color-black-market;
+    color: $color-white;
   }
 }
 

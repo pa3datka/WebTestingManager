@@ -1,11 +1,11 @@
 export interface IAnswerTest {
     id: number;
-    answer_text: string|null;
-    answer_img: string|null;
+    answer_text?: string;
+    answer_img?: string;
     is_correct: boolean;
-    sequence: number|null;
+    sequence?: number;
     question_id?: number;
 
-    error_text?: string|undefined;
+    error_text?: string;
     new?: boolean;
 }

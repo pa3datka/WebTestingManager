@@ -42,7 +42,7 @@ const categories = computed(() => useTestStore().getCategories);
 const questTypes = computed(() => useTestStore().getQuestTypes);
 
 const refsFields = <Ref>ref({});
-const emit = defineEmits(['save']);
+const emit = defineEmits(['save', 'isLoaded']);
 const props = defineProps({
   settings: {
     type: Object as PropType<ITest|null>,
@@ -51,6 +51,10 @@ const props = defineProps({
   questions: {
     type: Object as PropType<IQuestionTest[]|null>,
     default: null
+  },
+  isLoad: {
+    type: Boolean,
+    default: false,
   }
 });
 
@@ -69,12 +73,14 @@ const data = reactive({
       is_errors: false,
       check_is_correct: true,
       img_path: '',
+      count_points: 0,
+      question: '',
       new: true,
+      explanation: '',
       answers: [
         {
           id: 1,
           is_correct: false,
-          is_errors: false,
           new: true,
         }
       ]
@@ -84,7 +90,6 @@ const data = reactive({
   isCategoryIdError: true,
 
   activeQuest: 1,
-  isLoad: false
 });
 
 if (props.settings && props.questions) {
@@ -137,6 +142,13 @@ const activeQuestId = computed(() => {
   return activeId;
 });
 
+const loaded = computed({
+  get: () => props.isLoad,
+  set: (val) => {
+    emit('isLoaded', val);
+  }
+});
+
 const deleteQuest = () => {
   data.questsBtn.forEach((quest, index) => {
     if (quest.active) {
@@ -158,10 +170,14 @@ const getNewQuest = (): IQuestionTest => {
   const lastTest = <IQuestionTest>data.questions[data.questions.length - 1];
   return <IQuestionTest>{
     id: ((lastTest?.id ?? 0) + 1),
+    img_path: '',
+    count_points: 0,
+    question: '',
     type_id: (lastTest?.type_id ?? 1),
     check_is_correct: true,
     new: true,
-    answers: [{ id: 1, is_correct: false, is_errors: false, new: true }]
+    explanation: '',
+    answers: [{ id: 1, is_correct: false, new: true }]
   };
 };
 
@@ -173,10 +189,7 @@ const addAnswer = (question: IQuestionTest): void => {
   if (validateInput(answerRef)) {
     const newAnswer = <IAnswerTest> {
       id: (lastAnswer.id + 1),
-      answer_text: '',
-      answer_img: '',
       is_correct: false,
-      sequence: null,
       is_errors: false,
       new: true,
     }
@@ -279,13 +292,12 @@ const validateTestOptions = (): boolean => {
 };
 
 const saveTest = async () => {
-  data.isLoad = true;
+  loaded.value = true;
   if (!validateTestOptions() || !validateQuestions()) {
-    data.isLoad = false;
+    loaded.value = false;
     return;
   }
-  emit('save', {settings: {...data.settings}, questions: [...data.questions]})
-
+  emit('save', { settings: {...data.settings}, questions: [...data.questions] })
 };
 </script>
 
@@ -304,9 +316,9 @@ const saveTest = async () => {
         <template v-slot:btn-two>
           <ButtonCycle
               class="button-active-info cotton-ball-bg"
-              :class="{'button--loading primary-bg': data.isLoad}"
+              :class="{'button--loading primary-bg': loaded}"
               @click="saveTest" text="Save"
-              :disabled="data.isLoad"
+              :disabled="loaded"
           >
             <template v-slot:svg>
               <SvgTemplate name="export"/>

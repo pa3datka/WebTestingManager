@@ -35,13 +35,13 @@ const images = computed(() => {
   }, {});
 });
 
-const categories =  computed((): ITestSetting[] => useTestStore().getChoseImages.reduce((current, item) => {
-  const isIssetCategory = current.filter((img: any) => img.id === item?.id);
-  if (!isIssetCategory.length) {
-    current.push(item);
-  }
+const categories =  computed((): IChoseImage[] => Object.values(useTestStore().getChoseImages).reduce((current: IChoseImage[], item: IChoseImage) => {
+    const isIssetCategory = current.filter((img: any) => img.id === item?.id);
+    if (!isIssetCategory.length) {
+      current.push(item);
+    }
   return current;
-}, <ITestSetting[]> []));
+}, <IChoseImage[]> []) ?? []);
 const data = reactive({
   imageSizeSelectedId: <number> 1,
   categories: <object> {},

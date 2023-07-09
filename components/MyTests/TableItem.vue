@@ -10,7 +10,7 @@ import {useRouter} from "nuxt/app";
 import {ITest} from "~/composables/Interfaces/TestInterfaces/ITest";
 import {useTest} from "~/composables/test/useTest";
 import {useAlertStore} from "~/store/shared/Alert";
-import {ALERT_SUCCESS, ALERT_ERROR, ALERT_WARNING, ALERT_INFO} from "~/store/constants/alertConst";
+import {ALERT_SUCCESS} from "~/store/constants/alertConst";
 import {IStatusServerResponse} from "~/composables/Interfaces/IStatusServerResponse";
 
 const {setInfo} = useAlertStore();
@@ -23,7 +23,7 @@ const props = defineProps({
   }
 });
 const data = reactive({
-  show: true,
+  show: false,
   imageBaseUrl: useRuntimeConfig().public.imageApiUrl,
   itemMenu: false,
 });
@@ -52,17 +52,11 @@ const goTo = async (name: string, param: string) => {
 
 const deleteItem = async (testId: number) => {
   let res = <IStatusServerResponse> await deleteTest(testId);
-  if (res.status) {
+  if (res?.status) {
     setInfo({type: ALERT_SUCCESS, message: ["Test deleted success."]});
-    return;
   }
 
-  if (!res.status) {
-    setInfo({type: ALERT_SUCCESS, message: (res?.errors ?? [])});
-    return;
-  }
-
-
+  showMenu();
 };
 </script>
 
@@ -72,8 +66,8 @@ const deleteItem = async (testId: number) => {
       <div class="item-title item-title-show" @click="showItem">
 
         <div class="item-title-content">
-          <img src="/image-test-category.jpg" height="48" width="48" alt="">
-          <div class="content-title">{{dotsString(45, 'Тест на знание истории Древного Рима asssssssssss')}}</div>
+          <img :src="`${data.imageBaseUrl}${props.testItem.img_path}`" height="48" width="48" alt="">
+          <div class="content-title">{{dotsString(45, props.testItem.title)}}</div>
         </div>
 
         <SvgTemplate class="vector-rotate" name="vector" />
@@ -82,30 +76,30 @@ const deleteItem = async (testId: number) => {
 
       <div class="item-content item-content-show">
         <div class="statistic">
-          <BorderRate rate="7/10" :percent="70" title="AVG"/>
-          <BorderRate rate="176"  title="Passed"/>
-          <LevelRate title="Level"/>
+          <BorderRate :rate="String(props.testItem.average_score)" :percent="props.testItem?.average_score" title="AVG"/>
+          <BorderRate :rate="String(props.testItem.passed)"  title="Passed"/>
+          <LevelRate v-if="props.testItem.difficulty" :rate="String(props.testItem.difficulty.id)" title="Level"/>
         </div>
         <div class="info">
-          <div class="info-category">
-            <div class="preview">
-              <SvgTemplate name="history" />
+          <div class="info-category" v-if="props.testItem.category">
+            <div class="preview" :class="`${props.testItem.category.color}-bg`">
+              <SvgTemplate :name="props.testItem.category.svg" />
             </div>
-            <div class="text">History</div>
+            <div class="text">{{ props.testItem.category.name }}</div>
           </div>
           <div class="info-status">
-            <img src="@/assets/img/svg/lock-private.svg" height="24" width="24" alt="Lock">
-            <div>Private</div>
+            <SvgTemplate class="btn-delete" :name="props.testItem.status"/>
+            <div>{{ props.testItem.status }}</div>
           </div>
         </div>
         <div class="actions">
-          <ButtonSvg height="24px" width="24px">
+          <ButtonSvg height="24px" width="24px" @click="deleteItem(props.testItem.id)">
             <template v-slot:svg>
               <SvgTemplate class="btn-delete" name="delete"/>
             </template>
           </ButtonSvg>
 
-          <ButtonSvg height="24px" width="24px">
+          <ButtonSvg height="24px" width="24px" @click="goTo(`edit-test`, `${props.testItem.id}`)">
             <template v-slot:svg>
               <SvgTemplate class="btn-edit" name="edit"/>
             </template>
@@ -148,7 +142,7 @@ const deleteItem = async (testId: number) => {
           <SvgTemplate name="menu-options"/>
         </button>
 
-        <div class="item-menu" :class="{'show-item-menu': data.itemMenu}, `item-menu-${props.testItem.id}`">
+        <div class="item-menu" :class="[{'show-item-menu': data.itemMenu}, `item-menu-${props.testItem.id}`]">
           <menu class="item-menu-list">
             <li class="hover">Поделиться</li>
             <li class="hover">Сгенерировать ссылку</li>

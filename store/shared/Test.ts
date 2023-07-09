@@ -10,16 +10,17 @@ export const useTestStore = defineStore('test', {
 
     state: () => {
         return {
-            difficultyTypes: <ITestSetting[]> [],
-            displayAnswerTypes: <ITestSetting[]> [],
-            evaluationTypes: <ITestSetting[]> [],
-            questTypes: <ITestSetting[]> [],
-            categories: <ITestSetting[]> [],
-            choseImages: <IChoseImage[]> [],
+            difficultyTypes: <ITestSetting[]|[]> [],
+            displayAnswerTypes: <ITestSetting[]|[]> [],
+            evaluationTypes: <ITestSetting[]|[]> [],
+            questTypes: <ITestSetting[]|[]> [],
+            categories: <ITestSetting[]|[]> [],
+            choseImages: <IChoseImage[]|[]> [],
 
             newTestConfiguration: <ITest> {},
             myTests: <ITest[]|[]> [],
             paginate: <IPaginate|null> null,
+            countMyTests: <number|null> null,
         }
     },
 
@@ -32,6 +33,7 @@ export const useTestStore = defineStore('test', {
         getChoseImages: (state): IChoseImage[]|[] => state.choseImages,
         getMyTests: (state): ITest[]|[] => state.myTests,
         getPaginate: (state): IPaginate|null => state.paginate,
+        getCountMyTests: (state): number|null => state.countMyTests,
     },
 
     actions:{
@@ -41,7 +43,7 @@ export const useTestStore = defineStore('test', {
             this.evaluationTypes = <ITestSetting[]> settings.evaluation_types;
             this.questTypes = <ITestSetting[]> settings.quest_types;
             this.categories = <ITestSetting[]> settings.categories;
-            this.choseImages = <[]> settings.chose_images
+            this.choseImages = <IChoseImage[]> settings.chose_images;
         },
 
         setTests(list: ITest[], paginate: IPaginate|null): void {
@@ -49,11 +51,14 @@ export const useTestStore = defineStore('test', {
             !paginate && (this.paginate = null);
 
             list && (this.myTests = list);
-            console.log(this.myTests)
         },
 
         deleteTestByIdInMyTests(id: number): void {
             this.myTests = <ITest[]|[]> this.myTests.filter((test: ITest) => test.id !== id);
+        },
+
+        setCountMyTests(count: number): void {
+            this.countMyTests = count;
         }
     },
 });

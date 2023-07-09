@@ -19,7 +19,8 @@ import FilterSvg from "~/components/Svg/parts/FilterSvg.vue";
 import MenuOptionsSvg from "~/components/Svg/parts/MenuOptionsSvg.vue";
 import VectorSvg from "~/components/Svg/parts/VectorSvg.vue";
 import InfoCycleSvg from "~/components/Svg/parts/InfoCycleSvg.vue";
-
+import LockPrivateSvg from "~/components/Svg/parts/LockPrivateSvg.vue";
+import LockPublicSvg from "~/components/Svg/parts/LockPublicSvg.vue";
 //categories
 import MathematicsSvg from "~/components/Svg/parts/Categories/MathematicsSvg.vue";
 import GeographySvg from "~/components/Svg/parts/Categories/GeographySvg.vue";
@@ -69,6 +70,9 @@ const svg = <ISvgObject>{
   'geography': GeographySvg,
   'language': LanguageSvg,
   'astronomy': AstronomySvg,
+
+  'private': LockPrivateSvg,
+  'public': LockPublicSvg,
 }
 </script>
 

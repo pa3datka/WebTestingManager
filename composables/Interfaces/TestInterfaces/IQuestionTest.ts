@@ -4,9 +4,9 @@ export interface IQuestionTest {
     id: number;
     test_id?: number;
     question: string;
-    img_path: string|null;
-    count_points: number|null;
-    explanation: string|null;
+    img_path: string;
+    count_points: number;
+    explanation: string;
     type_id: number;
 
     answers: IAnswerTest[];

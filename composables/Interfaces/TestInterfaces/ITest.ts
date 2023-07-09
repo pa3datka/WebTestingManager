@@ -11,9 +11,9 @@ export interface ITest {
     description?: string;
     img_path: string;
     shuffle_answers?: boolean;
-    attempts?: number|null;
-    time?: number|null;
-    cheating_prevention?: number|null;
+    attempts?: number;
+    time?: number;
+    cheating_prevention?: number;
     count_question?: number;
     lang?: string;
     status?: string;
