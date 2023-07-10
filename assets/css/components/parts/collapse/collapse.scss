@@ -42,6 +42,7 @@
       column-gap: rem-calc(12);
       text-transform: uppercase;
       font-weight: $font-weight5;
+      color: $color-black-market;
 
       &:before {
         content: '';
@@ -131,8 +132,8 @@
 
       .btn-collapse__name {
         &:before {
-          height: rem-calc(26);
-          width: rem-calc(26);
+          height: rem-calc(32);
+          width: rem-calc(32);
         }
       }
     }

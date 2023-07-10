@@ -144,7 +144,7 @@ const deleteItem = async (testId: number) => {
 
         <div class="item-menu" :class="[{'show-item-menu': data.itemMenu}, `item-menu-${props.testItem.id}`]">
           <menu class="item-menu-list">
-            <li class="hover">Поделиться</li>
+            <li class="hover" @click="goTo('test-invite', `${props.testItem.id}`)">Поделиться</li>
             <li class="hover">Сгенерировать ссылку</li>
             <li class="hover">Просмотреть</li>
             <li class="hover" @click="goTo(`edit-test`, `${props.testItem.id}`)">Редактировать</li>
