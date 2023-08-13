@@ -16,6 +16,10 @@
   justify-content: center;
 }
 
+.column-gam-1 {
+  column-gap: rem-calc(16);
+}
+
 
 
 @media (min-width: rem-calc(768)) {

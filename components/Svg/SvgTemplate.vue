@@ -28,6 +28,7 @@ import HistorySvg from "~/components/Svg/parts/Categories/HistorySvg.vue";
 import LanguageSvg from "~/components/Svg/parts/Categories/LanguageSvg.vue";
 import AstronomySvg from "~/components/Svg/parts/Categories/AstronomySvg.vue";
 import EditSvg from "~/components/Svg/parts/EditSvg.vue";
+import EditNoBorderSvg from "~/components/Svg/parts/EditNoBorderSvg.vue";
 
 
 const props = defineProps({
@@ -63,6 +64,7 @@ const svg = <ISvgObject>{
   'vector': VectorSvg,
   'info-cycle': InfoCycleSvg,
   'edit': EditSvg,
+  'edit-no-border': EditNoBorderSvg,
 
   // categories
   'mathematics': MathematicsSvg,

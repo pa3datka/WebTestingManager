@@ -29,6 +29,10 @@
   background-color: $color-cotton-ball;
 }
 
+.mantis-bg{
+  background-color: $color-mantis;
+}
+
 
 
 
@@ -68,4 +72,16 @@
 
 .t-dark {
   color: #262342;
+}
+
+.t-white {
+  color: $color-white;
+}
+
+.t-grey-suit {
+  color: $color-grey-suit;
+}
+
+.t-blue {
+  color:  $color-blue;
 }

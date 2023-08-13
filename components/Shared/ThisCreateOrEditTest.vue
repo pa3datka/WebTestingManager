@@ -557,11 +557,11 @@ const saveTest = async () => {
                       @click="isSuccessAnswer(quest)"
                       :class="{ 'input-checkbox-error': !quest.check_is_correct }"/>
                   <div class="btn-add-delete">
-                    <ButtonMin class="hover button-active-success button-hover-success"
+                    <ButtonMin class="hover button-active-success button-hover-success t-grey-suit"
                                @click="addAnswer(quest)" text="+"
                                v-show="(quest.answers.length - 1) === index"/>
 
-                    <ButtonMin class="hover button-active-warning button-hover-warning"
+                    <ButtonMin class="hover button-active-warning button-hover-warning t-grey-suit"
                                v-if="quest.answers.length > 1"
                                @click="deleteAnswer(quest.id, index, `answer-${answer.id}`, `quest-option${answer.id}`)"
                                text="-"
